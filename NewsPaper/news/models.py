@@ -3,9 +3,25 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     rating_user = models.IntegerField(default=0)
+
+    def update_rating(self):
+        total_rating_post = 0
+        for _post in self.post_set.all():
+            total_rating_post += (_post.rating_post * 3)
+        total_rating_comment = 0
+        for _comment in self.user.comment_set.all():
+            total_rating_comment += _comment.rating_comment
+        total_rating_comment_by_post_author = 0
+        for _post in self.post_set.all():
+            for _comment in _post.comment_set.all():
+                total_rating_comment_by_post_author += _comment.rating_comment
+        self.rating_user = total_rating_post + total_rating_comment + total_rating_comment_by_post_author
+        self.save()
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -54,3 +70,62 @@ class Category(models.Model):
     name_category = models.CharField(max_length=3, choices=NEWS_CATEGORY, default=new_news,
                                      unique=True)
 
+
+class Post(models.Model):
+    news = 'NE'
+    article = 'AR'
+    KIND_CONTENT = [
+        (news, 'Новость'),
+        (article, 'Статья')
+    ]
+    author_post = models.ForeignKey(Author, on_delete=models.CASCADE)
+    type_post = models.CharField(max_length=2, choices=KIND_CONTENT)
+    time_in_post = models.DateTimeField(auto_now_add=True)
+    category_post = models.ManyToManyField(Category, through='PostCategory')
+    title_post = models.CharField(max_length=255)
+    text_post = models.TextField(blank=True)
+    rating_post = models.IntegerField(default=0)
+
+    def like(self):
+        self.rating_post += 1
+        self.save()
+
+    def dislike(self):
+        if self.rating_post < 1:
+            self.rating_post = 0
+            self.save()
+        else:
+            self.rating_post -= 1
+            self.save()
+
+    def preview(self):
+        if len(self.text_post) < 124:
+            preview_text = self.text_post
+        else:
+            preview_text = f'{self.text_post[:124]}...'
+        return preview_text
+
+
+class PostCategory(models.Model):
+    post = models.ForeignKey(Post, on_delete = models.CASCADE)
+    category = models.ForeignKey(Category, on_delete = models.CASCADE)
+
+
+class Comment(models.Model):
+    post_comment = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user_comment = models.ForeignKey(User, on_delete=models.CASCADE)
+    text_comment = models.TextField(blank=True)
+    time_in_comment = models.DateTimeField(auto_now_add = True)
+    rating_comment = models.IntegerField(default=0)
+
+    def like(self):
+        self.rating_comment += 1
+        self.save()
+
+    def dislike(self):
+        if self.rating_comment < 1:
+            self.rating_comment = 0
+            self.save()
+        else:
+            self.rating_comment -= 1
+            self.save()
