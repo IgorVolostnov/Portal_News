@@ -99,11 +99,14 @@ class Post(models.Model):
             self.save()
 
     def preview(self):
-        if len(self.text_post) < 124:
+        if len(self.text_post) < 20:
             preview_text = self.text_post
         else:
-            preview_text = f'{self.text_post[:124]}...'
+            preview_text = f'{self.text_post[:20]}...'
         return preview_text
+
+    def __str__(self):
+        return f'{self.title_post.title()}: {self.preview()}'
 
 
 class PostCategory(models.Model):

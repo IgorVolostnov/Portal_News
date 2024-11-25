@@ -1,0 +1,25 @@
+<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
+{% extends 'flatpages/default.html' %}
+
+<!-- Название у нас будет Posts -->
+{% block title %}
+Новости и статьи
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим все товары -->
+{% block content %}
+<h2> {{ next_news|default_if_none:"Новости в редакции и скоро появятся!" }} </h2>
+    {% if posts %}
+        {% for post in posts %}
+            <div class="glass-container">
+                <p>
+                    <h2> {{ post.title_post }} </h2>
+                    <h3> {{ post.time_in_post|date:'M d Y' }} </h3>
+                    <h4> {{ post.text_post|truncatechars:20 }} </h4>
+                </p>
+            </div>
+        {% endfor %}
+   {% else %}
+       <h3>Новостей нет!</h3>
+   {% endif %}
+{% endblock content %}

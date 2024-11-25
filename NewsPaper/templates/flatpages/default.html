@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+	    <title>
+            {% block title %}
+            {% endblock title %}
+        </title>
+        {% load static %}
+	    <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css">
+	    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,300" type="text/css">
+    </head>
+    <body>
+        <div id="wrapper">
+            <header>
+                <a><img src="{% static 'images/logo_rossvik.png' %}"></a>
+                <form name="search" action="#" method="get">
+	            <input type="text" name="q" placeholder="Поиск" class="search_text"><button type="submit">✖</button>
+                </form>
+            </header>
+            <nav>
+                <ul>
+                    <li><a href="/home/">ГЛАВНАЯ</a></li>
+                    <li><a href="/news/">НОВОСТИ</a></li>
+                    <li><a href="/warranty/">ГАРАНТИЯ</a></li>
+                    <li><a href="/contacts/">КОНТАКТЫ</a></li>
+                </ul>
+            </nav>
+            <div id="heading">
+                <hr class="line_grey">
+                <h1>НОВОСТИ</h1>
+            </div>
+            <aside>
+            </aside>
+            <section>
+                {% block content %}
+                {{ flatpage.content }}
+                {% endblock content %}
+            </section>
+        </div>
+	    <footer></footer>
+    </body>
+</html>
