@@ -30,8 +30,12 @@
                 </ul>
             </nav>
             <div id="heading">
-                <hr class="line_grey">
-                <h1>НОВОСТИ</h1>
+                {% block title_page_top %}
+                {% endblock title_page_top %}
+                <br>
+                <br>
+                {% block date %}
+                {% endblock date %}
             </div>
             <aside>
             </aside>

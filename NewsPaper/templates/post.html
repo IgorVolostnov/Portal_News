@@ -6,7 +6,23 @@
 {{ post.title_post|truncatewords:8 }}
 {% endblock title %}
 
+{% block title_page_top %}
+<h1> {{ post.title_post }} </h1>
+{% endblock title_page_top %}
+
+{% block date %}
+<h2> Дата публикации: {{ post.time_in_post|date:'d M Y' }} </h2>
+{% endblock date %}
+
 <!-- В контенте на странице мы выводим новость или статью, идентификатор которого был передан в url -->
 {% block content %}
-<h3>{{ post }}</h3>
+    {% if post %}
+        <div class="glass-container-new">
+            <p>
+                <h3> {{ post.text_post }} </h3>
+            </p>
+        </div>
+   {% else %}
+       <h2> Новость куда-то потерялась, мы уже ищем её! </h2>
+   {% endif %}
 {% endblock content %}

@@ -1,13 +1,11 @@
 body {
+    background: linear-gradient(to left top, #ddeeff, #94daff);
+    background-attachment: fixed; /*edit*/
 	color: #8f8f8f;
 	font: 12px Tahoma, sans-serif;
-	background-color: #f8f8f8;
 	border-top: 5px solid #7e7e7e;
 	margin: 0;
-
-}
-
-}
+	}
 input[type="text"] {
 	background-color: #f3f3f3;
 	border: 1px solid #e7e7e7;
@@ -15,7 +13,7 @@ input[type="text"] {
 	color: #b2b2b2;
 	padding: 0 10px;
 	vertical-align: top;
-}
+	}
 button {
 	color: #fff;
 	background-color: #0080c4;
@@ -23,45 +21,42 @@ button {
 	height: 30px;
 	font-family: 'Oswald', sans-serif;
 	padding-bottom: 2px;
-}
+	}
 p {
 	margin: 20px 0;
-}
+	}
 #wrapper {
 	max-width: 960px;
 	margin: auto;
-}
+	}
 header {
 	padding: 20px 0;
-}
+	}
 .search_text {
     width: 250px;
     height: 25px;
     font-size: 16px;
-}
+    }
 form[name="search"] {
 	float: right;
 	margin-top: 20px;
-}
+	}
 nav {
   max-width: 960px;
   mask-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 75%, rgba(255, 255, 255, 0) 100%);
   margin: 0 auto;
   padding: 0px 0;
-}
-
+  }
 nav ul {
   text-align: center;
   background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 75%, rgba(255, 255, 255, 0) 100%);
   width: 100%;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
-}
-
+  }
 nav ul li {
   display: inline-block;
   padding: 5px;
-}
-
+  }
 nav ul li a {
   padding: 20px;
   font-family: "Roboto";
@@ -70,59 +65,53 @@ nav ul li a {
   font-size: 25px;
   text-decoration: none;
   display: block;
-}
-
+  }
 nav ul li a:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
   background: rgba(255, 255, 255, 0.1);
   color: rgba(0, 0, 0, 0.7);
-}
+  }
 #heading {
 	background: transparent url(../images/footer-logo.png);
 	margin: 30px 0;
 	padding-left: 0px;
-}
+	}
 
 h1 {
 	display: inline-block;
-	color: #7e7e7e;
+	color: #636363;
 	font: 40px/40px 'Oswald', sans-serif;
 	background: url(../images/footer-logo.png);
 	margin: 0;
 	padding: 0 10px;
-}
+	}
 h2 {
 	display: inline-block;
-	color: #7e7e7e;
+	color: #636363;
 	font: 20px/20px 'Oswald', sans-serif;
 	background: url(../images/footer-logo.png);
 	margin: 0;
 	padding: 0 10px;
-}
+	}
 h3 {
 	display: inline-block;
-	color: #7e7e7e;
+	color: #636363;
+	font: 18px/18px 'Oswald', sans-serif;
+	background: url(../images/footer-logo.png);
+	margin: 0;
+	padding: 0 10px;
+	}
+h4 {
+	display: inline-block;
+	color: #636363;
 	font: 16px/16px 'Oswald', sans-serif;
 	background: url(../images/footer-logo.png);
 	margin: 0;
 	padding: 0 10px;
-}
-h4 {
-	display: inline-block;
-	color: #7e7e7e;
-	font: 14px/14px 'Oswald', sans-serif;
-	background: url(../images/footer-logo.png);
-	margin: 0;
-	padding: 0 10px;
-}
-.line_grey {
-    margin: 20px 0;
-    padding: 0;
-    height: 0;
-    border: none;
-    box-shadow: 0 0 10px 1px black;
-}
-.glass-container {
+	}
+.glass-container-news {
+  display: grid;
+  grid-template-columns: 1fr;
   background: rgba(255, 255, 255, 0.2); /* Цвет фона с прозрачностью */
   margin: 10px 10px;
   padding: 30px;
@@ -130,9 +119,24 @@ h4 {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
   backdrop-filter: blur(20px); /* Эффект матового стекла */
   width: 100%;
-  max-width: 400px;
-}
-.glass-container:hover {
+  max-width: 250px;
+  }
+.glass-container-news:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
   background: rgba(255, 255, 255, 0.1);
   color: rgba(0, 0, 0, 0.7);
+  }
+#news {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.glass-container-new {
+  display: grid;
+  grid-template-columns: 1fr;
+  background: rgba(255, 255, 255, 0.2); /* Цвет фона с прозрачностью */
+  margin: 10px 10px;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
+  backdrop-filter: blur(20px); /* Эффект матового стекла */
+  }

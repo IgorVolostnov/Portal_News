@@ -26,7 +26,7 @@ class PostList(ListView):
         context['time_now'] = datetime.datetime.now(datetime.timezone.utc)
         # Добавим ещё одну пустую переменную,
         # чтобы на её примере рассмотреть работу ещё одного фильтра.
-        context['next_news'] = f"Свежие новости на {datetime.datetime.strftime(datetime.datetime.now(), '%d.%m.%Y')}:"
+        context['next_news'] = f"Свежие новости на {datetime.datetime.strftime(datetime.datetime.now(), '%d.%m.%Y')}: "
         return context
 
 
