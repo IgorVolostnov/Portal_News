@@ -1,13 +1,14 @@
 <!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
 {% extends 'flatpages/default.html' %}
+{% load custom_filters %}
 
 <!-- Название у нас будет Post -->
 {% block title %}
-{{ post.title_post|truncatewords:8 }}
+{{ post.title_post|truncatewords:8|censor }}
 {% endblock title %}
 
 {% block title_page_top %}
-<h1> {{ post.title_post }} </h1>
+<h1> {{ post.title_post|censor }} </h1>
 {% endblock title_page_top %}
 
 {% block date %}
@@ -19,7 +20,7 @@
     {% if post %}
         <div class="glass-container-new">
             <p>
-                <h3> {{ post.text_post }} </h3>
+                <h3> {{ post.text_post|censor }} </h3>
             </p>
         </div>
    {% else %}

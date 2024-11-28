@@ -4,20 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed8eb622-6fe8-4644-863f-57eefd8cb73d" name="Changes" comment="Commit 202411110335">
-      <change afterPath="$PROJECT_DIR$/NewsPaper/fpages/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NewsPaper/news/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NewsPaper/static/css/styles.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NewsPaper/templates/flatpages/default.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NewsPaper/templates/flatpages/warranty.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NewsPaper/templates/post.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NewsPaper/templates/posts.html" afterDir="false" />
+    <list default="true" id="ed8eb622-6fe8-4644-863f-57eefd8cb73d" name="Changes" comment="Commit 202411262355">
+      <change afterPath="$PROJECT_DIR$/NewsPaper/news/templatetags/custom_filters.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/news/templatetags/custom_tags.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/NewsPaper/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/NewsPaper/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/NewsPaper/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/NewsPaper/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/news/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/news/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/news/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/static/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/post.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/post.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/posts.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/posts.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,8 +21,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -131,7 +125,23 @@
       <option name="project" value="LOCAL" />
       <updated>1731285392512</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Commit 202411260248">
+      <option name="closed" value="true" />
+      <created>1732578640180</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1732578640180</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Commit 202411262355">
+      <option name="closed" value="true" />
+      <created>1732654980440</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1732654980440</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -146,6 +156,8 @@
     <MESSAGE value="Commit 202411110320" />
     <MESSAGE value="Commit 202411110323" />
     <MESSAGE value="Commit 202411110335" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit 202411110335" />
+    <MESSAGE value="Commit 202411260248" />
+    <MESSAGE value="Commit 202411262355" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit 202411262355" />
   </component>
 </project>

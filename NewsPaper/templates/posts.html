@@ -1,5 +1,7 @@
 <!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
 {% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+{% load custom_tags %}
 
 <!-- Название у нас будет Posts -->
 {% block title %}
@@ -11,7 +13,7 @@
 {% endblock title_page_top %}
 
 {% block date %}
-<h2> {{ next_news|default_if_none:"Новости в редакции и скоро появятся!" }} ( {{ posts|length }} )</h2>
+<h2> {% current_time '%d.%m.%Y' %} ( {{ posts|length }} )</h2>
 {% endblock date %}
 <!-- В контенте на странице мы выводим все товары -->
 {% block content %}
@@ -20,11 +22,11 @@
         {% for post in posts %}
             <div class="glass-container-news">
                 <p>
-                    <h2> {{ post.title_post }} </h2>
+                    <h2> {{ post.title_post|censor }} </h2>
                     <br>
                     <h3> {{ post.time_in_post|date:'d M Y' }} </h3>
                     <br>
-                    <h4> {{ post.text_post|truncatechars:20 }} </h4>
+                    <h4> {{ post.text_post|truncatechars:20|censor }} </h4>
                 </p>
             </div>
         {% endfor %}
