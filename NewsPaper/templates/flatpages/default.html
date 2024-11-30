@@ -16,28 +16,25 @@
     <body>
         <div id="wrapper">
             <header>
-                <a><img src="{% static 'images/logo_rossvik.png' %}"></a>
-                <form name="search" action="#" method="get">
-	            <input type="text" name="q" placeholder="Поиск" class="search_text"><button type="submit">✖</button>
-                </form>
-            </header>
-            <nav>
+                <div id="logo">
+                    <a><img src="{% static 'images/logo_rossvik.png' %}"></a>
+                </div>
                 <ul>
                     <li><a href="/home/">ГЛАВНАЯ</a></li>
+                    <li><a href="/home/">КАТЕГОРИИ</a></li>
                     <li><a href="/news/">НОВОСТИ</a></li>
                     <li><a href="/warranty/">ГАРАНТИЯ</a></li>
                     <li><a href="/contacts/">КОНТАКТЫ</a></li>
                 </ul>
-            </nav>
-            <div id="heading">
+                <form name="search" action="#" method="get">
+                <input type="text" name="q" placeholder="Поиск" class="search_text"><button type="submit">✖</button>
+                </form>
+            </header>
+            <aside>
                 {% block title_page_top %}
                 {% endblock title_page_top %}
-                <br>
-                <br>
                 {% block date %}
                 {% endblock date %}
-            </div>
-            <aside>
             </aside>
             <section>
                 {% block content %}
@@ -45,6 +42,21 @@
                 {% endblock content %}
             </section>
         </div>
-	    <footer></footer>
+	    <footer class="page-footer">
+            <div id="logo_white">
+                <a><img src="{% static 'images/logo_rossvik_white.png' %}"></a>
+            </div>
+            <div id="footer_text">
+                <h5>
+                    <b>
+                        Студия разработки "ROSSVIK MOSCOW"<br>
+                        +7-977-900-7773 сотовый<br>
+                        +7-495-215-0003 многоканальный<br>
+                        +7-800-333-2260 бесплатные звонки по России<br>
+                        E-mail: visfin@yandex.ru<br>
+                    </b>
+                </h5>
+            </div>
+        </footer>
     </body>
 </html>
