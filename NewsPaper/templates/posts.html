@@ -26,12 +26,41 @@
                     <br>
                     <h3> {{ post.time_in_post|date:'d M Y' }} </h3>
                     <br>
-                    <h4> {{ post.text_post|truncatechars:20 }} </h4>
+                    <h4> {{ post.text_post|truncatechars:140 }} </h4>
                 </p>
             </div>
         {% endfor %}
    {% else %}
        <h3>Новостей нет!</h3>
+   {% endif %}
+</div>
+<div class="pagination">
+    {# Добавляем пагинацию на страницу #}
+    {# Информация о предыдущих страницах #}
+    {% if page_obj.has_previous %}
+        {% if page_obj.previous_page_number != 1 %}
+            <a class="pagination-number" href="?page=1">1</a>
+            <a class="pagination-action">
+               <i class='bx bx-chevrons-left' aria-hidden="true"></i></a>
+        {% endif %}
+    {% endif %}
+
+    {# Отображаем текущие страницы #}
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <span class="pagination-number pagination-current">{{ num }}</span>
+        {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
+            <a class="pagination-number" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+   {# Информация о следующих страницах #}
+   {% if page_obj.has_next %}
+       <a class="pagination-action">
+           <i class='bx bx-chevron-right' aria-hidden="true"></i></a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           <a class="pagination-number" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
    {% endif %}
 </div>
 {% endblock content %}

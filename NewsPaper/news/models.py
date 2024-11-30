@@ -99,10 +99,10 @@ class Post(models.Model):
             self.save()
 
     def preview(self):
-        if len(self.text_post) < 20:
+        if len(self.text_post) < 40:
             preview_text = self.text_post
         else:
-            preview_text = f'{self.text_post[:20]}...'
+            preview_text = f'{self.text_post[:40]}...'
         return preview_text
 
     def __str__(self):

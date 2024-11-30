@@ -16,6 +16,7 @@ class PostList(ListView):
     context_object_name = 'posts'
     # Метод get_context_data позволяет нам изменить набор данных,
     # который будет передан в шаблон.
+    paginate_by = 4  # вот так мы можем указать количество записей на странице
     def get_context_data(self, **kwargs):
         # С помощью super() мы обращаемся к родительским классам
         # и вызываем у них метод get_context_data с теми же аргументами,
