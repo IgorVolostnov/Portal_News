@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # создаем дополнительные поля для пользователей
     'fpages',
     'accounts',
+    'django_filters',
 ]
 
 SITE_ID = 1

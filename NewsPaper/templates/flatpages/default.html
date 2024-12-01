@@ -10,10 +10,21 @@
             {% endblock title %}
         </title>
         {% load static %}
+        <script src="{% static 'js/script.js' %}"></script>
 	    <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css">
 	    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,300" type="text/css">
     </head>
     <body>
+        <div id="myNav" class="overlay">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+          <div class="overlay-content">
+            <a href="#">О Нас</a>
+            <a href="#">Услуги</a>
+            <a href="#">Клиенты</a>
+            <a href="#">Контакт</a>
+          </div>
+        </div>
+
         <div id="wrapper">
             <header>
                 <div id="logo">
@@ -21,7 +32,7 @@
                 </div>
                 <ul>
                     <li><a href="/home/">ГЛАВНАЯ</a></li>
-                    <li><a href="/home/">КАТЕГОРИИ</a></li>
+                    <li><a href="#" onmouseover="openNav()">КАТЕГОРИИ</a></li>
                     <li><a href="/news/">НОВОСТИ</a></li>
                     <li><a href="/warranty/">ГАРАНТИЯ</a></li>
                     <li><a href="/contacts/">КОНТАКТЫ</a></li>
