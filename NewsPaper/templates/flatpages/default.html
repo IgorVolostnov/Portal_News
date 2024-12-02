@@ -16,30 +16,49 @@
     </head>
     <body>
         <div id="myNav" class="overlay">
-          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-          <div class="overlay-content">
-            <a href="#">О Нас</a>
-            <a href="#">Услуги</a>
-            <a href="#">Клиенты</a>
-            <a href="#">Контакт</a>
-          </div>
-        </div>
-
-        <div id="wrapper">
-            <header>
-                <div id="logo">
-                    <a><img src="{% static 'images/logo_rossvik.png' %}"></a>
+            <div id="myHeaderOverlay" class="main-menuOverlay">
+                <div id="logoOverlay" class="logoHeaderOverlay">
+                    <img src="{% static 'images/logo_rossvik.png' %}">
                 </div>
                 <ul>
                     <li><a href="/home/">ГЛАВНАЯ</a></li>
-                    <li><a href="#" onmouseover="openNav()">КАТЕГОРИИ</a></li>
+                    <li><a href="#">КАТЕГОРИИ</a></li>
                     <li><a href="/news/">НОВОСТИ</a></li>
                     <li><a href="/warranty/">ГАРАНТИЯ</a></li>
                     <li><a href="/contacts/">КОНТАКТЫ</a></li>
                 </ul>
-                <form name="search" action="#" method="get">
-                <input type="text" name="q" placeholder="Поиск" class="search_text"><button type="submit">✖</button>
-                </form>
+                <div class="search-container-overlay">
+                    <input type="text" name="q" placeholder="Поиск" class="search-text-overlay">
+                    <button type="button">&#128269;</button> <!-- Иконка увеличительного стекла -->
+                </div>
+            </div>
+            <a href="javascript:void(0)" class="closeBtn" onclick="closeNav()">&times;</a>
+            <div class="overlay-content">
+                <a href="#">О Нас</a>
+                <a href="#">Услуги</a>
+                <a href="#">Клиенты</a>
+                <a href="#">Контакт</a>
+            </div>
+        </div>
+
+        <div id="wrapper">
+            <header>
+                <div id="myHeader" class="main-menu">
+                    <div id="logo" class="logoHeader">
+                        <img src="{% static 'images/logo_rossvik.png' %}">
+                    </div>
+                    <ul>
+                        <li><a href="/home/">ГЛАВНАЯ</a></li>
+                        <li><a href="#" onmouseover="openNav()">КАТЕГОРИИ</a></li>
+                        <li><a href="/news/">НОВОСТИ</a></li>
+                        <li><a href="/warranty/">ГАРАНТИЯ</a></li>
+                        <li><a href="/contacts/">КОНТАКТЫ</a></li>
+                    </ul>
+                    <div class="search-container">
+                        <input type="text" name="q" placeholder="Поиск" class="search-text">
+                        <button type="button">&#128269;</button> <!-- Иконка увеличительного стекла -->
+                    </div>
+                </div>
             </header>
             <aside>
                 {% block title_page_top %}

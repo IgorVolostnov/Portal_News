@@ -48,89 +48,178 @@ body {
 	margin: 0;
 	}
 
-input[type="text"] {
-	background-color: #f3f3f3;
-	border: 1px solid #e7e7e7;
-	height: 30px;
-	color: #b2b2b2;
-	vertical-align: top;
-	}
-
-button {
-	background-color: #0080c4;
-	border: 1;
-	height: 33px;
-	width: 33px;
-	color: #fff;
-	font-family: 'Oswald', sans-serif;
-	}
-
 p {
 	margin: 20px 0;
 	}
+
+.search-container {
+    margin-top: 0.8vw;
+    max-height: 3vw;
+    max-width: 25vw;
+    display: flex;
+    border: 1px solid #aaa;
+    border-radius: 4px; /* Для скругления углов */
+    pointer-events:auto;
+}
+.search-container input {
+    max-height: 3vw;
+    max-width: 25vw;
+    flex-grow: 1; /* Поле занимает всё доступное пространство */
+    border: 1; /* Границы отсутствуют */
+    font-size: 1.5vw;
+    padding: 5px;
+    outline: none; /* Очертание при фокусе отсутствует */
+    pointer-events:auto;
+}
+.search-container button {
+    background: #fff;
+    border: 1;
+    font-size: 1.5vw;
+    width: fit-content;
+    padding: 0vw 0.4vw;
+    cursor: pointer; /* Курсор в виде указателя */
+    pointer-events:auto;
+}
+
+.search-container-overlay {
+    margin-top: 0.8vw;
+    max-height: 3vw;
+    max-width: 25vw;
+    display: flex;
+    border: 1px solid #aaa;
+    border-radius: 4px; /* Для скругления углов */
+    pointer-events:auto;
+}
+.search-container-overlay input {
+    max-height: 3vw;
+    max-width: 25vw;
+    flex-grow: 1; /* Поле занимает всё доступное пространство */
+    border: 1; /* Границы отсутствуют */
+    font-size: 1.5vw;
+    padding: 5px;
+    outline: none; /* Очертание при фокусе отсутствует */
+    pointer-events:auto;
+}
+.search-container-overlay button {
+    background: #fff;
+    border: 1;
+    font-size: 1.5vw;
+    width: fit-content;
+    padding: 0vw 0.4vw;
+    cursor: pointer; /* Курсор в виде указателя */
+    pointer-events:auto;
+}
 
 #wrapper {
 	width: 100%;
 	margin: auto;
 	}
 
-header {
+.main-menu {
+    max-height: 5vw;
+    max-width: 100%;
     position: sticky;
-    top: 0px;
-    left: 0px;
-    z-index: 100;
     display: grid;
-    grid-template-columns: 15% 60% 25%;
+    grid-template-columns: 20vw 50vw 30vw;
     background-image: url('black_and_white.gif');
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: 100%;
+	pointer-events:none;
 	}
 
-#logo {
-	margin-left: auto;
-    margin-right: auto;
+.main-menuOverlay {
+    max-height: 5vw;
+    max-width: 100%;
+    position: sticky;
+    display: grid;
+    grid-template-columns: 20vw 50vw 30vw;
+    background-image: url('black_and_white.gif');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	pointer-events:none;
 	}
 
-header ul {
+.logoHeader img {
+    max-height: 4.7vw;
+    max-width: 100%;
+	}
+
+.logoHeaderOverlay img {
+    max-height: 4.7vw;
+    max-width: 100%;
+	}
+
+.main-menu ul {
+    max-height: 4.7vw;
+    max-width: 100%;
     text-align: center;
-    width: 100%;
+    pointer-events:auto;
     }
 
-header ul li {
+.main-menuOverlay ul {
+    max-height: 4.7vw;
+    max-width: 100%;
+    text-align: center;
+    pointer-events:auto;
+    }
+
+.main-menu ul li {
+    margin: auto;
+    max-height: 4.7vw;
+    max-width: 100%;
     display: inline-block;
-    padding: 5px;
+    padding: 1vw;
     }
 
-header ul li a {
-    padding: 20px;
+.main-menuOverlay ul li {
+    margin: auto;
+    max-height: 4.7vw;
+    max-width: 100%;
+    display: inline-block;
+    padding: 1vw;
+    }
+
+.main-menu ul li a {
+    margin: auto;
+    max-height: 4.7vw;
+    max-width: 100%;
+    padding: 4px;
     font-family: 'Oswald';
     color: #042552;
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.4);
-    font-size: 25px;
+    font-size: 1.3vw;
     text-decoration: none;
     display: block;
     }
 
-header ul li a:hover {
+.main-menuOverlay ul li a {
+    margin: auto;
+    max-height: 4.7vw;
+    max-width: 100%;
+    padding: 4px;
+    font-family: 'Oswald';
+    color: #042552;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.4);
+    font-size: 1.3vw;
+    text-decoration: none;
+    display: block;
+    }
+
+.main-menu ul li a:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
     background: rgba(255, 255, 255, 0.1);
     color: #ff9519;
     border-radius: 20px;
     }
 
-.search_text {
-    width: 250px;
-    height: 25px;
-    font-size: 16px;
+.main-menuOverlay ul li a:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.1);
+    color: #ff9519;
+    border-radius: 20px;
     }
-
-form[name="search"] {
-    margin-top: auto;
-    margin-bottom: auto;
-	margin-left: auto;
-    margin-right: auto;
-	}
 
 aside {
 	background-image: url('water.png');
@@ -326,6 +415,7 @@ margin-right: auto;
     }
 
 .overlay {
+  margin: auto;
   height: 0;
   width: 100vw;
   position: fixed;
@@ -334,22 +424,23 @@ margin-right: auto;
   left: 0;
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0, 0.9);
+  border-top: 5px solid #7e7e7e;
   overflow-y: hidden;
   transition: 0.5s;
 }
 
 .overlay-content {
   position: relative;
-  top: 25%;
+  top: 5vw;
   width: 100%;
   text-align: center;
-  margin-top: 30px;
+  margin-top: 0;
 }
 
 .overlay a {
-  padding: 8px;
+  padding: 0.5vw;
   text-decoration: none;
-  font-size: 36px;
+  font-size: 2vw;
   color: #818181;
   display: block;
   transition: 0.3s;
@@ -359,18 +450,18 @@ margin-right: auto;
   color: #f1f1f1;
 }
 
-.overlay .closebtn {
+.overlay .closeBtn {
   position: absolute;
-  top: 20px;
-  right: 45px;
-  font-size: 60px;
+  top: 5vw;
+  right: 2vw;
+  font-size: 4vw;
 }
 
 @media screen and (max-height: 450px) {
   .overlay a {font-size: 20px}
-  .overlay .closebtn {
+  .overlay .closeBtn {
   font-size: 40px;
-  top: 15px;
+  top: 25%;
   right: 35px;
   }
 }
