@@ -10,9 +10,7 @@ myNav.onmouseleave = function() {
  };
  }
 
-
 function closeNav() {
 const myNav = document.getElementById("myNav")
 myNav.style.height = "0%";
  }
-

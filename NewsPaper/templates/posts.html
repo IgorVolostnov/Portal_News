@@ -15,6 +15,7 @@
 {% block date %}
 <h1> {% current_time '%d.%m.%Y' %} ( {{ posts|length }} )</h1>
 {% endblock date %}
+
 <!-- В контенте на странице мы выводим все товары -->
 {% block content %}
 <div id="news">
@@ -64,3 +65,7 @@
    {% endif %}
 </div>
 {% endblock content %}
+
+{% block date_copyright %}
+© Студия разработки «ROSSVIK MOSCOW» {% current_time '%Y' %}
+{% endblock date_copyright %}

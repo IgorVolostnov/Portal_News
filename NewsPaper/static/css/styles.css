@@ -14,8 +14,7 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
-	font: inherit;
+	font: 'Oswald';
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -121,10 +120,7 @@ p {
     position: sticky;
     display: grid;
     grid-template-columns: 20vw 50vw 30vw;
-    background-image: url('black_and_white.gif');
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: 100%;
+    background-color: #000000;
 	pointer-events:none;
 	}
 
@@ -134,22 +130,21 @@ p {
     position: sticky;
     display: grid;
     grid-template-columns: 20vw 50vw 30vw;
-    background-image: url('black_and_white.gif');
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: 100%;
+    background-color: #000000;
 	pointer-events:none;
 	}
 
-.logoHeader img {
-    max-height: 4.7vw;
-    max-width: 100%;
-	}
+#bellLogo img {
+   max-height: 4.7vw;
+   max-width: 100%;
+   pointer-events:auto;
+}
 
-.logoHeaderOverlay img {
-    max-height: 4.7vw;
-    max-width: 100%;
-	}
+#bellLogoOverlay img {
+   max-height: 4.7vw;
+   max-width: 100%;
+   pointer-events:auto;
+}
 
 .main-menu ul {
     max-height: 4.7vw;
@@ -182,56 +177,60 @@ p {
     }
 
 .main-menu ul li a {
-    margin: auto;
+    display: block;
+    margin-top: 0;
     max-height: 4.7vw;
     max-width: 100%;
-    padding: 4px;
-    font-family: 'Oswald';
-    color: #042552;
-    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.4);
-    font-size: 1.3vw;
-    text-decoration: none;
-    display: block;
+    padding: 0.5vw;
+    background-color: #000000;
+    color: #fff;
+	font: Oswald;
+	font-size: 1.3vw;
+	text-decoration: none;
     }
 
 .main-menuOverlay ul li a {
-    margin: auto;
+    display: block;
+    margin-top: 0;
     max-height: 4.7vw;
     max-width: 100%;
-    padding: 4px;
-    font-family: 'Oswald';
-    color: #042552;
-    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.4);
-    font-size: 1.3vw;
-    text-decoration: none;
-    display: block;
+    padding: 0.5vw;
+    background-color: #000000;
+    color: #fff;
+	font: Oswald;
+	font-size: 1.3vw;
+	text-decoration: none;
     }
 
 .main-menu ul li a:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
-    background: rgba(255, 255, 255, 0.1);
-    color: #ff9519;
-    border-radius: 20px;
+    text-transform: uppercase;
+    background-image: linear-gradient(to right, #0080c4 0%, #1f9160 46%, #ff9519 100% );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     }
 
 .main-menuOverlay ul li a:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
-    background: rgba(255, 255, 255, 0.1);
-    color: #ff9519;
-    border-radius: 20px;
+    text-transform: uppercase;
+    background-image: linear-gradient(to right, #0080c4 0%, #1f9160 46%, #ff9519 100% );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     }
 
 aside {
-	background-image: url('water.png');
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: 100%;
+	background-color: #000000;
+	}
+
+aside h1:hover{
+	text-transform: uppercase;
+    background-image: linear-gradient(to right, #0080c4 0%, #1f9160 46%, #ff9519 100% );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 	}
 
 h1 {
 	display: inline-block;
 	color: #f3f3f3;
-	font: 30px/30px 'Oswald', sans-serif;
+	font-size: 1.5vw;
 	margin: 0;
 	padding: 0 10px;
 	}
@@ -239,7 +238,8 @@ h1 {
 h2 {
 	display: inline-block;
 	color: #f3f3f3;
-	font: 20px/20px 'Oswald', sans-serif;
+	font: sans-serif;
+	font-size: 1.3vw;
 	margin: 0;
 	padding: 0 10px;
 	}
@@ -247,7 +247,8 @@ h2 {
 h3 {
 	display: inline-block;
 	color: #f3f3f3;
-	font: 18px/18px 'Oswald', sans-serif;
+	font: sans-serif;
+	font-size: 1vw;
 	margin: 0;
 	padding: 0 10px;
 	}
@@ -255,21 +256,8 @@ h3 {
 h4 {
 	display: inline-block;
 	color: #f3f3f3;
-	font: 16px/16px 'Oswald', sans-serif;
-	margin: 0;
-	padding: 0 10px;
-	}
-
-h5 {
-	color: #042552;
-	font: 24px/24px 'Oswald', sans-serif;
-	margin: 0;
-	padding: 0 10px;
-	}
-
-h6 {
-	color: #042552;
-	font: 16px/16px 'Oswald', sans-serif;
+	font: sans-serif;
+	font-size: 0.8vw;
 	margin: 0;
 	padding: 0 10px;
 	}
@@ -324,13 +312,14 @@ if( $(document).height() <= $(window).height() ){
   $(".page-footer").addClass("fixed-bottom");
 }
 .page-footer {
-    width: 100%;
+    max-height: 7vw;
+    max-width: 100%;
     display: grid;
     grid-template-columns: 40% 60%;
     background-image: url('tetris.gif');
 	background-position: center;
 	background-repeat: no-repeat;
-	background-size: 40%;
+	background-size: 20vw;
 
 }
 
@@ -349,24 +338,35 @@ if( $(document).height() <= $(window).height() ){
 
 }
 
-#logo_white {
-margin-left: auto;
-margin-right: auto;
+.logoWhiteFooter img {
+    max-height: 7vw;
+    max-width: 100%;
+	}
+
+.footerText {
+    color: #042552;
+	margin-left: 15vw;
+	padding: 0 10px;
     }
 
-#footer_text {
-    margin-left: auto;
-    margin-right: auto;
+.headerFooter {
+    font-size: 1.5vw;
+    font-weight: bold;
+    }
+
+.contactFooter {
+    font-size: 1vw;
+    font-weight: bold;
     }
 
 .pagination {
     margin-left: auto;
     margin-right: auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(50px, 50px));
-    grid-column-gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(4vw, 4vw));
+    grid-column-gap: 1vw;
     justify-content: center;
-    max-width: 470px;
+    max-width: 45vw;
 }
 
 .pagination a {
@@ -377,13 +377,15 @@ margin-right: auto;
     display: grid;
     grid-template-columns: 1fr;
     justify-content: center;
-    background: rgba(62, 214, 148, 0.2); /* Цвет фона с прозрачностью */
-    padding: 12px 30px;
+    background: radial-gradient(ellipse, rgba(62, 214, 148, 1), rgba(62, 214, 148, 0.1));
+    border: 3px groove black;
+    padding: 0.8vw 1.5vw;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
     backdrop-filter: blur(20px); /* Эффект матового стекла */
     color: #fff;
-	font: 2em 'Oswald', sans-serif;
+	font: sans-serif;
+	font-size: 1.5vw;
     max-width: 50px;
 }
 
@@ -396,6 +398,7 @@ margin-right: auto;
 .pagination-current {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(62, 214, 148, 0.6);
     background: rgba(62, 214, 148, 0.1);
+    border: 3px groove black;
     color: rgba(255, 149, 25, 1);
 }
 

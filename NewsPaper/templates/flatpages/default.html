@@ -17,9 +17,11 @@
     <body>
         <div id="myNav" class="overlay">
             <div id="myHeaderOverlay" class="main-menuOverlay">
-                <div id="logoOverlay" class="logoHeaderOverlay">
-                    <img src="{% static 'images/logo_rossvik.png' %}">
-                </div>
+                <span id="bellLogoOverlay">
+                    <img src="{% static 'images/logo_rossvik.png' %}"
+                         onmouseover="this.src='{% static 'images/logo_rossvik_color.png' %}';"
+                         onmouseout="this.src='{% static 'images/logo_rossvik.png' %}';" />
+                </span>
                 <ul>
                     <li><a href="/home/">ГЛАВНАЯ</a></li>
                     <li><a href="#">КАТЕГОРИИ</a></li>
@@ -44,9 +46,11 @@
         <div id="wrapper">
             <header>
                 <div id="myHeader" class="main-menu">
-                    <div id="logo" class="logoHeader">
-                        <img src="{% static 'images/logo_rossvik.png' %}">
-                    </div>
+                    <span id="bellLogo">
+                        <img src="{% static 'images/logo_rossvik.png' %}"
+                             onmouseover="this.src='{% static 'images/logo_rossvik_color.png' %}';"
+                             onmouseout="this.src='{% static 'images/logo_rossvik.png' %}';" />
+                    </span>
                     <ul>
                         <li><a href="/home/">ГЛАВНАЯ</a></li>
                         <li><a href="#" onmouseover="openNav()">КАТЕГОРИИ</a></li>
@@ -72,20 +76,20 @@
             </section>
         </div>
 	    <footer class="page-footer">
-            <div id="logo_white">
-                <a><img src="{% static 'images/logo_rossvik_white.png' %}"></a>
+            <div id="logoWhite" class="logoWhiteFooter">
+                <img src="{% static 'images/logo_rossvik_white.png' %}">
             </div>
-            <div id="footer_text">
-                <h5><b>Студия разработки "ROSSVIK MOSCOW"<br></b></h5>
-                <br>
-                <h6>
-                    <b>
+            <div class="footerText">
+                <span class="headerFooter">
+                    {% block date_copyright %}
+                    {% endblock date_copyright %}<br>
+                </span>
+                <span class="contactFooter">
                         +7-977-900-7773 сотовый<br>
                         +7-495-215-0003 многоканальный<br>
                         +7-800-333-2260 бесплатные звонки по России<br>
-                        E-mail: visfin@yandex.ru<br>
-                    </b>
-                </h6>
+                        E-mail: iv@rossvik.moscow<br>
+                </span>
             </div>
         </footer>
     </body>
