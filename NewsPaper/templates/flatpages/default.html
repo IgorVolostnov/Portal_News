@@ -29,9 +29,9 @@
                     <li><a href="/warranty/">ГАРАНТИЯ</a></li>
                     <li><a href="/contacts/">КОНТАКТЫ</a></li>
                 </ul>
-                <div class="search-container">
+                <div class="search-container-overlay">
                     <input type="text" name="q" placeholder="Поиск" class="search-text">
-                    <button type="button">❌</button>
+                    <button type="button">🔎</button>
                 </div>
             </div>
             <a href="javascript:void(0)" class="closeBtn" onclick="closeNav()">&times;</a>
@@ -40,6 +40,23 @@
                 <a href="#">Услуги</a>
                 <a href="#">Клиенты</a>
                 <a href="#">Контакт</a>
+            </div>
+        </div>
+
+        <div id="myFilter" class="filter">
+            <div id="myFilterLogo" class="filter-logo">
+                <span id="bellLogoFilter">
+                    <img src="{% static 'images/logo_rossvik.png' %}"
+                         onmouseover="this.src='{% static 'images/logo_rossvik_color.png' %}';"
+                         onmouseout="this.src='{% static 'images/logo_rossvik.png' %}';" />
+                </span>
+            </div>
+            <a href="javascript:void(0)" class="closeBtnFilter" onclick="closeFilter()">&times;</a>
+            <div class="filter-content">
+                <a href="#">Фильтр1</a>
+                <a href="#">Фильтр2</a>
+                <a href="#">Фильтр3</a>
+                <a href="#">Фильтр4</a>
             </div>
         </div>
 
@@ -60,7 +77,7 @@
                     </ul>
                     <div class="search-container">
                         <input type="text" name="q" placeholder="Поиск" class="search-text">
-                        <button type="button">❌</button>
+                        <button type="button">🔎</button>
                     </div>
                 </div>
             </header>

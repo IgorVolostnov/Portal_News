@@ -14,3 +14,17 @@ function closeNav() {
 const myNav = document.getElementById("myNav")
 myNav.style.height = "0%";
  }
+
+function openFilter() {
+const myFilter = document.getElementById("myFilter")
+myFilter.style.width = "30%";
+this.style = "display: none;";
+myFilter.onmouseleave = function() {
+ myFilter.style.width = "0%";
+ };
+ }
+
+function closeFilter() {
+const myFilter = document.getElementById("myFilter")
+myFilter.style.width = "0%";
+ }
