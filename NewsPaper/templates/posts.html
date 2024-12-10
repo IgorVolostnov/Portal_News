@@ -8,6 +8,16 @@
 Новости и статьи
 {% endblock title %}
 
+{% block filters %}
+<form action="" method="get" class="filter-form">
+    {% for field in filterset.form %}
+        <label class="label-filters"> {{ field.label }} </label>
+        <div class="field-filters"> {{ field }} </div>
+    {% endfor %}
+    <button class="button-filters" type="submit">Показать</button>
+</form>
+{% endblock filters %}
+
 {% block title_page_top %}
 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16" onmouseover="openFilter()">
   <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
@@ -43,7 +53,7 @@
     {# Информация о предыдущих страницах #}
     {% if page_obj.has_previous %}
         {% if page_obj.previous_page_number != 1 %}
-            <a class="pagination-number" href="?page=1">1</a>
+            <a class="pagination-number" href="?{% url_replace page=1 %}">1</a>
             <a class="pagination-action">
                <i class='bx bx-chevrons-left' aria-hidden="true"></i></a>
         {% endif %}
@@ -54,7 +64,7 @@
         {% if page_obj.number == num %}
             <span class="pagination-number pagination-current">{{ num }}</span>
         {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
-            <a class="pagination-number" href="?page={{ num }}">{{ num }}</a>
+            <a class="pagination-number" href="?{% url_replace page=num %}">{{ num }}</a>
         {% endif %}
     {% endfor %}
 
@@ -63,7 +73,7 @@
        <a class="pagination-action">
            <i class='bx bx-chevron-right' aria-hidden="true"></i></a>
        {% if paginator.num_pages != page_obj.next_page_number %}
-           <a class="pagination-number" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+           <a class="pagination-number" href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
        {% endif %}
    {% endif %}
 </div>

@@ -86,6 +86,14 @@ p {
 	font-size: 1vw;
 }
 
+.search-container button svg {
+    color: #ffffff;
+}
+
+.search-container-overlay button svg {
+    color: #ffffff;
+}
+
 .search-container button:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(0, 128, 196, 0.7);
     background: radial-gradient(ellipse, rgba(0, 128, 196, 1), rgba(0, 128, 196, 0.1));
@@ -538,26 +546,18 @@ if( $(document).height() <= $(window).height() ){
 }
 
 .filter {
-  margin: auto;
-  height: 100vh;
-  width: 0;
-  position: fixed;
-  z-index: 1500;
-  top: 0;
-  left: 0;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0, 0.9);
-  border-top: 5px solid #7e7e7e;
-  overflow-y: hidden;
-  transition: 0.5s;
-}
-
-.filter-content {
-  position: relative;
-  top: 5vh;
-  height: 100%;
-  text-align: center;
-  margin-top: 0;
+    margin: auto;
+    height: 100vh;
+    width: 0;
+    position: fixed;
+    z-index: 1500;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    border-top: 5px solid #7e7e7e;
+    overflow-x: hidden;
+    transition: 0.5s;
 }
 
 .filter a {
@@ -587,4 +587,115 @@ if( $(document).height() <= $(window).height() ){
   top: 5%;
   left: 5px;
   }
+}
+
+.filter-content {
+    position: relative;
+    top: 5vw;
+    height: 100%;
+    text-align: left;
+    margin-top: 0;
+}
+
+.button-filters {
+    padding: 0.5vw 1vw;
+    background-color: #4CAF50;
+    color: red;
+}
+
+.label-filters {
+    margin: 1vh;
+    padding: 0.5vh;
+    background: rgba(255, 255, 255, 0.2); /* Цвет фона с прозрачностью */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
+    backdrop-filter: blur(20px); /* Эффект матового стекла */
+    border-radius: 2vh;
+    text-transform: uppercase;
+    background-image: linear-gradient(to right, #0080c4 0%, #1f9160 46%, #ff9519 100% );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+	font: Oswald;
+	font-size: 1.1vw;
+}
+
+.field-filters .category-checkbox label {
+    margin: 1vh;
+    padding: 0.5vh;
+    border-radius: 2vh;
+    color: #818181;
+	font: Oswald;
+	font-size: 1vw;
+	transition: 0.3s;
+}
+
+.field-filters .category-checkbox label:hover, .field-filters .category-checkbox label:focus {
+    color: #f1f1f1;
+}
+
+.field-filters .title-input {
+    margin: 1vh;
+    padding: 0.5vh;
+    border-radius: 1vh;
+    color: #818181;
+	font: Oswald;
+	font-size: 1vw;
+	transition: 0.3s;
+}
+
+.field-filters .text-input {
+    margin: 1vh;
+    padding: 0.5vh;
+    border-radius: 1vh;
+    color: #818181;
+	font: Oswald;
+	font-size: 1vw;
+	transition: 0.3s;
+}
+
+.field-filters .date-lt-input {
+    margin: 1vh;
+    padding: 0.5vh;
+    border-radius: 1vh;
+    color: #818181;
+	font: Oswald;
+	font-size: 1vw;
+	transition: 0.3s;
+}
+
+.field-filters .date-gt-input {
+    margin: 1vh;
+    padding: 0.5vh;
+    border-radius: 1vh;
+    color: #818181;
+	font: Oswald;
+	font-size: 1vw;
+	transition: 0.3s;
+}
+
+/* Общий блок чекбокса*/
+.category-checkbox {
+    margin-top: 0.8vw;
+    margin-bottom: 0.8vw;
+    margin-left: 2vw;
+    user-select: none;
+    -ms-transform: scale(1.2); /* IE */
+    -moz-transform: scale(1.2); /* FF */
+    -webkit-transform: scale(1.2); /* Safari and Chrome */
+    -o-transform: scale(1.2); /* Opera */
+    transform: scale(1.2);
+}
+
+.category-checkbox label {
+    background: rgba(0,0,0,0.5);
+}
+
+.category-checkbox::before {
+  display: inline-block;
+  width: 5em;
+  height: 5em;
+  flex-shrink: 0;
+  flex-grow: 0;
+  border: 1px solid #adb5bd;
+  border-radius: 0.25em;
+  margin-right: 1em;
 }
