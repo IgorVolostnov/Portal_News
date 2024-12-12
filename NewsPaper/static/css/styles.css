@@ -19,11 +19,8 @@ time, mark, audio, video {
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
+footer, hgroup, menu, nav, section {
 	display: block;
-}
-body {
-	line-height: 1;
 }
 ol, ul {
 	list-style: none;
@@ -41,10 +38,11 @@ table {
 	border-spacing: 0;
 }
 body {
-	color: #8f8f8f;
-	font: 12px Tahoma, sans-serif;
-	border-top: 5px solid #7e7e7e;
+    line-height: 1;
+	color: #000000;
+	font: 12px 'Oswald';
 	margin: 0;
+	background-color: #ffffff;
 	}
 
 p {
@@ -154,14 +152,13 @@ p {
 }
 
 #wrapper {
+    display: block;
 	width: 100%;
-	margin: auto;
 	}
 
 .main-menu {
     max-height: 5vw;
     max-width: 100%;
-    position: sticky;
     display: grid;
     grid-template-columns: 20vw 50vw 30vw;
     background-color: #000000;
@@ -266,10 +263,23 @@ p {
     -webkit-text-fill-color: transparent;
     }
 
+header {
+    z-index: 1499;
+    position: -webkit-sticky;
+    position: sticky;
+    border-top: 5px solid #7e7e7e;
+    top: 0;
+    max-height: 5vw;
+    max-width: 100%;
+}
+
 aside {
+    z-index: 1499;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 5.23vw;
     display: grid;
     grid-template-columns: repeat(3, minmax(20px, auto));
-    grid-auto-column: auto;
     justify-content: left;
 	background-color: #000000;
 	}
@@ -340,10 +350,6 @@ h4 {
 
 section {
     background-color: #000000;
-    background-image: url('cube.gif');
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: 60%;
     }
 
 .glass-container-news {
@@ -384,9 +390,6 @@ section {
   backdrop-filter: blur(20px); /* Эффект матового стекла */
   }
 
-if( $(document).height() <= $(window).height() ){
-  $(".page-footer").addClass("fixed-bottom");
-}
 .page-footer {
     max-height: 7vw;
     max-width: 100%;
@@ -411,7 +414,6 @@ if( $(document).height() <= $(window).height() ){
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: 40%;
-
 }
 
 .logoWhiteFooter img {
@@ -570,23 +572,23 @@ if( $(document).height() <= $(window).height() ){
 }
 
 .filter a:hover, .filter a:focus {
-  color: #f1f1f1;
+    color: #f1f1f1;
 }
 
 .filter .closeBtnFilter {
-  position: absolute;
-  top: 5vh;
-  right: 1vw;
-  font-size: 4vw;
+    position: absolute;
+    top: 5vh;
+    right: 1vw;
+    font-size: 4vw;
 }
 
 @media screen and (max-height: 450px) {
-  .filter a {font-size: 20px}
-  .filter .closeBtn {
-  font-size: 40px;
-  top: 5%;
-  left: 5px;
-  }
+    .filter a {font-size: 20px}
+    .filter .closeBtn {
+        font-size: 40px;
+        top: 5%;
+        left: 5px;
+        }
 }
 
 .filter-content {
@@ -598,9 +600,35 @@ if( $(document).height() <= $(window).height() ){
 }
 
 .button-filters {
-    padding: 0.5vw 1vw;
-    background-color: #4CAF50;
-    color: red;
+    position: fixed;
+    max-width: 150px;
+    margin-left: 9vw;
+    margin-top: 6vw;
+    display: none;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    background: radial-gradient(ellipse, rgba(62, 214, 148, 1), rgba(62, 214, 148, 0.1));
+    border: 3px groove black;
+    padding: 0.8vw 2vw;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
+    backdrop-filter: blur(20px); /* Эффект матового стекла */
+    color: #fff;
+	font: sans-serif;
+	font-size: 1.5vw;
+}
+
+.button-filters:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(0, 128, 196, 0.7);
+    background: rgba(62, 214, 148, 0.1);
+    color: rgba(0, 128, 196, 1);
+}
+
+.button-filters:active {
+    margin-left: 1px 1px 0;
+    box-shadow: -1px -1px 1px #000;
+    outline: 1px solid black;
+    background: radial-gradient(ellipse, rgba(255, 149, 25, 1), rgba(255, 149, 25, 0.1));
 }
 
 .label-filters {

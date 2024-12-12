@@ -1,6 +1,3 @@
-import datetime
-from email.policy import default
-
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -88,11 +85,6 @@ class Post(models.Model):
     title_post = models.CharField(max_length=255)
     text_post = models.TextField(blank=True)
     rating_post = models.IntegerField(default=0)
-
-    def early(self):
-        default_value = datetime.datetime.strftime(
-            self.objects.order_by("-time_in_post").values('time_in_post').first()['time_in_post'], '%d.%B.%Y')
-        self.time_in_post.default = default_value
 
     def like(self):
         self.rating_post += 1

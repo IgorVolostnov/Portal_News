@@ -21,7 +21,7 @@ class PostFilter(FilterSet):
     DateLt = DateFilter(label='Дата меньше:', field_name='time_in_post', lookup_expr='lt',
                         widget=MyDateInput(attrs={'class': 'date-lt-input'}))
     DateGt = DateFilter(label='Дата больше:', field_name='time_in_post', lookup_expr='gt',
-                        widget=TextInput(attrs={'class': 'date-gt-input'}))
+                        widget=MyDateInput(attrs={'class': 'date-gt-input'}))
     class Meta:
         model = Post
         fields = '__all__'
