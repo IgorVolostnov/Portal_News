@@ -1,0 +1,32 @@
+<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
+{% extends 'flatpages/default.html' %}
+{% load custom_tags %}
+
+<!-- Указываем название в зависимости от типа контента -->
+{% block title %}
+СОЗДАНИЕ {{ type_content }}
+{% endblock title %}
+
+<!-- Показываем текст страницы в зависимости от контента -->
+{% block title_page_top %}
+<h1> {{ create_content }} </h1>
+{% endblock title_page_top %}
+
+<!-- Показываем форму создания контента -->
+{% block content %}
+<form action="" method="post" class="data-form">
+    {% csrf_token %}
+    {% for field in form %}
+        <label class="label-form"> {{ field.label }} </label>
+        <div class="field-form"> {{ field }} </div>
+    {% endfor %}
+    {% block filters_button%}
+        <button id="buttonForm" class="button-form" type="submit">Сохранить</button>
+    {% endblock filters_button %}
+</form>
+{% endblock content %}
+
+<!-- Указываем данные в подвале страницы -->
+{% block date_copyright %}
+© Студия разработки «ROSSVIK MOSCOW» {% current_time '%Y' %}
+{% endblock date_copyright %}

@@ -17,26 +17,21 @@ myNav.style.height = "0%";
 
 function openFilter() {
 const myFilter = document.getElementById("myFilter")
-const buttonFilter = document.getElementById("buttonFilter")
+const myFilterButton = document.getElementById("myFilterButton")
 myFilter.style.width = "30%";
-buttonFilter.style = "display: grid;";
+myFilterButton.style.width = "30%";
 this.style = "display: none;";
 myFilter.onmouseleave = function() {
  myFilter.style.width = "0%";
- buttonFilter.style = "display: none;";
+ myFilterButton.style.width = "0%";
  };
- }
+}
 
 function closeFilter() {
 const myFilter = document.getElementById("myFilter")
-const buttonFilter = document.getElementById("buttonFilter")
+const myFilterButton = document.getElementById("myFilterButton")
 myFilter.style.width = "0%";
-buttonFilter.style = "display: none;";
- }
-
-function myFunctionHide() {
-const buttonFilter = document.getElementById("buttonFilter")
-buttonFilter.style = "display: none;";
+myFilterButton.style.width = "0%";
  }
 
  if( $(document).height() <= $(window).height() ){

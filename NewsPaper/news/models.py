@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.urls import reverse
 
 
 class Author(models.Model):
@@ -107,6 +108,12 @@ class Post(models.Model):
 
     def __str__(self):
         return f'{self.title_post.title()}: {self.preview()}'
+
+    def get_absolute_url(self):
+        if self.type_post ==  'NE':
+            return reverse('post_detail_news', args=[str(self.id)])
+        else:
+            return reverse('post_detail_articles', args=[str(self.id)])
 
 
 class PostCategory(models.Model):

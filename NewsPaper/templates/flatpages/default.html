@@ -26,7 +26,7 @@
                     <li><a href="/home/">ГЛАВНАЯ</a></li>
                     <li><a href="#">КАТЕГОРИИ</a></li>
                     <li><a href="/news/">НОВОСТИ</a></li>
-                    <li><a href="/warranty/">ГАРАНТИЯ</a></li>
+                    <li><a href="/articles/">СТАТЬИ</a></li>
                     <li><a href="/contacts/">КОНТАКТЫ</a></li>
                 </ul>
                 <div class="search-container-overlay">
@@ -60,6 +60,10 @@
                 {% block filters %}
                 {% endblock filters %}
             </div>
+            <div id="myFilterButton" class="filter-button">
+                {% block filters_button %}
+                {% endblock filters_button %}
+            </div>
         </div>
 
         <div id="wrapper">
@@ -74,7 +78,7 @@
                         <li><a href="/home/">ГЛАВНАЯ</a></li>
                         <li><a href="#" onmouseover="openNav()">КАТЕГОРИИ</a></li>
                         <li><a href="/news/">НОВОСТИ</a></li>
-                        <li><a href="/warranty/">ГАРАНТИЯ</a></li>
+                        <li><a href="/articles/">СТАТЬИ</a></li>
                         <li><a href="/contacts/">КОНТАКТЫ</a></li>
                     </ul>
                     <div class="search-container">
@@ -90,8 +94,6 @@
             <aside>
                 {% block title_page_top %}
                 {% endblock title_page_top %}
-                {% block date %}
-                {% endblock date %}
             </aside>
             <section>
                 {% block content %}

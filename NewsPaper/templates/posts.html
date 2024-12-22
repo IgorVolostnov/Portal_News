@@ -3,33 +3,51 @@
 {% load custom_filters %}
 {% load custom_tags %}
 
-<!-- Название у нас будет Posts -->
+<!-- Указываем название в зависимости от типа контента -->
 {% block title %}
-Новости и статьи
+    {{ type_content }}
 {% endblock title %}
 
+<!-- Выводим фильтры -->
 {% block filters %}
 <form action="" method="get" class="filter-form">
     {% for field in filterset.form %}
         <label class="label-filters"> {{ field.label }} </label>
         <div class="field-filters"> {{ field }} </div>
     {% endfor %}
-    <button id="buttonFilter" class="button-filters" type="submit" onclick="myFunctionHide()">Показать</button>
-</form>
 {% endblock filters %}
 
+{% block filters_button%}
+    <button id="buttonFilter" class="button-filters" type="submit">Показать</button>
+{% endblock filters_button %}
+</form>
+
+<!-- Показываем кнопку фильтра и кнопку добавления контента -->
 {% block title_page_top %}
 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16" onmouseover="openFilter()">
   <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
 </svg>
-<h1>НОВОСТИ</h1>
+{% if type_content|length == 7 %}
+<div class="add-container">
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" enable-background="new 0 0 32 32" id="svg2" version="1.1" viewBox="0 0 32 32" xml:space="preserve" onclick="location.href = '/news/create/'">
+        <g id="background"><rect fill="none" height="25" width="25"/></g><g id="document_x5F_text_x5F_add">
+        <path d="M24,14.059V5.584L18.414,0H0v32h24v-0.059c4.499-0.5,7.998-4.309,8-8.941C31.998,18.366,28.499,14.556,24,14.059z    M17.998,2.413L21.586,6h-3.588V2.413z M2,30V1.998h14v6.001h6v6.06c-1.752,0.194-3.352,0.89-4.652,1.941H4v2h11.517   c-0.412,0.616-0.743,1.289-0.994,2H4v2h10.059C14.022,22.329,14,22.661,14,23c0,2.829,1.308,5.351,3.349,7H2z M23,29.883   c-3.801-0.009-6.876-3.084-6.885-6.883c0.009-3.801,3.084-6.876,6.885-6.885c3.799,0.009,6.874,3.084,6.883,6.885   C29.874,26.799,26.799,29.874,23,29.883z M20,12H4v2h16V12z"/>
+        <g><polygon points="28,22 24.002,22 24.002,18 22,18 22,22 18,22 18,24 22,24 22,28 24.002,28 24.002,24 28,24   "/></g></g>
+    </svg>
+</div>
+{% else %}
+<div class="add-container">
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" enable-background="new 0 0 32 32" id="svg2" version="1.1" viewBox="0 0 32 32" xml:space="preserve" onclick="location.href = '/articles/create/'">
+        <g id="background"><rect fill="none" height="25" width="25"/></g><g id="document_x5F_text_x5F_add">
+        <path d="M24,14.059V5.584L18.414,0H0v32h24v-0.059c4.499-0.5,7.998-4.309,8-8.941C31.998,18.366,28.499,14.556,24,14.059z    M17.998,2.413L21.586,6h-3.588V2.413z M2,30V1.998h14v6.001h6v6.06c-1.752,0.194-3.352,0.89-4.652,1.941H4v2h11.517   c-0.412,0.616-0.743,1.289-0.994,2H4v2h10.059C14.022,22.329,14,22.661,14,23c0,2.829,1.308,5.351,3.349,7H2z M23,29.883   c-3.801-0.009-6.876-3.084-6.885-6.883c0.009-3.801,3.084-6.876,6.885-6.885c3.799,0.009,6.874,3.084,6.883,6.885   C29.874,26.799,26.799,29.874,23,29.883z M20,12H4v2h16V12z"/>
+        <g><polygon points="28,22 24.002,22 24.002,18 22,18 22,22 18,22 18,24 22,24 22,28 24.002,28 24.002,24 28,24   "/></g></g>
+    </svg>
+</div>
+{% endif %}
+<h1> {{ type_content }} НА {% current_time '%d.%m.%Y' %} ( {{ posts|length }} ) </h1>
 {% endblock title_page_top %}
 
-{% block date %}
-<h1> {% current_time '%d.%m.%Y' %} ( {{ posts|length }} )</h1>
-{% endblock date %}
-
-<!-- В контенте на странице мы выводим все товары -->
+<!-- Выводим все товары -->
 {% block content %}
 <div id="news">
     {% if posts %}
@@ -48,6 +66,8 @@
        <h3>Новостей нет!</h3>
    {% endif %}
 </div>
+
+<!-- Показываем пагинацию -->
 <div class="pagination">
     {# Добавляем пагинацию на страницу #}
     {# Информация о предыдущих страницах #}
@@ -79,6 +99,7 @@
 </div>
 {% endblock content %}
 
+<!-- Указываем данные в подвале страницы -->
 {% block date_copyright %}
 © Студия разработки «ROSSVIK MOSCOW» {% current_time '%Y' %}
 {% endblock date_copyright %}
