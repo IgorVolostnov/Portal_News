@@ -1,6 +1,6 @@
 import datetime
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
 from .filters import PostFilter
 from .forms import PostForm
@@ -71,7 +71,7 @@ class PostDetail(DetailView):
 class NewsCreate(CreateView):
     form_class = PostForm
     model = Post
-    template_name = 'news_create.html'
+    template_name = 'post_create.html'
 
     # Добавляем дополнительный контекст, если нужно
     def get_context_data(self, **kwargs):
@@ -90,7 +90,7 @@ class NewsCreate(CreateView):
 class ArticlesCreate(CreateView):
     form_class = PostForm
     model = Post
-    template_name = 'news_create.html'
+    template_name = 'post_create.html'
 
     # Добавляем дополнительный контекст, если нужно
     def get_context_data(self, **kwargs):
@@ -104,3 +104,56 @@ class ArticlesCreate(CreateView):
         post = form.save(commit=False)
         post.type_post = 'AR'
         return super().form_valid(form)
+
+# Добавляем представление для изменения новости.
+class NewsUpdate(UpdateView):
+    form_class = PostForm
+    model = Post
+    template_name = 'post_create.html'
+
+    # Добавляем дополнительный контекст, если нужно
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['type_content'] = "НОВОСТИ"
+        context['create_content'] = "РЕДАКТИРОВАТЬ НОВОСТЬ"
+        return context
+
+
+# Добавляем представление для изменения новости.
+class ArticlesUpdate(UpdateView):
+    form_class = PostForm
+    model = Post
+    template_name = 'post_create.html'
+
+    # Добавляем дополнительный контекст, если нужно
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['type_content'] = "СТАТЬИ"
+        context['create_content'] = "РЕДАКТИРОВАТЬ СТАТЬЮ"
+        return context
+
+# Представление удаляющее новость.
+class NewsDelete(DeleteView):
+    model = Post
+    template_name = 'post_delete.html'
+    success_url = reverse_lazy('news_list')
+
+    # Добавляем дополнительный контекст, если нужно
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['type_content'] = "НОВОСТИ"
+        context['create_content'] = "УДАЛИТЬ НОВОСТЬ"
+        return context
+
+# Представление удаляющее статью.
+class ArticlesDelete(DeleteView):
+    model = Post
+    template_name = 'post_delete.html'
+    success_url = reverse_lazy('articles_list')
+
+    # Добавляем дополнительный контекст, если нужно
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['type_content'] = "СТАТЬИ"
+        context['create_content'] = "УДАЛИТЬ СТАТЬЮ"
+        return context

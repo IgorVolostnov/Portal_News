@@ -1,0 +1,33 @@
+<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
+{% extends 'flatpages/default.html' %}
+{% load custom_tags %}
+
+<!-- Указываем название в зависимости от типа контента -->
+{% block title %}
+    {{ type_content }}
+{% endblock title %}
+
+<!-- Показываем текст страницы в зависимости от контента -->
+{% block title_page_top %}
+<h1> {{ create_content }} </h1>
+{% endblock title_page_top %}
+
+<!-- Показываем предварительный текст удаления в зависимости от контента -->
+{% block content %}
+<form action="" method="post" class="data-form">
+    {% csrf_token %}
+    {% if post.type_post == 'NE' %}
+        <h1> Удаляем новость "{{ post.title_post|linebreaksbr }}" ? </h1>
+    {% else %}
+        <h1> Удаляем статью "{{ post.title_post|linebreaksbr }}" ? </h1>
+    {% endif %}
+    {% block filters_button%}
+        <button id="buttonForm" class="button-form" type="submit">Удалить</button>
+    {% endblock filters_button %}
+</form>
+{% endblock content %}
+
+<!-- Указываем данные в подвале страницы -->
+{% block date_copyright %}
+© Студия разработки «ROSSVIK MOSCOW» {% current_time '%Y' %}
+{% endblock date_copyright %}
