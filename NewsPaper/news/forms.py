@@ -6,7 +6,7 @@ from django_filters.fields import ModelChoiceField
 
 from .models import Post, Author
 
-locale.setlocale(category=locale.LC_ALL, locale="Russian")
+locale.setlocale(category=locale.LC_ALL, locale="ru_RU.utf8")
 
 # Создаем свой класс на основании ModelChoiceField для отображения username авторов контента
 class MyModelChoiceFieldAuthor(ModelChoiceField):

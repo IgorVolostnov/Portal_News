@@ -3,7 +3,7 @@ from django.forms import CheckboxSelectMultiple, TextInput, DateInput
 from django_filters import FilterSet, CharFilter, DateFilter, MultipleChoiceFilter
 from .models import Post, Author, User
 
-locale.setlocale(category=locale.LC_ALL, locale="Russian")
+locale.setlocale(category=locale.LC_ALL, locale="ru_RU.utf8")
 
 class MyDateInput(DateInput):
     input_type = 'date'

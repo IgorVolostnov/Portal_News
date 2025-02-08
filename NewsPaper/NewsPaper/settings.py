@@ -84,15 +84,14 @@ WSGI_APPLICATION = 'NewsPaper.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ["NAME"],
-        'USER': os.environ["USER"],
-        'PASSWORD': os.environ["PASSWORD"],
-        'HOST': os.environ["HOST"],
-        'PORT': os.environ["PORT"],
+        'NAME': os.environ["NAME_PORTAL"],
+        'USER': os.environ["USER_PORTAL"],
+        'PASSWORD': os.environ["PASSWORD_PORTAL"],
+        'HOST': os.environ["HOST_PORTAL"],
+        'PORT': os.environ["PORT_PORTAL"],
     }
 }
 
