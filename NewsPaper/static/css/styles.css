@@ -17,6 +17,7 @@ time, mark, audio, video {
 	font: 'Oswald';
 	vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, hgroup, menu, nav, section {
@@ -37,12 +38,13 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
 body {
     line-height: 1;
 	color: #000000;
 	font: 12px 'Oswald';
 	margin: 0;
-	background-color: #ffffff;
+	background-color: #000000;
 	}
 
 p {
@@ -398,16 +400,20 @@ section {
   backdrop-filter: blur(20px); /* Эффект матового стекла */
   }
 /* Верстка футера */
+/* footer {
+	background-color: white!important;
+	}*/
+
 .page-footer {
-    max-height: 7vw;
-    max-width: 100%;
+    --ratio: 1200/1920;
+    --container-weight: 100%;
+    background-color: white!important;
+    height: calc(13vw * var(--ratio));
+    max-height: calc(var(--container-width) * var(--ratio));
+    width: 100%;
+    max-width: var(--container-width);
     display: grid;
     grid-template-columns: 40% 60%;
-    background-image: url('tetris.gif');
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: 20vw;
-
 }
 
 .page-footer .fixed-bottom {
@@ -419,24 +425,45 @@ section {
 }
 
 .logoWhiteFooter img {
-    max-height: 7vw;
-    max-width: 100%;
+    --ratio: 128/700;
+    --container-weight: 100%;
+    display: block;
+    height: calc(50vw * var(--ratio));
+    max-height: calc(var(--container-width) * var(--ratio));
+    width: 100%;
+    max-width: var(--container-width);
 	}
 
 .footerText {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    --ratio: 1200/1920;
+    --container-weight: 100%;
+    height: calc(13vw * var(--ratio));
+    max-height: calc(var(--container-width) * var(--ratio));
+    width: 100%;
+    max-width: var(--container-width);
+    overflow-wrap: break-word;
     color: #042552;
-	margin-left: 15vw;
+	margin-left: 5vw;
 	padding: 0 10px;
     }
 
 .headerFooter {
-    font-size: 1.5vw;
+    padding-top: 0.5vw;
+    --ratio: 128/700;
+    --container-weight: 100%;
+    font-size: calc(7vw * var(--ratio));
     font-weight: bold;
     }
 
 .contactFooter {
-    font-size: 1vw;
+    padding-top: 0.5vw;
+    --ratio: 128/700;
+    font-size: calc(5vw * var(--ratio));
     font-weight: bold;
+    line-height: calc(10vw * var(--ratio));
+    overflow-word: wrap-word;
     }
 /* Верстка пагинации страниц */
 .pagination {
@@ -622,7 +649,7 @@ section {
     justify-content: center;
     background: radial-gradient(ellipse, rgba(62, 214, 148, 1), rgba(62, 214, 148, 0.1));
     border: 3px groove black;
-    padding: 0.8vw 2vw;
+    padding: 0.8vw 0.8vw;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
     backdrop-filter: blur(20px); /* Эффект матового стекла */
