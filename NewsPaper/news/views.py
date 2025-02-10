@@ -1,4 +1,5 @@
 import datetime
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
@@ -106,7 +107,7 @@ class ArticlesCreate(CreateView):
         return super().form_valid(form)
 
 # Добавляем представление для изменения новости.
-class NewsUpdate(UpdateView):
+class NewsUpdate(LoginRequiredMixin, UpdateView):
     form_class = PostForm
     model = Post
     template_name = 'post_create.html'
@@ -120,7 +121,7 @@ class NewsUpdate(UpdateView):
 
 
 # Добавляем представление для изменения новости.
-class ArticlesUpdate(UpdateView):
+class ArticlesUpdate(LoginRequiredMixin, UpdateView):
     form_class = PostForm
     model = Post
     template_name = 'post_create.html'

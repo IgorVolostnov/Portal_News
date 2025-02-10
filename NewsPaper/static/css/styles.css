@@ -1003,3 +1003,176 @@ section {
     outline: 1px solid black;
     background: radial-gradient(ellipse, rgba(255, 149, 25, 1), rgba(255, 149, 25, 0.1));
 }
+/* Верстка формы регистрации */
+.allauth-content-class h1 {
+    margin-top: 0.5vw;
+    margin-bottom: 0.5vw;
+    margin-left: 37vw;
+    padding: 0.5vh;
+    background: rgba(255, 255, 255, 0.2); /* Цвет фона с прозрачностью */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
+    backdrop-filter: blur(20px); /* Эффект матового стекла */
+    border-radius: 2vh;
+    text-transform: uppercase;
+    background-image: linear-gradient(to right, #0080c4 0%, #1f9160 46%, #ff9519 100% );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+	font: Oswald;
+	font-size: 2vw;
+}
+
+.allauth-content-class p {
+    margin: 1vh;
+    padding: 0.5vh;
+    border-radius: 2vh;
+    color: #818181;
+	font: Oswald;
+	font-size: 2vw;
+	transition: 0.3s;
+}
+
+.allauth-content-class form ul li {
+    margin: 1vh;
+    padding: 0.5vh;
+    border-radius: 2vh;
+    color: #ff9519;
+	font: Oswald;
+	font-size: 1.5vw;
+	transition: 0.3s;
+}
+
+.allauth-content-class p a {
+    margin: 1vh;
+    padding: 0.5vh;
+    border-radius: 2vh;
+    color: #0080c4;
+	font: Oswald;
+	font-size: 2vw;
+	transition: 0.3s;
+}
+
+.allauth-content-class p a:hover {
+    color: #1f9160;
+}
+
+.allauth-content-class p a:focus {
+    color: #ff9519;
+}
+
+.allauth-content-class form input[name="login"] {
+    margin-top: 0.5vw;
+    margin-bottom: 0.5vw;
+    margin-left: 2vw;
+    padding: 0.5vh;
+    width: 50vw;
+    height: 2vw;
+    border-radius: 1vh;
+    color: #000000;
+	font-size: 1.5vw;
+	transition: 0.3s;
+}
+
+.allauth-content-class form input[name="password"] {
+    margin-top: 0.5vw;
+    margin-bottom: 0.5vw;
+    margin-left: 16vw;
+    padding: 0.5vh;
+    width: 50vw;
+    height: 2vw;
+    border-radius: 1vh;
+    color: #000000;
+	font-size: 1.5vw;
+	transition: 0.3s;
+}
+
+.allauth-content-class form input[name="password1"] {
+    margin-top: 0.5vw;
+    margin-bottom: 0.5vw;
+    margin-left: 16vw;
+    padding: 0.5vh;
+    width: 50vw;
+    height: 2vw;
+    border-radius: 1vh;
+    color: #000000;
+	font-size: 1.5vw;
+	transition: 0.3s;
+}
+
+.allauth-content-class form input[name="password2"] {
+    margin-top: 0.5vw;
+    margin-bottom: 0.5vw;
+    margin-left: 9vw;
+    padding: 0.5vh;
+    width: 50vw;
+    height: 2vw;
+    border-radius: 1vh;
+    color: #000000;
+	font-size: 1.5vw;
+	transition: 0.3s;
+}
+
+.allauth-content-class form input[name="email"] {
+    margin-top: 0.5vw;
+    margin-bottom: 0.5vw;
+    margin-left: 2vw;
+    padding: 0.5vh;
+    width: 50vw;
+    height: 2vw;
+    border-radius: 1vh;
+    color: #000000;
+	font-size: 1.5vw;
+	transition: 0.3s;
+}
+
+.allauth-content-class form input[name="remember"] {
+    width: 1.5vw;
+    height: 1.5vw;
+    user-select: none;
+    -ms-transform: scale(1.2); /* IE */
+    -moz-transform: scale(1.2); /* FF */
+    -webkit-transform: scale(1.2); /* Safari and Chrome */
+    -o-transform: scale(1.2); /* Opera */
+    transform: scale(1.2);
+}
+
+.allauth-content-class form input[name="remember"]:before {
+  display: inline-block;
+  width: 2vw;
+  height: 2vw;
+  flex-shrink: 0;
+  flex-grow: 0;
+  border: 1px solid #adb5bd;
+  border-radius: 0.25em;
+  margin-right: 1em;
+}
+
+.allauth-content-class form button {
+    position: relative;
+    max-width: 25vw;
+    margin-left: 40vw;
+    margin-top: 0.5vw;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    background: radial-gradient(ellipse, rgba(62, 214, 148, 1), rgba(62, 214, 148, 0.1));
+    border: 3px groove black;
+    padding: 1vw;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
+    backdrop-filter: blur(20px); /* Эффект матового стекла */
+    color: #fff;
+	font: sans-serif;
+	font-size: 1.5vw;
+}
+
+.allauth-content-class form button:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(0, 128, 196, 0.7);
+    background: rgba(62, 214, 148, 0.1);
+    color: rgba(0, 128, 196, 1);
+}
+
+.allauth-content-class form button:active {
+    margin-left: 1px 1px 0;
+    box-shadow: -1px -1px 1px #000;
+    outline: 1px solid black;
+    background: radial-gradient(ellipse, rgba(255, 149, 25, 1), rgba(255, 149, 25, 0.1));
+}
