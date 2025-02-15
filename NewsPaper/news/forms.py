@@ -1,5 +1,7 @@
 import locale
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.forms import CharField, Textarea, RadioSelect, Form
 from django_filters.fields import ModelChoiceField
@@ -42,18 +44,8 @@ class PostForm(forms.ModelForm):
         return cleaned_data
 
 
-class CustomSignupForm(Form):
-    first_name = forms.CharField(label='Имя', max_length=30, widget=forms.TextInput(attrs={'placeholder': 'Имя'}))
-    last_name = forms.CharField(label='Фамилия', max_length=30, widget=forms.TextInput(attrs={'placeholder': 'Фамилия'}))
-
-    GENDERS = (('man', 'Мужской'), ('woman', 'Женский'))
-    gender = forms.ChoiceField(label='Пол', choices=GENDERS, widget=forms.Select())
-
-    def signup(self, request, user):
-        user.first_name = self.cleaned_data['first_name']
-        user.last_name = self.cleaned_data['last_name']
-        user.gender = self.cleaned_data['gender']
-        user.save()
-
-
-
+class CustomSignupForm(UserCreationForm):
+    email = forms.EmailField(max_length=200, help_text='Required')
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
