@@ -1021,6 +1021,23 @@ section {
 	font-size: 2vw;
 }
 
+.allauth-content-class h2 {
+    margin-top: 0.5vw;
+    margin-bottom: 0.5vw;
+    margin-left: 0vw;
+    padding: 0.5vh;
+    background: rgba(255, 255, 255, 0.2); /* Цвет фона с прозрачностью */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
+    backdrop-filter: blur(20px); /* Эффект матового стекла */
+    border-radius: 2vh;
+    text-transform: uppercase;
+    background-image: linear-gradient(to right, #0080c4 0%, #1f9160 46%, #ff9519 100% );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+	font: Oswald;
+	font-size: 2vw;
+}
+
 .allauth-content-class p {
     margin: 1vh;
     padding: 0.5vh;
@@ -1057,6 +1074,59 @@ section {
 
 .allauth-content-class p a:focus {
     color: #ff9519;
+}
+
+.allauth-content-class ul li a {
+    display: inline-block;
+    background: url("images/png_yandex.png");
+    justify-content: center;
+    border: 3px groove black;
+    padding: 0.5vw;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
+    backdrop-filter: blur(20px); /* Эффект матового стекла */
+	text-indent: -9999px;
+    --ratio: 360/640;
+    height: calc(6vw * var(--ratio));
+    width: calc(18vw * var(--ratio));
+    background-size: calc(20vw * var(--ratio)) calc(8vw * var(--ratio));
+    background-repeat: no-repeat;
+	font-size: 5vw;
+	transition: 0.3s;
+}
+
+.allauth-content-class ul li a:hover {
+    background: url("images/png_yandex_green.png");
+    justify-content: center;
+    border: 3px groove black;
+    padding: 0.5vw;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
+    backdrop-filter: blur(20px); /* Эффект матового стекла */
+    --ratio: 360/640;
+    height: calc(6vw * var(--ratio));
+    width: calc(18vw * var(--ratio));
+    background-size: calc(20vw * var(--ratio)) calc(8vw * var(--ratio));
+    background-repeat: no-repeat;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(0, 128, 196, 0.7);
+}
+
+.allauth-content-class ul li a:active {
+    background: url("images/png_yandex_orange.png");
+    justify-content: center;
+    border: 3px groove black;
+    padding: 0.5vw;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
+    backdrop-filter: blur(20px); /* Эффект матового стекла */
+    --ratio: 360/640;
+    height: calc(6vw * var(--ratio));
+    width: calc(18vw * var(--ratio));
+    background-size: calc(20vw * var(--ratio)) calc(8vw * var(--ratio));
+    background-repeat: no-repeat;
+    margin-left: 1px 1px 0;
+    box-shadow: -1px -1px 1px #000;
+    outline: 1px solid black;
 }
 
 .allauth-content-class form input[name="login"] {
@@ -1114,10 +1184,49 @@ section {
 .allauth-content-class form input[name="email"] {
     margin-top: 0.5vw;
     margin-bottom: 0.5vw;
-    margin-left: 2vw;
+    margin-left: 1vw;
     padding: 0.5vh;
     width: 50vw;
     height: 2vw;
+    border-radius: 1vh;
+    color: #000000;
+	font-size: 1.5vw;
+	transition: 0.3s;
+}
+
+.allauth-content-class form input[name="first_name"] {
+    margin-top: 0.5vw;
+    margin-bottom: 0.5vw;
+    margin-left: 5vw;
+    padding: 0.5vh;
+    width: 50vw;
+    height: 2vw;
+    border-radius: 1vh;
+    color: #000000;
+	font-size: 1.5vw;
+	transition: 0.3s;
+}
+
+.allauth-content-class form input[name="last_name"] {
+    margin-top: 0.5vw;
+    margin-bottom: 0.5vw;
+    margin-left: 1vw;
+    padding: 0.5vh;
+    width: 50vw;
+    height: 2vw;
+    border-radius: 1vh;
+    color: #000000;
+	font-size: 1.5vw;
+	transition: 0.3s;
+}
+
+.allauth-content-class form select[name="gender"] {
+    margin-top: 0.5vw;
+    margin-bottom: 0.5vw;
+    margin-left: 2vw;
+    padding: 0.5vh;
+    width: 10vw;
+    height: 3vw;
     border-radius: 1vh;
     color: #000000;
 	font-size: 1.5vw;

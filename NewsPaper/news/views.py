@@ -69,7 +69,7 @@ class PostDetail(DetailView):
 
 
 # Представление для создания новостей
-class NewsCreate(CreateView):
+class NewsCreate(LoginRequiredMixin, CreateView):
     form_class = PostForm
     model = Post
     template_name = 'post_create.html'
@@ -88,7 +88,7 @@ class NewsCreate(CreateView):
         return super().form_valid(form)
 
 # Представление для создания статей
-class ArticlesCreate(CreateView):
+class ArticlesCreate(LoginRequiredMixin, CreateView):
     form_class = PostForm
     model = Post
     template_name = 'post_create.html'
@@ -134,7 +134,7 @@ class ArticlesUpdate(LoginRequiredMixin, UpdateView):
         return context
 
 # Представление удаляющее новость.
-class NewsDelete(DeleteView):
+class NewsDelete(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('news_list')
@@ -147,7 +147,7 @@ class NewsDelete(DeleteView):
         return context
 
 # Представление удаляющее статью.
-class ArticlesDelete(DeleteView):
+class ArticlesDelete(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('articles_list')

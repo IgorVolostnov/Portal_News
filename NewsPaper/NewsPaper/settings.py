@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 
-from django.conf.global_settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,7 +24,8 @@ SECRET_KEY = os.environ["SECRET_KEY_DJANGO"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+ALLOWED_ORIGINS = ['http://*', 'https://*']
+CSRF_TRUSTED_ORIGINS = ALLOWED_ORIGINS.copy()
 ALLOWED_HOSTS = []
 
 
@@ -34,6 +33,10 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.yandex',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -46,12 +49,7 @@ INSTALLED_APPS = [
     'news',
     # создаем дополнительные поля для пользователей
     'fpages',
-    'accounts',
     'django_filters',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
 ]
 
 SITE_ID = 1
@@ -91,12 +89,6 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_LOGIN_METHODS = {'email'}
-ACCOUNT_EMAIL_VERIFICATION = 'none'
-
 WSGI_APPLICATION = 'NewsPaper.wsgi.application'
 
 
@@ -135,11 +127,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 
 TIME_ZONE = 'Europe/Moscow'
-
 LANGUAGE_CODE = 'ru-ru'
-
 USE_I18N = True
-
 USE_TZ = True
 
 
@@ -149,13 +138,30 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
 
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+LOGIN_REDIRECT_URL = '/news/'
+ACCOUNT_LOGIN_METHODS = {'email'}
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/accounts/login/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
+ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
+ACCOUNT_SIGNUP_FORM_CLASS = 'news.forms.CustomSignupForm'
+ACCOUNT_SESSION_REMEMBER = True
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.environ["HOSTNAME_EMAIL_PORTAL_NEWS"]
+EMAIL_PORT = os.environ["PORT_EMAIL_PORTAL_NEWS"]
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ["EMAIL_ADDRESS_PORTAL_NEWS"]
+EMAIL_HOST_PASSWORD = os.environ["EMAIL_PASSWORD_PORTAL_NEWS"]
