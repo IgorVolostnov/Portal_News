@@ -1,9 +1,8 @@
 import locale
-from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from allauth.account.forms import SignupForm
+from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
-from django.forms import CharField, Textarea, RadioSelect, Form
+from django.forms import CharField, Textarea, RadioSelect, ModelForm
 from django_filters.fields import ModelChoiceField
 from .models import Post, Author
 
@@ -15,7 +14,7 @@ class MyModelChoiceFieldAuthor(ModelChoiceField):
     def label_from_instance(self, obj):
         return f"{obj.user.username}"
 
-class PostForm(forms.ModelForm):
+class PostForm(ModelForm):
     author_post = MyModelChoiceFieldAuthor(label='Автор контента:',
                                            queryset=Author.objects.exclude(user=8),
                                            widget=RadioSelect(attrs={'class': 'form-author-checkbox'}))
@@ -44,8 +43,10 @@ class PostForm(forms.ModelForm):
         return cleaned_data
 
 
-class CustomSignupForm(UserCreationForm):
-    email = forms.EmailField(max_length=200, help_text='Required')
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password1', 'password2')
+class BasicSignupForm(SignupForm):
+
+    def save(self, request):
+        user = super(BasicSignupForm, self).save(request)
+        basic_group = Group.objects.get(name='basic')
+        basic_group.user_set.add(user)
+        return user
