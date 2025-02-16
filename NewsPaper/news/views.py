@@ -1,7 +1,7 @@
 import datetime
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -75,7 +75,8 @@ class PostDetail(DetailView):
 
 
 # Представление для создания новостей
-class NewsCreate(LoginRequiredMixin, CreateView):
+class NewsCreate(PermissionRequiredMixin, CreateView):
+    permission_required = ('news.add_post',)
     form_class = PostForm
     model = Post
     template_name = 'post_create.html'
@@ -95,7 +96,8 @@ class NewsCreate(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 # Представление для создания статей
-class ArticlesCreate(LoginRequiredMixin, CreateView):
+class ArticlesCreate(PermissionRequiredMixin, CreateView):
+    permission_required = ('news.add_post',)
     form_class = PostForm
     model = Post
     template_name = 'post_create.html'
@@ -115,7 +117,8 @@ class ArticlesCreate(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 # Добавляем представление для изменения новости.
-class NewsUpdate(LoginRequiredMixin, UpdateView):
+class NewsUpdate(PermissionRequiredMixin, UpdateView):
+    permission_required = ('news.change_post',)
     form_class = PostForm
     model = Post
     template_name = 'post_create.html'
@@ -130,7 +133,8 @@ class NewsUpdate(LoginRequiredMixin, UpdateView):
 
 
 # Добавляем представление для изменения новости.
-class ArticlesUpdate(LoginRequiredMixin, UpdateView):
+class ArticlesUpdate(PermissionRequiredMixin, UpdateView):
+    permission_required = ('news.change_post',)
     form_class = PostForm
     model = Post
     template_name = 'post_create.html'
