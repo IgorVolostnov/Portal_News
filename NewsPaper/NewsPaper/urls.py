@@ -14,9 +14,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
-from django.urls import path, include
+from django.views.static import serve
+from django.urls import path, include, re_path
 from django.contrib.auth import views as auth_views
+
+handler403 = 'news.views.tr_handler403' # New
+handler404 = 'news.views.tr_handler404' # New
+handler500 = 'news.views.tr_handler500' # New
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +34,9 @@ urlpatterns = [
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name ='password_reset_done'),
     path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(), name ='password_reset_confirm'),
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name ='password_reset_complete'),
+    re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
+    re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ]
+
+if settings.DEBUG:
+    urlpatterns += [path('__debug__/', include('debug_toolbar.urls'))]

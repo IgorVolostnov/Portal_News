@@ -1,0 +1,11 @@
+{% extends 'flatpages/error_base.html' %}
+
+{% load i18n %}
+{% block head_title %}Ошибка приложения{% endblock %}
+{% block extra_head %}{%  endblock %}
+{% load custom_filters %}
+{% load custom_tags %}
+
+{% block content %}
+<p>{% blocktrans %}{{ error_message }} <a href="{{% url 'home' %}}">Вернуться на главную</a>{% endblocktrans %}</p>
+{% endblock content %}

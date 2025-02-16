@@ -1,5 +1,7 @@
-from django.urls import path, re_path
-from .views import NewsList, ArticlesList, PostDetail, NewsCreate, ArticlesCreate, NewsUpdate, ArticlesUpdate, NewsDelete, ArticlesDelete, activate
+from django.urls import re_path
+from django.urls import path
+from .views import NewsList, ArticlesList, PostDetail, NewsCreate, ArticlesCreate, NewsUpdate, ArticlesUpdate, \
+   NewsDelete, ArticlesDelete, activate, home
 
 urlpatterns = [
    path('news/', NewsList.as_view(), name='news_list'),
@@ -13,4 +15,5 @@ urlpatterns = [
    path('news/<int:pk>/delete/', NewsDelete.as_view(), name='news_delete'),
    path('articles/<int:pk>/delete/', ArticlesDelete.as_view(), name='articles_delete'),
    re_path('activate/(?P<uidb64>[0-9A-Za-z_\\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/', activate, name='activate'),
+   path('home/', home, name='home'),
 ]
