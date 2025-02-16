@@ -281,24 +281,84 @@ aside {
     position: sticky;
     top: 5.23vw;
     display: grid;
-    grid-template-columns: auto 6vw 80vw;
+    grid-template-columns: 5vw 5vw 85vw 5vw;
     justify-content: left;
 	background-color: #000000;
 	}
 
-aside svg {
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-content: center;
+aside .open-filter {    display: block;
+    position: relative;
+    width: 5vh;
+    height: 5vh;
+	margin-left: 2vh;
+	margin-bottom: 1vh;
+	padding: 0vw 0vw;
+	}
+
+aside .open-filter svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: radial-gradient(ellipse, rgba(62, 214, 148, 1), rgba(62, 214, 148, 0.1));
     border: 3px groove black;
-    margin-left: 0.5vw;
-    padding: 0.8vw 0.8vw;
+    margin-left: 0vh;
+    padding: 0vw 0vw;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
     backdrop-filter: blur(20px); /* Эффект матового стекла */
     color: #fff;
-    max-width: 50px;
+}
+
+aside .add-container {
+    position: relative;
+    width: 5vh;
+    height: 5vh;
+	margin-left: 0vh;
+	margin-bottom: 1vh;
+	padding: 0vw 0vw;
+	}
+
+aside add-container a svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse, rgba(62, 214, 148, 1), rgba(62, 214, 148, 0.1));
+    border: 3px groove black;
+    margin-left: 0vw;
+    padding: 0vw 0vw;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
+    backdrop-filter: blur(20px); /* Эффект матового стекла */
+    color: #fff;
+}
+
+aside .add-author {
+    position: relative;
+    width: 6vh;
+    height: 6vh;
+	margin-left: 0vh;
+	margin-bottom: 1vh;
+	padding: 0vw 0vw;
+	}
+
+aside .add-author svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse, rgba(62, 214, 148, 1), rgba(62, 214, 148, 0.1));
+    border: 3px groove black;
+    margin-left: 0vw;
+    padding: 0vw 0vw;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
+    backdrop-filter: blur(20px); /* Эффект матового стекла */
+    color: #fff;
 }
 
 aside svg:hover {

@@ -10,8 +10,7 @@ class MyAccountAdapter(DefaultAccountAdapter):
 
 class MySocialAccountAdapter(DefaultSocialAccountAdapter):
     def save_user(self, request, sociallogin, form=None):
-        print('Мой социал адаптер работает')
         user = super(MySocialAccountAdapter, self).save_user(request, sociallogin, form=None)
-        basic_group = Group.objects.get(name='basic')
-        basic_group.user_set.add(user)
+        common_group = Group.objects.get(name='common')
+        common_group.user_set.add(user)
         return user

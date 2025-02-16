@@ -1,6 +1,8 @@
 import datetime
+from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
@@ -25,6 +27,7 @@ class NewsList(ListView):
     # Добавляем дополнительный контекст, если нужно
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         context['time_now'] = datetime.datetime.now(datetime.timezone.utc)
         context['next_news'] = f"Свежие новости на {datetime.datetime.strftime(datetime.datetime.now(), '%d.%m.%Y')}: "
         context['type_content'] = "НОВОСТИ"
@@ -49,6 +52,7 @@ class ArticlesList(ListView):
     # Добавляем дополнительный контекст, если нужно
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         context['time_now'] = datetime.datetime.now(datetime.timezone.utc)
         context['next_news'] = f"Свежие новости на {datetime.datetime.strftime(datetime.datetime.now(), '%d.%m.%Y')}: "
         context['type_content'] = "СТАТЬИ"
@@ -65,6 +69,7 @@ class PostDetail(DetailView):
     # Добавляем дополнительный контекст, если нужно
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         context['skip_column'] = "     "
         return context
 
@@ -78,6 +83,7 @@ class NewsCreate(LoginRequiredMixin, CreateView):
     # Добавляем дополнительный контекст, если нужно
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         context['type_content'] = "НОВОСТИ"
         context['create_content'] = "НОВАЯ НОВОСТЬ"
         return context
@@ -97,6 +103,7 @@ class ArticlesCreate(LoginRequiredMixin, CreateView):
     # Добавляем дополнительный контекст, если нужно
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         context['type_content'] = "СТАТЬИ"
         context['create_content'] = "НОВАЯ СТАТЬЯ"
         return context
@@ -116,6 +123,7 @@ class NewsUpdate(LoginRequiredMixin, UpdateView):
     # Добавляем дополнительный контекст, если нужно
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         context['type_content'] = "НОВОСТИ"
         context['create_content'] = "РЕДАКТИРОВАТЬ НОВОСТЬ"
         return context
@@ -130,6 +138,7 @@ class ArticlesUpdate(LoginRequiredMixin, UpdateView):
     # Добавляем дополнительный контекст, если нужно
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         context['type_content'] = "СТАТЬИ"
         context['create_content'] = "РЕДАКТИРОВАТЬ СТАТЬЮ"
         return context
@@ -143,6 +152,7 @@ class NewsDelete(LoginRequiredMixin, DeleteView):
     # Добавляем дополнительный контекст, если нужно
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         context['type_content'] = "НОВОСТИ"
         context['create_content'] = "УДАЛИТЬ НОВОСТЬ"
         return context
@@ -156,15 +166,18 @@ class ArticlesDelete(LoginRequiredMixin, DeleteView):
     # Добавляем дополнительный контекст, если нужно
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         context['type_content'] = "СТАТЬИ"
         context['create_content'] = "УДАЛИТЬ СТАТЬЮ"
         return context
 
-def home(request):
-    return render(request=request, template_name='flatpages/error_base.html', context={
-        'title': 'Главная страница'
-    })
-
+@login_required
+def upgrade_me(request):
+    user = request.user
+    authors_group = Group.objects.get(name='authors')
+    if not request.user.groups.filter(name='authors').exists():
+        authors_group.user_set.add(user)
+    return redirect('/news/')
 
 def tr_handler404(request, exception):
     """
