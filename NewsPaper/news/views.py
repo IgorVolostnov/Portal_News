@@ -10,6 +10,32 @@ from .filters import PostFilter
 from .forms import PostForm
 
 
+# Представление списка новостей и статей в зависимости от категории
+class CategoryNewsList(ListView):
+    model = Post
+    ordering = '-time_in_post'
+    template_name = 'posts.html'
+    context_object_name = 'posts'
+    paginate_by = 10
+
+    # Переопределяем queryset, для получения списка новостей
+    def get_queryset(self):
+        print(self.kwargs['value'])
+        queryset = super().get_queryset().filter(category_post=self.kwargs['value'])
+        self.filterset = PostFilter(self.request.GET, queryset)
+        return self.filterset.qs
+
+    # Добавляем дополнительный контекст, если нужно
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
+        context['time_now'] = datetime.datetime.now(datetime.timezone.utc)
+        context['next_news'] = f"Свежие новости на {datetime.datetime.strftime(datetime.datetime.now(), '%d.%m.%Y')}: "
+        context['type_content'] = "НОВОСТИ"
+        context['filterset'] = self.filterset
+        return context
+
+
 # Представление списка новостей
 class NewsList(ListView):
     model = Post
@@ -132,7 +158,7 @@ class NewsUpdate(PermissionRequiredMixin, UpdateView):
         return context
 
 
-# Добавляем представление для изменения новости.
+# Добавляем представление для изменения статьи.
 class ArticlesUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = ('news.change_post',)
     form_class = PostForm

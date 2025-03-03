@@ -600,7 +600,8 @@ section {
 }
 
 .overlay-content {
-  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   top: 5vw;
   width: 100%;
   text-align: center;
@@ -622,7 +623,7 @@ section {
 
 .overlay .closeBtn {
   position: absolute;
-  top: 5vw;
+  top: 2vw;
   right: 2vw;
   font-size: 4vw;
 }
@@ -870,14 +871,14 @@ section {
 /* Верстка формы добавления новости*/
 .button-form {
     position: relative;
-    max-width: 150px;
+    max-width: 180px;
     margin-left: 40vw;
     margin-top: 0.5vw;
     grid-template-columns: 1fr;
     justify-content: center;
     background: radial-gradient(ellipse, rgba(62, 214, 148, 1), rgba(62, 214, 148, 0.1));
     border: 3px groove black;
-    padding: 1vw;
+    padding: 0.8vw 0.8vw;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
     backdrop-filter: blur(20px); /* Эффект матового стекла */
@@ -916,6 +917,12 @@ section {
 	font-size: 2vw;
 }
 
+.field-form {
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+    padding: 0.5vh;
+}
+
 .field-form .form-type-checkbox label {
     margin: 1vh;
     padding: 0.5vh;
@@ -940,7 +947,21 @@ section {
 	transition: 0.3s;
 }
 
+.field-form .form-category-checkbox label {
+    margin: 1vh;
+    padding: 0.5vh;
+    border-radius: 2vh;
+    color: #818181;
+	font: Oswald;
+	font-size: 1vw;
+	transition: 0.3s;
+}
+
 .field-form .form-author-checkbox label:hover, .field-form .form-author-checkbox label:focus {
+    color: #f1f1f1;
+}
+
+.field-form .form-category-checkbox label:hover, .field-form .form-category-checkbox label:focus {
     color: #f1f1f1;
 }
 
@@ -1012,11 +1033,38 @@ section {
     transform: scale(1.2);
 }
 
+.form-category-checkbox {
+    margin-top: 0.5vw;
+    margin-bottom: 0.5vw;
+    margin-left: 22.5vw;
+    user-select: none;
+    -ms-transform: scale(1.2); /* IE */
+    -moz-transform: scale(1.2); /* FF */
+    -webkit-transform: scale(1.2); /* Safari and Chrome */
+    -o-transform: scale(1.2); /* Opera */
+    transform: scale(1.2);
+}
+
 .form-author-checkbox label {
     background: rgba(0,0,0,0.5);
 }
 
+.form-category-checkbox label {
+    background: rgba(0,0,0,0.5);
+}
+
 .form-author-checkbox::before {
+  display: inline-block;
+  width: 5em;
+  height: 5em;
+  flex-shrink: 0;
+  flex-grow: 0;
+  border: 1px solid #adb5bd;
+  border-radius: 0.25em;
+  margin-right: 1em;
+}
+
+.form-category-checkbox::before {
   display: inline-block;
   width: 5em;
   height: 5em;

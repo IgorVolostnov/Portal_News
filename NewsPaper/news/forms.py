@@ -1,10 +1,12 @@
 import locale
+from unicodedata import category
+
 from allauth.account.forms import SignupForm
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
-from django.forms import CharField, Textarea, RadioSelect, ModelForm
+from django.forms import CharField, Textarea, RadioSelect, ModelForm, CheckboxSelectMultiple, ModelMultipleChoiceField
 from django_filters.fields import ModelChoiceField
-from .models import Post, Author
+from .models import Post, Author, Category
 
 
 locale.setlocale(category=locale.LC_ALL, locale="ru_RU.utf8")
@@ -14,10 +16,17 @@ class MyModelChoiceFieldAuthor(ModelChoiceField):
     def label_from_instance(self, obj):
         return f"{obj.user.username}"
 
+class MyModelChoiceFieldCategory(ModelMultipleChoiceField):
+    def label_from_instance(self, obj):
+        return f"{obj}"
+
 class PostForm(ModelForm):
     author_post = MyModelChoiceFieldAuthor(label='Автор контента:',
                                            queryset=Author.objects.exclude(user=8),
                                            widget=RadioSelect(attrs={'class': 'form-author-checkbox'}))
+    category_post = MyModelChoiceFieldCategory(label='Категория контента:',
+                                             queryset=Category.objects.all(),
+                                             widget=CheckboxSelectMultiple(attrs={'class': 'form-category-checkbox'}))
     title_post = CharField(label='Заголовок контента:',
                            max_length=500,
                            widget=Textarea(attrs={'class': 'form-title-input'}))
@@ -27,6 +36,7 @@ class PostForm(ModelForm):
         model = Post
         fields = [
             'author_post',
+            'category_post',
             'title_post',
             'text_post',
         ]

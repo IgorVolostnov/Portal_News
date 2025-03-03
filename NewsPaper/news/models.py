@@ -71,6 +71,29 @@ class Category(models.Model):
     name_category = models.CharField(max_length=3, choices=NEWS_CATEGORY, default=new_news,
                                      unique=True)
 
+    def __str__(self):
+        dict_category = {
+            'NEW': 'Свежее',
+            'POP': 'Популярное',
+            'INC': 'Происшествия',
+            'SPO': 'Спорт',
+            'SHB': 'Шоу-бизнес',
+            'INT': 'Интернет',
+            'CAR': 'Автомобили',
+            'CUL': 'Культура',
+            'POL': 'Политика',
+            'SOC': 'Общество',
+            'TEC': 'Наука и технологии',
+            'ECN': 'Экономика',
+            'REL': 'Религия',
+            'WIL': 'Живая природа',
+            'ECO': 'Экология',
+        }
+        return f'{dict_category[self.name_category]}'
+
+    def get_absolute_url(self):
+        return reverse('category_news_list', args=[str(self.id)])
+
 
 class Post(models.Model):
     news = 'NE'

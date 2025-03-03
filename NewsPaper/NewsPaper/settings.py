@@ -163,6 +163,7 @@ SOCIALACCOUNT_ADAPTER = 'news.my_adapter.MySocialAccountAdapter'
 ACCOUNT_SESSION_REMEMBER = True
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
+SERVER_EMAIL = os.environ["EMAIL_ADDRESS_PORTAL_NEWS"]
 DEFAULT_FROM_EMAIL = os.environ["EMAIL_ADDRESS_PORTAL_NEWS"]
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.environ["HOSTNAME_EMAIL_PORTAL_NEWS"]
