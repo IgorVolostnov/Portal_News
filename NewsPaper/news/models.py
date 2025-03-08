@@ -5,35 +5,6 @@ from django.dispatch import receiver
 from django.urls import reverse
 
 
-class Author(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    rating_user = models.IntegerField(default=0)
-
-    def update_rating(self):
-        total_rating_post = 0
-        for _post in self.post_set.all():
-            total_rating_post += (_post.rating_post * 3)
-        total_rating_comment = 0
-        for _comment in self.user.comment_set.all():
-            total_rating_comment += _comment.rating_comment
-        total_rating_comment_by_post_author = 0
-        for _post in self.post_set.all():
-            for _comment in _post.comment_set.all():
-                total_rating_comment_by_post_author += _comment.rating_comment
-        self.rating_user = total_rating_post + total_rating_comment + total_rating_comment_by_post_author
-        self.save()
-
-
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Author.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
-
-
 class Category(models.Model):
     new_news = 'NEW'
     popular = 'POP'
@@ -70,6 +41,7 @@ class Category(models.Model):
     ]
     name_category = models.CharField(max_length=3, choices=NEWS_CATEGORY, default=new_news,
                                      unique=True)
+    subscribers = models.ManyToManyField(User, through='SubscribersCategory')
 
     def __str__(self):
         dict_category = {
@@ -93,6 +65,35 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return reverse('category_news_list', args=[str(self.id)])
+
+
+class Author(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    rating_user = models.IntegerField(default=0)
+
+    def update_rating(self):
+        total_rating_post = 0
+        for _post in self.post_set.all():
+            total_rating_post += (_post.rating_post * 3)
+        total_rating_comment = 0
+        for _comment in self.user.comment_set.all():
+            total_rating_comment += _comment.rating_comment
+        total_rating_comment_by_post_author = 0
+        for _post in self.post_set.all():
+            for _comment in _post.comment_set.all():
+                total_rating_comment_by_post_author += _comment.rating_comment
+        self.rating_user = total_rating_post + total_rating_comment + total_rating_comment_by_post_author
+        self.save()
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Author.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
 
 
 class Post(models.Model):
@@ -141,6 +142,11 @@ class Post(models.Model):
 
 class PostCategory(models.Model):
     post = models.ForeignKey(Post, on_delete = models.CASCADE)
+    category = models.ForeignKey(Category, on_delete = models.CASCADE)
+
+
+class SubscribersCategory(models.Model):
+    subscribers = models.ForeignKey(User, on_delete = models.CASCADE)
     category = models.ForeignKey(Category, on_delete = models.CASCADE)
 
 

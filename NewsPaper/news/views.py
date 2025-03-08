@@ -1,11 +1,11 @@
 import datetime
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post
+from .models import Post, SubscribersCategory
 from .filters import PostFilter
 from .forms import PostForm
 
@@ -20,15 +20,65 @@ class CategoryNewsList(ListView):
 
     # Переопределяем queryset, для получения списка новостей
     def get_queryset(self):
-        print(self.kwargs['value'])
         queryset = super().get_queryset().filter(category_post=self.kwargs['value'])
         self.filterset = PostFilter(self.request.GET, queryset)
         return self.filterset.qs
 
     # Добавляем дополнительный контекст, если нужно
     def get_context_data(self, **kwargs):
+        user_me = self.request.user
+        category_me = self.kwargs['value']
         context = super().get_context_data(**kwargs)
         context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
+        if user_me.id is not None:
+            context['is_not_subscribers'] = not SubscribersCategory.objects.filter(
+                subscribers_id=int(user_me.id),
+                category_id=int(category_me)
+            ).exists()
+        context['category_id'] = category_me
+        context['time_now'] = datetime.datetime.now(datetime.timezone.utc)
+        context['next_news'] = f"Свежие новости на {datetime.datetime.strftime(datetime.datetime.now(), '%d.%m.%Y')}: "
+        context['type_content'] = "НОВОСТИ"
+        context['filterset'] = self.filterset
+        return context
+
+# Представление списка новостей и статей в зависимости от категории
+class Subscribers(ListView):
+    model = Post
+    ordering = '-time_in_post'
+    template_name = 'posts.html'
+    context_object_name = 'posts'
+    paginate_by = 10
+
+    # Переопределяем queryset, для получения списка новостей
+    def get_queryset(self):
+        queryset = super().get_queryset().filter(category_post=self.kwargs['value'])
+        self.filterset = PostFilter(self.request.GET, queryset)
+        return self.filterset.qs
+
+    # Добавляем дополнительный контекст, если нужно
+    def get_context_data(self, **kwargs):
+        user_me = self.request.user
+        category_me = self.kwargs['value']
+        context = super().get_context_data(**kwargs)
+        context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
+        if user_me.id is not None:
+            user_current = User.objects.get(pk=user_me.id)
+            if not SubscribersCategory.objects.filter(
+                    subscribers_id=int(user_me.id),
+                    category_id=int(category_me)
+            ).exists():
+                SubscribersCategory.objects.create(
+                    subscribers=user_current,
+                    category_id=int(category_me),
+                )
+            else:
+                print('Пользователь уже подписан')
+        context['is_not_subscribers'] = not SubscribersCategory.objects.filter(
+            subscribers_id=int(user_me.id),
+            category_id=int(category_me)
+        ).exists()
+        context['category_id'] = category_me
         context['time_now'] = datetime.datetime.now(datetime.timezone.utc)
         context['next_news'] = f"Свежие новости на {datetime.datetime.strftime(datetime.datetime.now(), '%d.%m.%Y')}: "
         context['type_content'] = "НОВОСТИ"
@@ -208,6 +258,26 @@ def upgrade_me(request):
     if not request.user.groups.filter(name='authors').exists():
         authors_group.user_set.add(user)
     return redirect('/news/')
+
+# @login_required
+# def subscribers_me(request):
+#     print(1)
+#     category = 7
+#     url = reverse('subscribers', args=[category])
+#     user_current = User.objects.get(pk=request.user.id)
+#     print(f'user: {user_current} category: {category}')
+#     if not SubscribersCategory.objects.filter(
+#         subscribers_id=int(request.user.id),
+#         category_id=int(category)
+#         ).exists():
+#         print('Пользователь не подписан на данную категорию')
+#         SubscribersCategory.objects.create(
+#             subscribers=user_current,
+#             category_id=int(category),
+#         )
+#     else:
+#         print('Пользователь уже подписан')
+#     return redirect(f'/categories/{str(category)}')
 
 def tr_handler404(request, exception):
     """
