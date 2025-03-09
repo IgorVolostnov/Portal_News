@@ -42,7 +42,7 @@ class CategoryNewsList(ListView):
         context['filterset'] = self.filterset
         return context
 
-# Представление списка новостей и статей в зависимости от категории
+# Представление списка новостей и статей в зависимости от категории для пользователя, который подписался на категорию
 class Subscribers(ListView):
     model = Post
     ordering = '-time_in_post'
@@ -259,25 +259,6 @@ def upgrade_me(request):
         authors_group.user_set.add(user)
     return redirect('/news/')
 
-# @login_required
-# def subscribers_me(request):
-#     print(1)
-#     category = 7
-#     url = reverse('subscribers', args=[category])
-#     user_current = User.objects.get(pk=request.user.id)
-#     print(f'user: {user_current} category: {category}')
-#     if not SubscribersCategory.objects.filter(
-#         subscribers_id=int(request.user.id),
-#         category_id=int(category)
-#         ).exists():
-#         print('Пользователь не подписан на данную категорию')
-#         SubscribersCategory.objects.create(
-#             subscribers=user_current,
-#             category_id=int(category),
-#         )
-#     else:
-#         print('Пользователь уже подписан')
-#     return redirect(f'/categories/{str(category)}')
 
 def tr_handler404(request, exception):
     """

@@ -1,10 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.urls import reverse
 
 
+# Модель категорий постов, связанная многие ко многим с моделью Post через дополнительную модель PostCategory и
+# связанная многие ко многим с встроенной моделью User через дополнительную модель SubscribersCategory
 class Category(models.Model):
     new_news = 'NEW'
     popular = 'POP'
@@ -67,6 +67,7 @@ class Category(models.Model):
         return reverse('category_news_list', args=[str(self.id)])
 
 
+# Модель авторов постов, связанная один к одному с встроенной моделью User
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     rating_user = models.IntegerField(default=0)
@@ -86,16 +87,8 @@ class Author(models.Model):
         self.save()
 
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Author.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
-
-
+# Модель постов, связанная многие ко многим с моделью Category через дополнительную модель PostCategory и
+# связанная один к одному с моделью Author
 class Post(models.Model):
     news = 'NE'
     article = 'AR'
@@ -140,16 +133,19 @@ class Post(models.Model):
             return reverse('post_detail_articles', args=[str(self.id)])
 
 
+# Модель связывающая модели Post и Category
 class PostCategory(models.Model):
     post = models.ForeignKey(Post, on_delete = models.CASCADE)
     category = models.ForeignKey(Category, on_delete = models.CASCADE)
 
 
+# Модель связывающая модели User и Category
 class SubscribersCategory(models.Model):
     subscribers = models.ForeignKey(User, on_delete = models.CASCADE)
     category = models.ForeignKey(Category, on_delete = models.CASCADE)
 
 
+# Модель комментариев, связанная один к одному с моделью Post и связанная один к одному с моделью User
 class Comment(models.Model):
     post_comment = models.ForeignKey(Post, on_delete=models.CASCADE)
     user_comment = models.ForeignKey(User, on_delete=models.CASCADE)

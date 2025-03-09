@@ -2,8 +2,9 @@ from django.urls import path
 from .views import NewsList, ArticlesList, PostDetail, NewsCreate, ArticlesCreate, NewsUpdate, ArticlesUpdate, \
    NewsDelete, ArticlesDelete, upgrade_me, CategoryNewsList, Subscribers
 
+
+# Определяем все url-пути в приложении news
 urlpatterns = [
-   path('categories/<int:value>', CategoryNewsList.as_view(), name='category_post_list'),
    path('news/', NewsList.as_view(), name='news_list'),
    path('articles/', ArticlesList.as_view(), name='articles_list'),
    path('news/<int:pk>', PostDetail.as_view(), name='post_detail_news'),
@@ -15,5 +16,7 @@ urlpatterns = [
    path('news/<int:pk>/delete/', NewsDelete.as_view(), name='news_delete'),
    path('articles/<int:pk>/delete/', ArticlesDelete.as_view(), name='articles_delete'),
    path('news/upgrade/', upgrade_me, name = 'upgrade'),
+   path('categories/upgrade/', upgrade_me, name = 'upgrade'),
+   path('categories/<int:value>', CategoryNewsList.as_view(), name='category_post_list'),
    path('subscribers/<int:value>', Subscribers.as_view(), name = 'subscribers'),
 ]

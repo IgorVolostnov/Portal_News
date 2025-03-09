@@ -10,6 +10,7 @@ class MyDateInput(DateInput):
     format = '%Y-%m-%d'
 
 
+# Фильтр для модели Post
 class PostFilter(FilterSet):
     Author = MultipleChoiceFilter(label='Автор контента:',
                                   field_name='author_post',

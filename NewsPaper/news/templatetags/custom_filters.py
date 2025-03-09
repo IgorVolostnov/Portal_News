@@ -2,6 +2,7 @@ from django import template
 from check_swear import SwearingCheck
 
 
+# Реализации проверки контента на наличие ненормативной лексики с помощью библиотеки check_swear
 register = template.Library()
 sch = SwearingCheck() # create filter
 

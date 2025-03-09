@@ -4,15 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed8eb622-6fe8-4644-863f-57eefd8cb73d" name="Changes" comment="Commit 202503030159 add category">
-      <change afterPath="$PROJECT_DIR$/NewsPaper/templates/category_mail.html" afterDir="false" />
+    <list default="true" id="ed8eb622-6fe8-4644-863f-57eefd8cb73d" name="Changes" comment="Commit 202503081507 add subscribers">
+      <change afterPath="$PROJECT_DIR$/NewsPaper/news/signals.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/templates/account/email/email_confirmation_signup_message.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/NewsPaper/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/NewsPaper/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/NewsPaper/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/NewsPaper/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/accounts/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/accounts/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/filters.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewsPaper/news/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewsPaper/news/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/my_adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/my_adapter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/templatetags/custom_filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/templatetags/custom_filters.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/templatetags/custom_tags.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/templatetags/custom_tags.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/token.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/token.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewsPaper/news/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewsPaper/news/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/static/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/posts.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/posts.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/acc_active_email.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/acc_active_email.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/allauth/layouts/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/allauth/layouts/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/category_mail.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/category_mail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/flatpages/error_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/flatpages/error_base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/post.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/post.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +36,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -291,7 +305,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741042850950</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Commit 202503081507 add subscribers">
+      <option name="closed" value="true" />
+      <created>1741435674934</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1741435674934</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -309,7 +331,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Commit 202411101508" />
     <MESSAGE value="Commit 202411101710" />
     <MESSAGE value="Commit 202411101703" />
     <MESSAGE value="Commit 202411110320" />
@@ -334,6 +355,7 @@
     <MESSAGE value="Commit 202502162020 add group" />
     <MESSAGE value="Commit 202502170150 add button add group" />
     <MESSAGE value="Commit 202503030159 add category" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit 202503030159 add category" />
+    <MESSAGE value="Commit 202503081507 add subscribers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit 202503081507 add subscribers" />
   </component>
 </project>

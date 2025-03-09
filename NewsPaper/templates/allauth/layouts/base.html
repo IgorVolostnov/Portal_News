@@ -42,10 +42,21 @@
             </div>
             <a href="javascript:void(0)" class="closeBtn" onclick="closeNav()">&times;</a>
             <div class="overlay-content">
-                <a href="#">О Нас</a>
-                <a href="#">Услуги</a>
-                <a href="#">Клиенты</a>
-                <a href="#">Контакт</a>
+                <a href="{% url 'category_post_list' value=1 %}">Свежее</a>
+                <a href="{% url 'category_post_list' value=3 %}">Популярное</a>
+                <a href="{% url 'category_post_list' value=5 %}">Интернет</a>
+                <a href="{% url 'category_post_list' value=6 %}">Спорт</a>
+                <a href="{% url 'category_post_list' value=7 %}">Культура</a>
+                <a href="{% url 'category_post_list' value=8 %}">Политика</a>
+                <a href="{% url 'category_post_list' value=9 %}">Общество</a>
+                <a href="{% url 'category_post_list' value=10 %}">Наука и технологии</a>
+                <a href="{% url 'category_post_list' value=11 %}">Происшествия</a>
+                <a href="{% url 'category_post_list' value=12 %}">Экономика</a>
+                <a href="{% url 'category_post_list' value=13 %}">Религия</a>
+                <a href="{% url 'category_post_list' value=14 %}">Автомобили</a>
+                <a href="{% url 'category_post_list' value=15 %}">Шоу-бизнес</a>
+                <a href="{% url 'category_post_list' value=16 %}">Живая природа</a>
+                <a href="{% url 'category_post_list' value=17 %}">Экология</a>
             </div>
         </div>
 

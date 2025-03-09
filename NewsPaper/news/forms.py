@@ -1,10 +1,8 @@
 import locale
 from allauth.account.forms import SignupForm
-from django.contrib.auth.models import Group, User
+from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
-from django.core.mail import EmailMultiAlternatives
 from django.forms import CharField, Textarea, RadioSelect, ModelForm, CheckboxSelectMultiple, ModelMultipleChoiceField
-from django.template.loader import render_to_string
 from django_filters.fields import ModelChoiceField
 from .models import Post, Author, Category
 
@@ -16,28 +14,15 @@ class MyModelChoiceFieldAuthor(ModelChoiceField):
     def label_from_instance(self, obj):
         return f"{obj.user.username}"
 
+
+# Создаем свой класс на основании ModelMultipleChoiceField для отображения названия категорий контента
 class MyModelChoiceFieldCategory(ModelMultipleChoiceField):
     def label_from_instance(self, obj):
         return f"{obj}"
 
+
+# Форма для создания и изменения модели Post
 class PostForm(ModelForm):
-    dict_category = {
-        'NEW': 'Свежее',
-        'POP': 'Популярное',
-        'INC': 'Происшествия',
-        'SPO': 'Спорт',
-        'SHB': 'Шоу-бизнес',
-        'INT': 'Интернет',
-        'CAR': 'Автомобили',
-        'CUL': 'Культура',
-        'POL': 'Политика',
-        'SOC': 'Общество',
-        'TEC': 'Наука и технологии',
-        'ECN': 'Экономика',
-        'REL': 'Религия',
-        'WIL': 'Живая природа',
-        'ECO': 'Экология',
-    }
     author_post = MyModelChoiceFieldAuthor(label='Автор контента:',
                                            queryset=Author.objects.exclude(user=8),
                                            widget=RadioSelect(attrs={'class': 'form-author-checkbox'}))
@@ -67,37 +52,10 @@ class PostForm(ModelForm):
             raise ValidationError(
                "Описание не должно быть идентично названию."
             )
-        subscribers = set(cleaned_data.get("category_post").values_list('name_category', 'subscribers').all())
-        dict_subscribers = {}
-        for subscriber in subscribers:
-            if subscriber[1] is not None:
-                current_user = User.objects.get(pk=subscriber[1])
-                try:
-                    dict_subscribers[self.dict_category[subscriber[0]]][current_user.email] = current_user.username
-                except KeyError:
-                    dict_subscribers[self.dict_category[subscriber[0]]] = {current_user.email: current_user.username}
-        print(dict_subscribers)
-        for item in dict_subscribers.values():
-            for email_user, username_user in item.items():
-                # Получаем наш html-макет
-                html_content = render_to_string(
-                    'category_mail.html',
-                    {
-                        'user_name': username_user,
-                        'text_title': title_post,
-                        'text_content': text_post,
-                    }
-                )
-                msg = EmailMultiAlternatives(
-                    subject=f'Здравствуй, {username_user}. Новая статья в твоём любимом разделе!',
-                    body=text_post,  # это то же, что и message
-                    to=[email_user],  # это то же, что и recipients_list
-                )
-                msg.attach_alternative(html_content, "text/html")  # добавляем html
-                msg.send()  # отсылаем
         return cleaned_data
 
 
+# Переопределяем форму регистрации, для добавления пользователя в группу common
 class CommonSignupForm(SignupForm):
 
     def save(self, request):

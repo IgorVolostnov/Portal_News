@@ -2,6 +2,7 @@ import datetime
 from django import template
 
 
+# Создание тегов для HTML-файлов
 register = template.Library()
 
 @register.simple_tag()

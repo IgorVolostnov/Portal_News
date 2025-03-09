@@ -20,10 +20,13 @@ from django.views.static import serve
 from django.urls import path, include, re_path
 from django.contrib.auth import views as auth_views
 
+
+# Указываем url для перенаправления в случае возникновения стандартных ошибок приложения
 handler403 = 'news.views.tr_handler403' # New
 handler404 = 'news.views.tr_handler404' # New
 handler500 = 'news.views.tr_handler500' # New
 
+# Определяем все url-пути во всем проекте
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('pages/', include('django.contrib.flatpages.urls')),

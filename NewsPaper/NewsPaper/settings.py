@@ -27,6 +27,7 @@ DEBUG = False
 ALLOWED_ORIGINS = ['http://*', 'https://*']
 CSRF_TRUSTED_ORIGINS = ALLOWED_ORIGINS.copy()
 ALLOWED_HOSTS = ['127.0.0.1']
+PORT = os.environ["PORT_DJANGO"]
 
 
 # Application definition
@@ -46,7 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
     # подключаем приложение для новостей и статей
-    'news',
+    'news.apps.NewsConfig',
     # создаем дополнительные поля для пользователей
     'fpages',
     'django_filters',
