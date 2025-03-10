@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     # создаем дополнительные поля для пользователей
     'fpages',
     'django_filters',
+    'django_apscheduler',
 ]
 
 SITE_ID = 1
@@ -130,7 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
 TIME_ZONE = 'Europe/Moscow'
 LANGUAGE_CODE = 'ru-ru'
 USE_I18N = True
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -174,3 +175,6 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.environ["EMAIL_ADDRESS_PORTAL_NEWS"]
 EMAIL_HOST_PASSWORD = os.environ["EMAIL_PASSWORD_PORTAL_NEWS"]
 EMAIL_FILE_PATH = BASE_DIR / 'emails'
+
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
