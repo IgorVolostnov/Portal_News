@@ -10,8 +10,6 @@ logger = logging.getLogger(__name__)
 def send_mail_job():
     generator_data = Generator()
     data_post_last_week = generator_data.get_query()
-    print(data_post_last_week)
-
     for subscriber in data_post_last_week:
         title_post = (f'Здравствуйте, {subscriber['username_user']}. '
                       f'Новые новости и статьи за прошедшую неделю по Вашим любимым категориям!')

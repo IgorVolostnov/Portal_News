@@ -33,7 +33,7 @@
                 {% for category in categories %}
                 <h3>Список статей в категории {{category.name_category}}:</h3>
                     {% for post in category.list_posts %}
-                        <h4><a href="{{ post.url_post }}">{{post.title_post}}</a></h4>
+                        <h4><a href="http://127.0.0.1:8000/news/{{ post.pk }}">{{post.title_post}}</a></h4>
                     {% endfor %}
                 {% endfor %}
             </section>

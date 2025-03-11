@@ -4,16 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed8eb622-6fe8-4644-863f-57eefd8cb73d" name="Changes" comment="Commit 202503100107 add signals">
-      <change afterPath="$PROJECT_DIR$/NewsPaper/news/management/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NewsPaper/news/management/commands/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NewsPaper/news/management/commands/jobs.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NewsPaper/news/management/commands/runapscheduler.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NewsPaper/news/management/list_post.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NewsPaper/templates/send_mail_posts_week.html" afterDir="false" />
+    <list default="true" id="ed8eb622-6fe8-4644-863f-57eefd8cb73d" name="Changes" comment="Commit 202503110117 add apscheduler">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/NewsPaper/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/NewsPaper/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/management/commands/jobs.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/management/commands/jobs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/management/commands/runapscheduler.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/management/commands/runapscheduler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/management/list_post.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/management/list_post.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/send_mail_posts_week.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/send_mail_posts_week.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -316,7 +312,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741558066421</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Commit 202503110117 add apscheduler">
+      <option name="closed" value="true" />
+      <created>1741645071034</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1741645071034</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -334,7 +338,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Commit 202411110320" />
     <MESSAGE value="Commit 202411110323" />
     <MESSAGE value="Commit 202411110335" />
     <MESSAGE value="Commit 202411260248" />
@@ -359,6 +362,7 @@
     <MESSAGE value="Commit 202503081507 add subscribers" />
     <MESSAGE value="Commit 202503100106 add signals" />
     <MESSAGE value="Commit 202503100107 add signals" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit 202503100107 add signals" />
+    <MESSAGE value="Commit 202503110117 add apscheduler" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit 202503110117 add apscheduler" />
   </component>
 </project>

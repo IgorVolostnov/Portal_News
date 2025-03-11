@@ -1,4 +1,5 @@
-from ..models import Post
+from django.contrib.auth.models import User
+from ..models import Post, Category
 from datetime import timedelta, datetime
 from django.utils import timezone
 
@@ -22,42 +23,52 @@ class Generator:
         time_zone_datetime = timezone.make_aware(new_datetime, tz, True)
         return time_zone_datetime.date()
 
+    def get_dict_subscribers(self):
+        dict_category = {
+            'NEW': 'Свежее',
+            'POP': 'Популярное',
+            'INC': 'Происшествия',
+            'SPO': 'Спорт',
+            'SHB': 'Шоу-бизнес',
+            'INT': 'Интернет',
+            'CAR': 'Автомобили',
+            'CUL': 'Культура',
+            'POL': 'Политика',
+            'SOC': 'Общество',
+            'TEC': 'Наука и технологии',
+            'ECN': 'Экономика',
+            'REL': 'Религия',
+            'WIL': 'Живая природа',
+            'ECO': 'Экология',
+        }
+        dict_subscribers = {}
+        subscribers = set(Category.objects.values_list('pk', 'subscribers').all())
+        for subscriber in subscribers:
+            if subscriber[1] is not None:
+                try:
+                    dict_subscribers[subscriber[1]]['categories'].append(
+                        {'name_category': dict_category[Category.objects.get(pk=subscriber[0]).name_category],
+                         'list_posts': list(Post.objects.filter(
+                             category_post=subscriber[0],
+                             time_in_post__gte=self.start_date,
+                             time_in_post__lt=self.end_date
+                         ).values('title_post', 'pk').all())})
+                except KeyError:
+                    dict_subscribers[subscriber[1]] = {
+                        'categories': [{'name_category': dict_category[Category.objects.get(pk=subscriber[0]).name_category],
+                                        'list_posts': list(Post.objects.filter(
+                                            category_post=subscriber[0],
+                                            time_in_post__gte=self.start_date,
+                                            time_in_post__lt=self.end_date
+                                        ).values('title_post', 'pk').all())}]}
+        return dict_subscribers
+
     def get_query(self):
-        url_post = f'http://127.0.0.1:8000{'/news/'}'
-        query = Post.objects.filter(
-            time_in_post__gte=self.start_date,
-            time_in_post__lt=self.end_date
-        ).values_list('title_post', 'category_post').all()
-        query = [{'username_user': 'Игорь',
-                  'email_user': 'iv@rossvik.moscow',
-                  'categories': [
-                      {'name_category': 'Свежее',
-                       'list_posts': [{'title_post': '«Химки» — это просто набор футболистов. У них нет, не было и не будет никакой выстроенной игры» — Генич.',
-                                       'url_post': url_post},
-                                      {'title_post': '«Тестовое второе сообщение.',
-                                       'url_post': url_post}
-                                      ]},
-                      {'name_category': 'Культура',
-                       'list_posts': [{'title_post': '«Культурная статья для примера.',
-                                       'url_post': url_post},
-                                      {'title_post': '«Вторая культурная статься для тестовой отправки.',
-                                       'url_post': url_post}
-                                      ]}]},
-                 {'username_user': 'Света',
-                  'email_user': 'file-sv@yandex.ru',
-                  'categories': [
-                      {'name_category': 'Популярное',
-                       'list_posts': [{
-                                          'title_post': '«Химки» — это просто набор футболистов. У них нет, не было и не будет никакой выстроенной игры» — Генич.',
-                                          'url_post': url_post},
-                                      {'title_post': '«Тестовое второе сообщение.',
-                                       'url_post': url_post}
-                                      ]},
-                      {'name_category': 'Шоу-Бизнес',
-                       'list_posts': [{'title_post': '«Культурная статья для примера.',
-                                       'url_post': url_post},
-                                      {'title_post': '«Вторая культурная статься для тестовой отправки.',
-                                       'url_post': url_post}
-                                      ]}]},
-                 ]
+        dict_with_data = self.get_dict_subscribers()
+        query = []
+        for current_user, category in dict_with_data.items():
+            user = User.objects.get(pk=current_user)
+            query.append({'username_user': user.username,
+                          'email_user': user.email,
+                          'categories': category['categories']})
         return query

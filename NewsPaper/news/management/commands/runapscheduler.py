@@ -20,7 +20,7 @@ class Command(BaseCommand):
         scheduler.add_job(
             send_mail_job,
             trigger=CronTrigger(
-                day_of_week="tue", hour="01", minute="13", end_date='2025-12-30'
+                day_of_week="wed", hour="01", minute="49", end_date='2025-12-30'
             ),
             id = "send_mail_job",
             max_instances = 1,
