@@ -9,7 +9,7 @@ class Generator:
         if end_date:
             self.end_date = self.get_my_timezone_date(end_date)
         else:
-            self.end_date = timezone.now().date()
+            self.end_date = timezone.now().date() + timedelta(days=1)
 
         if start_date:
             self.start_date = self.get_my_timezone_date(start_date)
@@ -46,21 +46,25 @@ class Generator:
         for subscriber in subscribers:
             if subscriber[1] is not None:
                 try:
-                    dict_subscribers[subscriber[1]]['categories'].append(
-                        {'name_category': dict_category[Category.objects.get(pk=subscriber[0]).name_category],
-                         'list_posts': list(Post.objects.filter(
-                             category_post=subscriber[0],
-                             time_in_post__gte=self.start_date,
-                             time_in_post__lt=self.end_date
-                         ).values('title_post', 'pk').all())})
+                    list_posts = list(Post.objects.filter(
+                        category_post=subscriber[0],
+                        time_in_post__gte=self.start_date,
+                        time_in_post__lt=self.end_date
+                    ).values('title_post', 'pk').all())
+                    if len(list_posts) > 0:
+                        dict_subscribers[subscriber[1]]['categories'].append(
+                            {'name_category': dict_category[Category.objects.get(pk=subscriber[0]).name_category],
+                             'list_posts': list_posts})
                 except KeyError:
-                    dict_subscribers[subscriber[1]] = {
-                        'categories': [{'name_category': dict_category[Category.objects.get(pk=subscriber[0]).name_category],
-                                        'list_posts': list(Post.objects.filter(
+                    list_posts = list(Post.objects.filter(
                                             category_post=subscriber[0],
                                             time_in_post__gte=self.start_date,
                                             time_in_post__lt=self.end_date
-                                        ).values('title_post', 'pk').all())}]}
+                                        ).values('title_post', 'pk').all())
+                    if len(list_posts) > 0:
+                        dict_subscribers[subscriber[1]] = {
+                            'categories': [{'name_category': dict_category[Category.objects.get(pk=subscriber[0]).name_category],
+                                            'list_posts': list_posts}]}
         return dict_subscribers
 
     def get_query(self):

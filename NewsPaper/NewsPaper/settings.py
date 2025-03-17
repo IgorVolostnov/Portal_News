@@ -20,14 +20,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ["SECRET_KEY_DJANGO"]
+SECRET_KEY = os.environ.get('SECRET_KEY_DJANGO', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 ALLOWED_ORIGINS = ['http://*', 'https://*']
 CSRF_TRUSTED_ORIGINS = ALLOWED_ORIGINS.copy()
 ALLOWED_HOSTS = ['127.0.0.1']
-PORT = os.environ["PORT_DJANGO"]
+PORT = os.environ.get('PORT_DJANGO', '')
 
 
 # Application definition
@@ -98,11 +98,11 @@ WSGI_APPLICATION = 'NewsPaper.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ["NAME_PORTAL"],
-        'USER': os.environ["USER_PORTAL"],
-        'PASSWORD': os.environ["PASSWORD_PORTAL"],
-        'HOST': os.environ["HOST_PORTAL"],
-        'PORT': os.environ["PORT_PORTAL"],
+        'NAME': os.environ.get('NAME_PORTAL', ''),
+        'USER': os.environ.get('USER_PORTAL', ''),
+        'PASSWORD': os.environ.get('PASSWORD_PORTAL', ''),
+        'HOST': os.environ.get('HOST_PORTAL', ''),
+        'PORT': os.environ.get('PORT_PORTAL', ''),
     }
 }
 
@@ -165,16 +165,22 @@ SOCIALACCOUNT_ADAPTER = 'news.my_adapter.MySocialAccountAdapter'
 ACCOUNT_SESSION_REMEMBER = True
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
-SERVER_EMAIL = os.environ["EMAIL_ADDRESS_PORTAL_NEWS"]
-DEFAULT_FROM_EMAIL = os.environ["EMAIL_ADDRESS_PORTAL_NEWS"]
+SERVER_EMAIL = os.environ.get('EMAIL_ADDRESS_PORTAL_NEWS', '')
+DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_ADDRESS_PORTAL_NEWS', '')
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.environ["HOSTNAME_EMAIL_PORTAL_NEWS"]
-EMAIL_PORT = os.environ["PORT_EMAIL_PORTAL_NEWS"]
+EMAIL_HOST = os.environ.get('HOSTNAME_EMAIL_PORTAL_NEWS', '')
+EMAIL_PORT = os.environ.get('PORT_EMAIL_PORTAL_NEWS', '')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = os.environ["EMAIL_ADDRESS_PORTAL_NEWS"]
-EMAIL_HOST_PASSWORD = os.environ["EMAIL_PASSWORD_PORTAL_NEWS"]
+EMAIL_HOST_USER = os.environ.get('EMAIL_ADDRESS_PORTAL_NEWS', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD_PORTAL_NEWS', '')
 EMAIL_FILE_PATH = BASE_DIR / 'emails'
 
 APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'

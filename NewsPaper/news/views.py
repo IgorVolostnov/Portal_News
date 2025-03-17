@@ -8,6 +8,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import Post, SubscribersCategory
 from .filters import PostFilter
 from .forms import PostForm
+from .tasks import mail_to_subscribers
 
 
 # Представление списка новостей и статей в зависимости от категории
@@ -169,6 +170,8 @@ class NewsCreate(PermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         post = form.save(commit=False)
         post.type_post = 'NE'
+        post.save()
+        mail_to_subscribers.delay(post.pk)
         return super().form_valid(form)
 
 # Представление для создания статей
@@ -190,6 +193,8 @@ class ArticlesCreate(PermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         post = form.save(commit=False)
         post.type_post = 'AR'
+        post.save()
+        mail_to_subscribers.delay(post.pk)
         return super().form_valid(form)
 
 # Добавляем представление для изменения новости.
