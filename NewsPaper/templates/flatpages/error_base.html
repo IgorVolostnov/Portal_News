@@ -12,62 +12,66 @@
             {% endblock extra_head %}
         </title>
         {% load static %}
+        {% load cache %}
         <script src="{% static 'js/script.js' %}"></script>
 	    <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css">
 	    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,300" type="text/css">
     </head>
     <body>
-        <div id="myNav" class="overlay">
-            <div id="myHeaderOverlay" class="main-menuOverlay">
-                <span id="bellLogoOverlay">
-                    <img src="{% static 'images/logo_rossvik.png' %}"
-                         onmouseover="this.src='{% static 'images/logo_rossvik_color.png' %}';"
-                         onmouseout="this.src='{% static 'images/logo_rossvik.png' %}';" />
-                </span>
-                <ul>
-                    <li><a href="/home/">ГЛАВНАЯ</a></li>
-                    <li><a href="#">КАТЕГОРИИ</a></li>
-                    <li><a href="/news/">НОВОСТИ</a></li>
-                    <li><a href="/articles/">СТАТЬИ</a></li>
-                    <li><a href="/contacts/">КОНТАКТЫ</a></li>
-                </ul>
-                <div class="search-container-overlay">
-                    <input type="text" name="q" placeholder="Поиск" class="search-text">
-                    <button type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                        </svg>
-                    </button>
+        {% cache 300 overlay-error %}
+            <div id="myNav" class="overlay">
+                <div id="myHeaderOverlay" class="main-menuOverlay">
+                    <span id="bellLogoOverlay">
+                        <img src="{% static 'images/logo_rossvik.png' %}"
+                             onmouseover="this.src='{% static 'images/logo_rossvik_color.png' %}';"
+                             onmouseout="this.src='{% static 'images/logo_rossvik.png' %}';" />
+                    </span>
+                    <ul>
+                        <li><a href="/home/">ГЛАВНАЯ</a></li>
+                        <li><a href="#">КАТЕГОРИИ</a></li>
+                        <li><a href="/news/">НОВОСТИ</a></li>
+                        <li><a href="/articles/">СТАТЬИ</a></li>
+                        <li><a href="/contacts/">КОНТАКТЫ</a></li>
+                    </ul>
+                    <div class="search-container-overlay">
+                        <input type="text" name="q" placeholder="Поиск" class="search-text">
+                        <button type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <a href="javascript:void(0)" class="closeBtn" onclick="closeNav()">&times;</a>
+                <div class="overlay-content">
+                    <a href="{% url 'category_post_list' value=1 %}">Свежее</a>
+                    <a href="{% url 'category_post_list' value=3 %}">Популярное</a>
+                    <a href="{% url 'category_post_list' value=5 %}">Интернет</a>
+                    <a href="{% url 'category_post_list' value=6 %}">Спорт</a>
+                    <a href="{% url 'category_post_list' value=7 %}">Культура</a>
+                    <a href="{% url 'category_post_list' value=8 %}">Политика</a>
+                    <a href="{% url 'category_post_list' value=9 %}">Общество</a>
+                    <a href="{% url 'category_post_list' value=10 %}">Наука и технологии</a>
+                    <a href="{% url 'category_post_list' value=11 %}">Происшествия</a>
+                    <a href="{% url 'category_post_list' value=12 %}">Экономика</a>
+                    <a href="{% url 'category_post_list' value=13 %}">Религия</a>
+                    <a href="{% url 'category_post_list' value=14 %}">Автомобили</a>
+                    <a href="{% url 'category_post_list' value=15 %}">Шоу-бизнес</a>
+                    <a href="{% url 'category_post_list' value=16 %}">Живая природа</a>
+                    <a href="{% url 'category_post_list' value=17 %}">Экология</a>
                 </div>
             </div>
-            <a href="javascript:void(0)" class="closeBtn" onclick="closeNav()">&times;</a>
-            <div class="overlay-content">
-                <a href="{% url 'category_post_list' value=1 %}">Свежее</a>
-                <a href="{% url 'category_post_list' value=3 %}">Популярное</a>
-                <a href="{% url 'category_post_list' value=5 %}">Интернет</a>
-                <a href="{% url 'category_post_list' value=6 %}">Спорт</a>
-                <a href="{% url 'category_post_list' value=7 %}">Культура</a>
-                <a href="{% url 'category_post_list' value=8 %}">Политика</a>
-                <a href="{% url 'category_post_list' value=9 %}">Общество</a>
-                <a href="{% url 'category_post_list' value=10 %}">Наука и технологии</a>
-                <a href="{% url 'category_post_list' value=11 %}">Происшествия</a>
-                <a href="{% url 'category_post_list' value=12 %}">Экономика</a>
-                <a href="{% url 'category_post_list' value=13 %}">Религия</a>
-                <a href="{% url 'category_post_list' value=14 %}">Автомобили</a>
-                <a href="{% url 'category_post_list' value=15 %}">Шоу-бизнес</a>
-                <a href="{% url 'category_post_list' value=16 %}">Живая природа</a>
-                <a href="{% url 'category_post_list' value=17 %}">Экология</a>
-            </div>
-        </div>
-
+        {% endcache %}
         <div id="myFilter" class="filter">
-            <div id="myFilterLogo" class="filter-logo">
-                <span id="bellLogoFilter">
-                    <img src="{% static 'images/logo_rossvik.png' %}"
-                         onmouseover="this.src='{% static 'images/logo_rossvik_color.png' %}';"
-                         onmouseout="this.src='{% static 'images/logo_rossvik.png' %}';" />
-                </span>
-            </div>
+            {% cache 300 filter-logo-error %}
+                <div id="myFilterLogo" class="filter-logo">
+                    <span id="bellLogoFilter">
+                        <img src="{% static 'images/logo_rossvik.png' %}"
+                             onmouseover="this.src='{% static 'images/logo_rossvik_color.png' %}';"
+                             onmouseout="this.src='{% static 'images/logo_rossvik.png' %}';" />
+                    </span>
+                </div>
+            {% endcache %}
             <a href="javascript:void(0)" class="closeBtnFilter" onclick="closeFilter()">&times;</a>
             <div class="filter-content">
                 {% block filters %}
@@ -80,30 +84,32 @@
         </div>
 
         <div id="wrapper">
-            <header>
-                <div id="myHeader" class="main-menu">
-                    <span id="bellLogo">
-                        <img src="{% static 'images/logo_rossvik.png' %}"
-                             onmouseover="this.src='{% static 'images/logo_rossvik_color.png' %}';"
-                             onmouseout="this.src='{% static 'images/logo_rossvik.png' %}';" />
-                    </span>
-                    <ul>
-                        <li><a href="/home/">ГЛАВНАЯ</a></li>
-                        <li><a href="#" onmouseover="openNav()">КАТЕГОРИИ</a></li>
-                        <li><a href="/news/">НОВОСТИ</a></li>
-                        <li><a href="/articles/">СТАТЬИ</a></li>
-                        <li><a href="/contacts/">КОНТАКТЫ</a></li>
-                    </ul>
-                    <div class="search-container">
-                        <input type="text" name="q" placeholder="Поиск" class="search-text">
-                        <button type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                            </svg>
-                        </button>
+            {% cache 300 header-error %}
+                <header>
+                    <div id="myHeader" class="main-menu">
+                        <span id="bellLogo">
+                            <img src="{% static 'images/logo_rossvik.png' %}"
+                                 onmouseover="this.src='{% static 'images/logo_rossvik_color.png' %}';"
+                                 onmouseout="this.src='{% static 'images/logo_rossvik.png' %}';" />
+                        </span>
+                        <ul>
+                            <li><a href="/home/">ГЛАВНАЯ</a></li>
+                            <li><a href="#" onmouseover="openNav()">КАТЕГОРИИ</a></li>
+                            <li><a href="/news/">НОВОСТИ</a></li>
+                            <li><a href="/articles/">СТАТЬИ</a></li>
+                            <li><a href="/contacts/">КОНТАКТЫ</a></li>
+                        </ul>
+                        <div class="search-container">
+                            <input type="text" name="q" placeholder="Поиск" class="search-text">
+                            <button type="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </header>
+                </header>
+            {% endcache %}
             <aside>
                 {% block title_page_top %}
                     <h1> Ошибка приложения </h1>
@@ -124,21 +130,23 @@
                 </div>
             </section>
         </div>
-	    <footer class="page-footer">
-            <div id="logoWhite" class="logoWhiteFooter">
-                <img src="{% static 'images/logo_rossvik_white.png' %}">
-            </div>
-            <div class="footerText">
-                <span class="headerFooter">
-                    © Студия разработки «ROSSVIK MOSCOW» {% current_time '%Y' %}<br>
-                </span>
-                <span class="contactFooter">
-                        +7-977-900-7773 сотовый<br>
-                        +7-495-215-0003 многоканальный<br>
-                        +7-800-333-2260 бесплатные звонки по России<br>
-                        E-mail: iv@rossvik.moscow<br>
-                </span>
-            </div>
-        </footer>
+        {% cache 300 footer-error %}
+            <footer class="page-footer">
+                <div id="logoWhite" class="logoWhiteFooter">
+                    <img src="{% static 'images/logo_rossvik_white.png' %}">
+                </div>
+                <div class="footerText">
+                    <span class="headerFooter">
+                        © Студия разработки «ROSSVIK MOSCOW» {% current_time '%Y' %}<br>
+                    </span>
+                    <span class="contactFooter">
+                            +7-977-900-7773 сотовый<br>
+                            +7-495-215-0003 многоканальный<br>
+                            +7-800-333-2260 бесплатные звонки по России<br>
+                            E-mail: iv@rossvik.moscow<br>
+                    </span>
+                </div>
+            </footer>
+        {% endcache %}
     </body>
 </html>

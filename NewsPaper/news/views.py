@@ -9,6 +9,8 @@ from .models import Post, SubscribersCategory
 from .filters import PostFilter
 from .forms import PostForm
 from .tasks import mail_to_subscribers
+from django.views.decorators.cache import cache_page
+from django.core.cache import cache
 
 
 # Представление списка новостей и статей в зависимости от категории
@@ -142,6 +144,7 @@ class PostDetail(DetailView):
     model = Post
     template_name = 'post.html'
     context_object_name = 'post'
+    queryset = Post.objects.all()
 
     # Добавляем дополнительный контекст, если нужно
     def get_context_data(self, **kwargs):
@@ -149,6 +152,14 @@ class PostDetail(DetailView):
         context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         context['skip_column'] = "     "
         return context
+
+    # Добавляем объект в кэш пока он не изменится
+    def get_object(self, *args, **kwargs):
+        obj = cache.get(f'post-{self.kwargs["pk"]}', None)
+        if not obj:
+            obj = super().get_object(queryset=self.queryset)
+            cache.set(f'post-{self.kwargs["pk"]}', obj)
+        return obj
 
 
 # Представление для создания новостей
@@ -265,6 +276,7 @@ def upgrade_me(request):
     return redirect('/news/')
 
 
+@cache_page(60)
 def tr_handler404(request, exception):
     """
     Обработка ошибки 404
@@ -275,6 +287,7 @@ def tr_handler404(request, exception):
     })
 
 
+@cache_page(60)
 def tr_handler500(request):
     """
     Обработка ошибки 500
@@ -285,6 +298,7 @@ def tr_handler500(request):
     })
 
 
+@cache_page(60)
 def tr_handler403(request, exception):
     """
     Обработка ошибки 403

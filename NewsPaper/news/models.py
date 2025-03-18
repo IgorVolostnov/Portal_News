@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.core.cache import cache
 
 
 # Модель категорий постов, связанная многие ко многим с моделью Post через дополнительную модель PostCategory и
@@ -131,6 +132,11 @@ class Post(models.Model):
             return reverse('post_detail_news', args=[str(self.id)])
         else:
             return reverse('post_detail_articles', args=[str(self.id)])
+
+    # Удаляем объект из кэша при изменении
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        cache.delete(f'post-{self.pk}')
 
 
 # Модель связывающая модели Post и Category
