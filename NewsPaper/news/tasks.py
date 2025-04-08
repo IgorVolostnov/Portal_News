@@ -4,7 +4,7 @@ from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from .models import Post
-from .management.list_post import Generator
+# from .management.list_post import Generator
 
 
 # При создании нового поста (новости или статьи), отправляем подписчикам на категорию письма

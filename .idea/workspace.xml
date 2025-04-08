@@ -4,15 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed8eb622-6fe8-4644-863f-57eefd8cb73d" name="Changes" comment="Commit 202503172334 add celery">
+    <list default="true" id="ed8eb622-6fe8-4644-863f-57eefd8cb73d" name="Changes" comment="Commit 202503182324 add cache">
+      <change afterPath="$PROJECT_DIR$/NewsPaper/cache_files/321a575d60afa0661b226bc82f0785d9.djcache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/cache_files/3449588926cfad6b2970cc77e29ce7db.djcache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/cache_files/366d25d9972b15a929025d484efb2741.djcache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/cache_files/579ca039e1336ce6f16103e3e8eb9b36.djcache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/cache_files/657d39c08602b54ed6fd28eb9c970a97.djcache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/cache_files/6eaccb76c5db2de7c760cd874f93d689.djcache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/cache_files/720542abd115e037d2a2e85b67ba71a5.djcache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/cache_files/7232242504d007f23ba2f3ba30d6655e.djcache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/cache_files/86dc79c36c086884c3e574703c18661e.djcache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/cache_files/c264b49be65d0612fd2a54269eb09f5c.djcache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/cache_files/cc9b63d924077a80b21a5db2b078d086.djcache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/cache_files/e1aa84fdabc4109d265898b3d79d9022.djcache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/cache_files/e855ae76452b401b1f5133d52b0f8b9b.djcache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/cache_files/f6c18bfe2e32ef725ce25375e6d1ee95.djcache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/cache_files/fc9c58ae9caffc08b201280ff423af06.djcache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/news/management/commands/deletenewscategory.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/NewsPaper/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/NewsPaper/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/management/list_post.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/management/list_post.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/migrations/0002_category.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/migrations/0003_post_comment_postcategory_post_category_post.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/migrations/0004_subscriberscategory.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/migrations/0005_category_subscribers.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/NewsPaper/news/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/news/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/news/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/allauth/layouts/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/allauth/layouts/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/flatpages/default.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/flatpages/default.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/flatpages/error_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/flatpages/error_base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/tasks.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,12 +81,13 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "/home/igoriusha/MyProject/Portal_News/NewsPaper/NewsPaper",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+    "last_opened_file_path": "/home/igoriusha/MyProject/Portal_News/NewsPaper/news",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/NewsPaper/news" />
       <recent name="$PROJECT_DIR$/NewsPaper/NewsPaper" />
       <recent name="$PROJECT_DIR$/NewsPaper/templates/flatpages" />
     </key>
@@ -340,7 +359,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742243704828</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Commit 202503182324 add cache">
+      <option name="closed" value="true" />
+      <created>1742329519092</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1742329519092</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -358,7 +385,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Commit 202411260248" />
     <MESSAGE value="Commit 202411262355" />
     <MESSAGE value="Commit 202411282357" />
     <MESSAGE value="Commit 202411300306" />
@@ -383,6 +409,7 @@
     <MESSAGE value="Commit 202503110117 add apscheduler" />
     <MESSAGE value="Commit 202503120157 add apscheduler with subscribers" />
     <MESSAGE value="Commit 202503172334 add celery" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit 202503172334 add celery" />
+    <MESSAGE value="Commit 202503182324 add cache" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit 202503182324 add cache" />
   </component>
 </project>

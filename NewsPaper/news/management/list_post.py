@@ -76,3 +76,32 @@ class Generator:
                           'email_user': user.email,
                           'categories': category['categories']})
         return query
+
+    @staticmethod
+    def delete_post_by_category(my_category: str) -> bool:
+        dict_category_base = {
+            'Свежее': 'NEW',
+            'Популярное': 'POP',
+            'Происшествия': 'INC',
+            'Спорт': 'SPO',
+            'Шоу-бизнес': 'SHB',
+            'Интернет': 'INT',
+            'Автомобили': 'CAR',
+            'Культура': 'CUL',
+            'Политика': 'POL',
+            'Общество': 'SOC',
+            'Наука и технологии': 'TEC',
+            'Экономика': 'ECN',
+            'Религия': 'REL',
+            'Живая природа': 'WIL',
+            'Экология': 'ECO',
+        }
+        try:
+            category = Category.objects.get(name_category=dict_category_base[my_category])
+            Post.objects.filter(category_post=category).delete()
+            well_done = True
+        except KeyError:
+            well_done = False
+        except Category.DoesNotExist:
+            well_done = False
+        return well_done
