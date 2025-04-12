@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed8eb622-6fe8-4644-863f-57eefd8cb73d" name="Changes" comment="Commit 202504082359 add fields admin panel">
+    <list default="true" id="ed8eb622-6fe8-4644-863f-57eefd8cb73d" name="Changes" comment="Commit 202504122101 change admin panel">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewsPaper/NewsPaper/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/NewsPaper/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/news/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/news/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -354,7 +351,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744145969785</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Commit 202504122101 change admin panel">
+      <option name="closed" value="true" />
+      <created>1744480885958</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1744480885958</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -372,7 +377,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Commit 202411282357" />
     <MESSAGE value="Commit 202411300306" />
     <MESSAGE value="Commit 202412010126" />
     <MESSAGE value="Commit 2024120116657" />
@@ -397,6 +401,7 @@
     <MESSAGE value="Commit 202503172334 add celery" />
     <MESSAGE value="Commit 202503182324 add cache" />
     <MESSAGE value="Commit 202504082359 add fields admin panel" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit 202504082359 add fields admin panel" />
+    <MESSAGE value="Commit 202504122101 change admin panel" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit 202504122101 change admin panel" />
   </component>
 </project>
