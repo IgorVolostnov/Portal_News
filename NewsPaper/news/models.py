@@ -5,13 +5,71 @@ from django.urls import reverse
 from django.core.cache import cache
 
 
-# Модель категорий постов, связанная многие ко многим с моделью Post через дополнительную модель PostCategory и
-# связанная многие ко многим с встроенной моделью User через дополнительную модель SubscribersCategory
+class Author(models.Model):
+    """The post authors model, linked one-to-one with the built-in User model.
+
+        Модель авторов постов, связанная один к одному с встроенной моделью 'User'.
+
+        Атрибуты:
+        ----------
+        user -- связь один к одному с встроенной моделью 'User'.
+
+        rating_user -- целое число, отражающее совокупный рейтинг автора, рассчитанный в методе 'update_rating'.
+
+        Методы:
+        ----------
+        __str__ -- строковое обозначение экземпляра модели, поле 'username' связанной встроенной модели 'User'.
+
+        update_rating -- рассчитывает суммарный рейтинг автора, учитывая рейтинг постов автора,
+        рейтинг оставленных комментариев под постами автора, а также рейтинги комментариев самого автора.
+        """
+    class Meta:
+        verbose_name = 'Автор'
+        verbose_name_plural = 'авторы'
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile', verbose_name='Автор')
+    rating_user = models.IntegerField(default=0, verbose_name='Рейтинг автора')
+
+    def __str__(self):
+        return self.user.username
+
+    def update_rating(self):
+        total_rating_post = 0
+        for _post in self.post_set.all():
+            total_rating_post += (_post.rating_post * 3)
+        total_rating_comment = 0
+        for _comment in self.user.comment_set.all():
+            total_rating_comment += _comment.rating_comment
+        total_rating_comment_by_post_author = 0
+        for _post in self.post_set.all():
+            for _comment in _post.comment_set.all():
+                total_rating_comment_by_post_author += _comment.rating_comment
+        self.rating_user = total_rating_post + total_rating_comment + total_rating_comment_by_post_author
+        self.save()
+
+
 class Category(models.Model):
+    """The post category model, which is linked many-to-many with the 'Post' model through an additional
+        'PostCategory' model.
+
+        Модель категорий постов, связанная многие ко многим с моделью 'Post' через дополнительную модель 'PostCategory'.
+
+        Атрибуты:
+        ----------
+        name_category -- наименование категории.
+
+        subscribers -- пользователи подписанные на категорию, связь many-to-many c встроенной моделью 'User'.
+
+        Методы:
+        ----------
+        __str__ -- строковое обозначение экземпляра модели.
+
+        get_absolute_url -- метод для генерации ссылок на категории с подробной информацией о постах по данной
+        категории.
+        """
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'категории'
-
     new_news = 'NEW'
     popular = 'POP'
     internet = 'INT'
@@ -45,8 +103,8 @@ class Category(models.Model):
         (wildlife, 'Живая природа'),
         (ecology, 'Экология')
     ]
-    name_category = models.CharField(max_length=3, choices=NEWS_CATEGORY, default=new_news,
-                                     unique=True)
+    name_category = models.CharField(max_length=3, choices=NEWS_CATEGORY, default=new_news, unique=True,
+                                     verbose_name='Название категории')
     subscribers = models.ManyToManyField(User, through='SubscribersCategory')
 
     def __str__(self):
@@ -69,71 +127,46 @@ class Category(models.Model):
         }
         return f'{dict_category[self.name_category]}'
 
-    def user_names(self):
-        return u" %s" % (u", ".join([author.username for author in self.subscribers.all()]))
-
-    user_names.short_description = u'Подписчики'
-
     def get_absolute_url(self):
-        return reverse('category_news_list', args=[str(self.id)])
+        return reverse(viewname='category_news_list', args=[str(self.id)])
 
 
-# Модель авторов постов, связанная один к одному с встроенной моделью User
-class Author(models.Model):
-    class Meta:
-        verbose_name = 'Автор'
-        verbose_name_plural = 'авторы'
-
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    rating_user = models.IntegerField(default=0)
-    rating_user.verbose_name = 'Рейтинг автора'
-
-    def update_rating(self):
-        total_rating_post = 0
-        for _post in self.post_set.all():
-            total_rating_post += (_post.rating_post * 3)
-        total_rating_comment = 0
-        for _comment in self.user.comment_set.all():
-            total_rating_comment += _comment.rating_comment
-        total_rating_comment_by_post_author = 0
-        for _post in self.post_set.all():
-            for _comment in _post.comment_set.all():
-                total_rating_comment_by_post_author += _comment.rating_comment
-        self.rating_user = total_rating_post + total_rating_comment + total_rating_comment_by_post_author
-        self.save()
-
-    def __str__(self):
-        return self.user.username
-
-    def first_name(self):
-        return self.user.first_name
-
-    first_name.short_description = u'Имя'
-
-    def last_name(self):
-        return self.user.last_name
-
-    last_name.short_description = u'Фамилия'
-
-    def email(self):
-        return self.user.email
-
-    email.short_description = u'Электронная почта'
-
-    def last_login(self):
-        return self.user.last_login
-
-    last_login.short_description = u'Последний визит'
-
-    def date_joined(self):
-        return self.user.date_joined
-
-    date_joined.short_description = u'Дата регистрации'
-
-
-# Модель постов, связанная многие ко многим с моделью Category через дополнительную модель PostCategory и
-# связанная один к одному с моделью Author
 class Post(models.Model):
+    """The A post model that is one-to-many related to the 'Author' model
+        and many-to-many related to the 'Category' model.
+
+        Модель постов, связанная один ко многим с моделью 'Author' и многие ко многим с моделью 'Category'.
+
+        Атрибуты:
+        ----------
+        title_post -- заголовок поста.
+
+        text_post -- текст поста.
+
+        author_post -- автор поста, связь one-to-many c моделью 'Author'.
+
+        type_post -- вид поста: новость или статья.
+
+        time_in_post -- время создания поста.
+
+        rating_post -- целое число, которое отражает рейтинг поста. Изменяется методами 'like' и 'dislike'.
+
+        category_post -- категория поста, связь many-to-many c моделью 'Category'.
+
+        Методы:
+        ----------
+        __str__ -- строковое обозначение экземпляра модели.
+
+        like -- увеличивает рейтинг поста на 1.
+
+        dislike -- уменьшает рейтинг поста на 1.
+
+        get_absolute_url -- метод для генерации ссылок на постам с подробной информацией.
+
+        save -- метод удаления кэша при изменении экземпляра поста.
+
+        preview -- метод обрезания текста до заданного количества символов.
+        """
     class Meta:
         verbose_name = 'Пост'
         verbose_name_plural = 'посты'
@@ -144,16 +177,16 @@ class Post(models.Model):
         (news, 'Новость'),
         (article, 'Статья')
     ]
-    author_post = models.ForeignKey(Author, on_delete=models.CASCADE)
-    type_post = models.CharField(max_length=2, choices=KIND_CONTENT)
-    time_in_post = models.DateTimeField(auto_now_add=True)
-    category_post = models.ManyToManyField(Category, through='PostCategory')
-    title_post = models.CharField(max_length=255)
-    text_post = models.TextField(blank=True)
-    rating_post = models.IntegerField(default=0)
+    title_post = models.CharField(max_length=255, verbose_name='Заголовок поста')
+    text_post = models.TextField(blank=True, verbose_name='Текст поста')
+    author_post = models.ForeignKey(Author, on_delete=models.CASCADE, verbose_name='Автор поста')
+    type_post = models.CharField(max_length=2, choices=KIND_CONTENT, verbose_name='Вид поста')
+    time_in_post = models.DateTimeField(auto_now_add=True, verbose_name='Время поста')
+    rating_post = models.IntegerField(default=0, verbose_name='Рейтинг поста')
+    category_post = models.ManyToManyField(Category, through='PostCategory', verbose_name='Категория поста')
 
-    time_in_post.verbose_name = 'Время поста'
-    rating_post.verbose_name = 'Рейтинг поста'
+    def __str__(self):
+        return f'{self.title_post.title()}: {self.preview(self.text_post)}'
 
     def like(self):
         self.rating_post += 1
@@ -166,38 +199,6 @@ class Post(models.Model):
         else:
             self.rating_post -= 1
             self.save()
-
-    def __str__(self):
-        return f'{self.title_post.title()}: {self.preview(self.text_post)}'
-
-    def post_title(self):
-        return self.preview(self.title_post)
-
-    post_title.short_description = u'Заголовок поста'
-
-    def post_text(self):
-        return self.preview(self.text_post)
-
-    post_text.short_description = u'Текст поста'
-
-    def post_author(self):
-        return self.author_post.user.username
-
-    post_author.short_description = u'Автор поста'
-
-    def post_type(self):
-        dict_types = {
-            'NE': 'Новость',
-            'AR': 'Статья'
-        }
-        return f'{dict_types[self.type_post]}'
-
-    post_type.short_description = u'Вид поста'
-
-    def post_categories(self):
-        return u" %s" % (u", ".join([category.__str__() for category in self.category_post.all()]))
-
-    post_categories.short_description = u'Категории поста'
 
     def get_absolute_url(self):
         if self.type_post ==  'NE':
@@ -219,32 +220,96 @@ class Post(models.Model):
         return preview_text
 
 
-# Модель связывающая модели Post и Category
 class PostCategory(models.Model):
+    """The model linking the 'Post' and 'Category' models.
+
+        Модель связывающая модели 'Post' и 'Category'.
+
+        Атрибуты:
+        ----------
+        post -- связь one-to-many c моделью 'Post'.
+
+        category -- связь one-to-many c моделью 'Category'.
+
+        Методы:
+        ----------
+        __str__ -- строковое обозначение экземпляра модели.
+        """
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Перечень категорий'
     post = models.ForeignKey(Post, on_delete = models.CASCADE)
-    category = models.ForeignKey(Category, on_delete = models.CASCADE)
+    category = models.ForeignKey(Category, on_delete = models.CASCADE, verbose_name='Наименование категории')
+
+    def __str__(self):
+        return f''
 
 
-# Модель связывающая модели User и Category
 class SubscribersCategory(models.Model):
-    subscribers = models.ForeignKey(User, on_delete = models.CASCADE)
+    """The model linking the 'User' and 'Category' models.
+
+        Модель связывающая модели 'User' и 'Category'.
+
+        Атрибуты:
+        ----------
+        subscribers -- связь one-to-many c моделью 'User'.
+
+        category -- связь one-to-many c моделью 'Category'.
+
+        Методы:
+        ----------
+        __str__ -- строковое обозначение экземпляра модели.
+        """
+    class Meta:
+        verbose_name = 'Подписчик'
+        verbose_name_plural = 'Имя Фамилия пользователя'
+    subscribers = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name='Ник пользователя')
     category = models.ForeignKey(Category, on_delete = models.CASCADE)
 
+    def __str__(self):
+        return f'{self.subscribers.first_name} {self.subscribers.last_name}'
 
-# Модель комментариев, связанная один к одному с моделью Post и связанная один к одному с моделью User
+
 class Comment(models.Model):
+    """The A post model that is one-to-many related to the 'Author' model
+            and many-to-many related to the 'Category' model.
+
+        Модель комментариев, связанная один ко многим с моделью 'Post' и один ко многим с моделью 'User'.
+
+            Атрибуты:
+            ----------
+            post_comment -- пост комментария, связь one-to-many c моделью 'Post'.
+
+            user_comment -- пользователь комментария, связь one-to-many c моделью 'User'.
+
+            text_comment -- текст комментария.
+
+            time_in_comment -- время создания комментария.
+
+            rating_comment -- целое число, которое отражает рейтинг комментария. Изменяется методами 'like' и 'dislike'.
+
+            Методы:
+            ----------
+            __str__ -- строковое обозначение экземпляра модели.
+
+            like -- увеличивает рейтинг комментария на 1.
+
+            dislike -- уменьшает рейтинг комментария на 1.
+
+            preview -- метод обрезания текста до заданного количества символов.
+            """
     class Meta:
         verbose_name = 'Комментарий'
         verbose_name_plural = 'комментарии'
 
-    post_comment = models.ForeignKey(Post, on_delete=models.CASCADE)
-    user_comment = models.ForeignKey(User, on_delete=models.CASCADE)
-    text_comment = models.TextField(blank=True)
-    time_in_comment = models.DateTimeField(auto_now_add = True)
-    rating_comment = models.IntegerField(default=0)
+    post_comment = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Пост комментария')
+    user_comment = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь комментария')
+    text_comment = models.TextField(blank=True, verbose_name='Текст комментария')
+    time_in_comment = models.DateTimeField(auto_now_add = True, verbose_name='Дата и время комментария')
+    rating_comment = models.IntegerField(default=0, verbose_name='Рейтинг комментария')
 
-    time_in_comment.verbose_name = 'Время комментария'
-    rating_comment.verbose_name = 'Рейтинг комментария'
+    def __str__(self):
+        return self.preview(self.text_comment)
 
     def like(self):
         self.rating_comment += 1
@@ -257,19 +322,6 @@ class Comment(models.Model):
         else:
             self.rating_comment -= 1
             self.save()
-
-    def __str__(self):
-        return self.preview(self.text_comment)
-
-    def name_post(self):
-        return self.preview(self.post_comment.title_post)
-
-    name_post.short_description = u'Название поста'
-
-    def name_user(self):
-        return self.user_comment.username
-
-    name_user.short_description = u'Имя пользователя'
 
     @staticmethod
     def preview(text: str | TextField):
