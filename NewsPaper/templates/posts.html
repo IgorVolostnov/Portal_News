@@ -310,25 +310,23 @@
         {% for post in posts %}
             <div class="glass-container-news">
                 {% if type_content|length == 7 %}
-                <a href="{% url 'post_detail_news' post.pk %}">
-                    <p>
+                    <a href="{% url 'post_detail_news' post.pk %}">
+                        <img src="{% first_image post %}" class="main-foto"/>
                         <h2> {{ post.title_post|linebreaksbr }} </h2>
                         <br>
                         <h3> {{ post.time_in_post|date:'d M Y' }} </h3>
                         <br>
                         <h4> {{ post.text_post|linebreaksbr|truncatechars:140 }} </h4>
-                    </p>
-                </a>
+                    </a>
                 {% else %}
-                <a href="{% url 'post_detail_articles' post.pk %}">
-                    <p>
+                    <a href="{% url 'post_detail_articles' post.pk %}">
+                        <img src="{% first_image post %}" class="main-foto"/>
                         <h2> {{ post.title_post|linebreaksbr }} </h2>
                         <br>
                         <h3> {{ post.time_in_post|date:'d M Y' }} </h3>
                         <br>
                         <h4> {{ post.text_post|linebreaksbr|truncatechars:140 }} </h4>
-                    </p>
-                </a>
+                    </a>
                 {% endif %}
             </div>
         {% endfor %}

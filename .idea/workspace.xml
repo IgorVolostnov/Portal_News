@@ -4,9 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed8eb622-6fe8-4644-863f-57eefd8cb73d" name="Changes" comment="Commit 202504122101 change admin panel">
+    <list default="true" id="ed8eb622-6fe8-4644-863f-57eefd8cb73d" name="Changes" comment="Commit 202504122333 add logging">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewsPaper/NewsPaper/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/NewsPaper/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/NewsPaper/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/NewsPaper/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/templatetags/custom_tags.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/templatetags/custom_tags.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/static/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/static/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/post_create.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/post_create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/posts.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/posts.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,18 +61,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "/home/igoriusha/MyProject/Portal_News/NewsPaper/news",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/igoriusha/MyProject/Portal_News&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/NewsPaper/news" />
@@ -359,7 +371,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744480885958</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Commit 202504122333 add logging">
+      <option name="closed" value="true" />
+      <created>1744490012861</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1744490012861</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -377,7 +397,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Commit 202411300306" />
     <MESSAGE value="Commit 202412010126" />
     <MESSAGE value="Commit 2024120116657" />
     <MESSAGE value="Commit 202412030027" />
@@ -402,6 +421,7 @@
     <MESSAGE value="Commit 202503182324 add cache" />
     <MESSAGE value="Commit 202504082359 add fields admin panel" />
     <MESSAGE value="Commit 202504122101 change admin panel" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit 202504122101 change admin panel" />
+    <MESSAGE value="Commit 202504122333 add logging" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit 202504122333 add logging" />
   </component>
 </project>

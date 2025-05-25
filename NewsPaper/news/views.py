@@ -1,13 +1,15 @@
 import datetime
-from django.contrib.auth.models import Group, User
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.db import transaction
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.models import Group, User
 from .models import Post, SubscribersCategory
 from .filters import PostFilter
-from .forms import PostForm
+from .forms import PostForm, PostImageFormSet
 from .tasks import mail_to_subscribers
 from django.views.decorators.cache import cache_page
 from django.core.cache import cache
@@ -163,27 +165,40 @@ class PostDetail(DetailView):
 
 
 # Представление для создания новостей
-class NewsCreate(PermissionRequiredMixin, CreateView):
+class NewsCreate(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = ('news.add_post',)
     form_class = PostForm
-    model = Post
     template_name = 'post_create.html'
+    success_message = 'Пост успешно добавлен'
 
     # Добавляем дополнительный контекст, если нужно
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['form_images'] = PostImageFormSet()
         context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         context['type_content'] = "НОВОСТИ"
         context['create_content'] = "НОВАЯ НОВОСТЬ"
+        if self.request.POST:
+            context['form_images'] = PostImageFormSet(self.request.POST, self.request.FILES)
+        else:
+            context['form_images'] = PostImageFormSet()
         return context
 
     # При создании новости заполняем поле тип контента значением 'NE'
     def form_valid(self, form):
-        post = form.save(commit=False)
-        post.type_post = 'NE'
-        post.save()
-        mail_to_subscribers.delay(post.pk)
+        context = self.get_context_data()
+        form_images = context['form_images']
+        with transaction.atomic():
+            form.instance.user = self.request.user
+            post = form.save(commit=False)
+            post.type_post = 'NE'
+            post.save()
+            mail_to_subscribers.delay(post.pk)
+            if form_images.is_valid():
+                form_images.instance = post
+                form_images.save()
         return super().form_valid(form)
+
 
 # Представление для создания статей
 class ArticlesCreate(PermissionRequiredMixin, CreateView):

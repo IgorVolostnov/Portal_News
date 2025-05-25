@@ -267,19 +267,28 @@ p {
 
 header {
     z-index: 1499;
-    position: -webkit-sticky;
     position: sticky;
     border-top: 5px solid #7e7e7e;
     top: 0;
-    max-height: 5vw;
-    max-width: 100%;
-}
+    --ratio: 128/1430;
+    --container-weight: 100%;
+    height: calc(50vw * var(--ratio));
+    max-height: calc(var(--container-width) * var(--ratio));
+    width: 100%;
+    max-width: var(--container-width);
+    }
 /* Верстка заголовка и кнопки фильтра */
 aside {
     z-index: 1499;
-    position: -webkit-sticky;
     position: sticky;
-    top: 5.23vw;
+    --ratio: 128/1200;
+    --ratio-top: 128/1260;
+    --container-weight: 100%;
+    height: calc(50vw * var(--ratio));
+    max-height: calc(var(--container-width) * var(--ratio));
+    width: 100%;
+    max-width: var(--container-width);
+    top: calc(50vw * var(--ratio-top));
     display: grid;
     grid-template-columns: 5vw 5vw 80vw 5vw 5vw;
     justify-content: left;
@@ -414,7 +423,8 @@ h2 {
 	display: inline-block;
 	color: #f3f3f3;
 	font-family: 'Times New Roman', Times, serif;
-	font-size: 1.5vw;
+	--ratio: 320/640;
+	font-size: 24px;
 	margin: 0;
 	padding: 0 10px;
 	}
@@ -432,7 +442,7 @@ h4 {
 	display: inline-block;
 	color: #f3f3f3;
 	font-family: 'Times New Roman', Times, serif;
-	font-size: 0.8vw;
+	font-size: 14px;
 	margin: 0;
 	padding: 0 10px;
 	}
@@ -446,12 +456,17 @@ section {
     grid-template-columns: 1fr;
     background: rgba(255, 255, 255, 0.2); /* Цвет фона с прозрачностью */
     margin: 10px 10px;
-    padding: 10px;
+    padding: 0px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
     backdrop-filter: blur(20px); /* Эффект матового стекла */
-    width: 100%;
-    max-width: 320px;
+    --ratio: 320/640;
+    --container-weight: 100%;
+    height: calc(50vw * var(--ratio));
+    max-height: calc(var(--container-width) * var(--ratio));
+    min-height: 440px;
+    width: 89%;
+    max-width: var(--container-width);
     }
 
 .glass-container-news:hover {
@@ -460,12 +475,23 @@ section {
     color: rgba(0, 0, 0, 0.7);
     }
 
+.glass-container-news img {
+    border-radius: 10px;
+    --container-height: 100%;
+    --container-weight: 100%;
+    height: 180px;
+    max-height: var(--container-height);
+    width: 320px;
+    max-width: var(--container-width);
+    }
+
 #news {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(360px, 360px));
+    grid-auto-rows: 45vh 45vh 45vh 45vh;
     grid-column-gap: 10px;
     grid-row-gap: 10px;
-    justify-content: space-evenly;
+    place-content: space-evenly space-evenly;
     }
 
 #content {
@@ -1017,6 +1043,115 @@ section {
     color: #000000;
 	font-size: 1.5vw;
 	transition: 0.3s;
+}
+
+.download-images {
+    display: grid;
+    grid-template-columns: 1fr;
+    background: rgba(255, 255, 255, 0.2); /* Цвет фона с прозрачностью */
+    margin: 1vw 5vw;
+    padding: 0px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
+    backdrop-filter: blur(20px); /* Эффект матового стекла */
+    --ratio: 320/640;
+    --container-weight: 100%;
+    height: calc(50vw * var(--ratio));
+    max-height: calc(var(--container-width) * var(--ratio));
+    width: 90%;
+    max-width: var(--container-width);
+    }
+
+.download-images-class {
+	display: inline-block;
+}
+.input-file {
+	position: relative;
+	display: inline-block;
+}
+.input-file span {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	outline: none;
+	text-decoration: none;
+	font-size: 14px;
+	vertical-align: middle;
+	color: rgb(255 255 255);
+	text-align: center;
+	border-radius: 4px;
+	background-color: #419152;
+	line-height: 22px;
+	height: 40px;
+	padding: 10px 20px;
+	box-sizing: border-box;
+	border: none;
+	margin: 0;
+	transition: background-color 0.2s;
+}
+.input-file input[type=file] {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	display: block;
+	width: 0;
+	height: 0;
+}
+
+/* Focus */
+.input-file input[type=file]:focus + span {
+	box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+/* Hover/active */
+.input-file:hover span {
+	background-color: #59be6e;
+}
+.input-file:active span {
+	background-color: #2E703A;
+}
+
+/* Disabled */
+.input-file input[type=file]:disabled + span {
+	background-color: #eee;
+}
+
+/* Список c превью */
+.input-file-list {
+	padding: 10px 0;
+}
+.input-file-list-item {
+	display: inline-block;
+	margin: 0 15px 15px;
+	width: 150px;
+	vertical-align: top;
+	position: relative;
+}
+.input-file-list-item img {
+	width: 150px;
+}
+.input-file-list-name {
+	text-align: center;
+	display: block;
+	font-size: 12px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.input-file-list-remove {
+	color: #fff;
+	text-decoration: none;
+	display: inline-block;
+	position: absolute;
+	padding: 0;
+	margin: 0;
+	top: 5px;
+	right: 5px;
+	background: #ff0202;
+	width: 16px;
+	height: 16px;
+	text-align: center;
+	line-height: 16px;
+	border-radius: 50%;
 }
 
 .form-type-checkbox {

@@ -1,8 +1,10 @@
+from django.conf.global_settings import MEDIA_URL
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import TextField, CharField
 from django.urls import reverse
 from django.core.cache import cache
+from django.utils.safestring import mark_safe
 
 
 class Author(models.Model):
@@ -185,6 +187,7 @@ class Post(models.Model):
     rating_post = models.IntegerField(default=0, verbose_name='Рейтинг поста')
     category_post = models.ManyToManyField(Category, through='PostCategory', verbose_name='Категория поста')
 
+
     def __str__(self):
         return f'{self.title_post.title()}: {self.preview(self.text_post)}'
 
@@ -243,6 +246,59 @@ class PostCategory(models.Model):
 
     def __str__(self):
         return f''
+
+
+class PostImage(models.Model):
+    """A post photo model linked one-to-many with the 'Post' model.
+
+            Модель фотографий постов связанная один ко многим с моделью'Post'.
+
+            Атрибуты:
+            ----------
+            post -- связь one-to-many c моделью 'Post'.
+
+            images -- изображение модели 'Post'.
+
+            Методы:
+            ----------
+            __str__ -- ссылка на изображение.
+            """
+    class Meta:
+        verbose_name = 'Изображение'
+        verbose_name_plural = 'Изображения'
+    post = models.ForeignKey(Post, default=None, on_delete=models.CASCADE, related_name='photos',
+                             verbose_name='Наименование поста')
+    images = models.FileField(upload_to = 'images', verbose_name='Изображение')
+
+    def __str__(self):
+        return mark_safe(f"<img src='{MEDIA_URL + self.images.url}' width=200>")
+
+
+
+class PostLinkImage(models.Model):
+    """A model of links to photos of posts linked one-to-many with the 'Post' model.
+
+            Модель ссылок на фотографии постов связанная один ко многим с моделью'Post'.
+
+            Атрибуты:
+            ----------
+            post -- связь one-to-many c моделью 'Post'.
+
+            links -- изображение модели 'Post'.
+
+            Методы:
+            ----------
+            __str__ -- строковое обозначение экземпляра модели.
+            """
+    class Meta:
+        verbose_name = 'Ссылка'
+        verbose_name_plural = 'Ссылки'
+    post = models.ForeignKey(Post, default=None, on_delete=models.CASCADE, related_name='links',
+                             verbose_name='Наименование поста')
+    link = models.TextField(blank=True, verbose_name='Ссылка на изображение')
+
+    def __str__(self):
+        return self.link
 
 
 class SubscribersCategory(models.Model):

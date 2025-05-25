@@ -2,10 +2,10 @@ import locale
 from allauth.account.forms import SignupForm
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
-from django.forms import CharField, Textarea, RadioSelect, ModelForm, CheckboxSelectMultiple, ModelMultipleChoiceField
+from django.forms import CharField, Textarea, RadioSelect, ModelForm, CheckboxSelectMultiple, ModelMultipleChoiceField, \
+    FileField, ClearableFileInput, inlineformset_factory
 from django_filters.fields import ModelChoiceField
-from .models import Post, Author, Category
-
+from .models import Post, Author, Category, PostImage
 
 locale.setlocale(category=locale.LC_ALL, locale="ru_RU.utf8")
 
@@ -53,6 +53,34 @@ class PostForm(ModelForm):
                "Описание не должно быть идентично названию."
             )
         return cleaned_data
+
+
+class ImageForm(ModelForm):
+    images = FileField(label='Изображение')
+
+    class Meta:
+        model = PostImage
+        fields = ('images', )
+
+    def __init__(self, *args, **kwargs):
+        if 'request' in kwargs:
+            self.request = kwargs.pop('request')
+        super(ImageForm, self).__init__(*args, **kwargs)
+
+    def clean_photos(self):
+        # Остаются только картинки
+        images = [photo for photo in self.request.FILES.getlist('images') if 'image' in photo.content_type]
+        # Если среди загруженных файлов картинок нет, то исключение
+        if len(images) == 0:
+            raise ValidationError(u'В загружаемых файлах нет изображений')
+        return images
+
+    def save_for(self, post):
+        for photo in self.cleaned_data['images']:
+            PostImage(images=photo, post=post).save()
+
+
+PostImageFormSet = inlineformset_factory(Post, PostImage, form=ImageForm, fields=['images'], extra=3, can_delete=True)
 
 
 # Переопределяем форму регистрации, для добавления пользователя в группу common

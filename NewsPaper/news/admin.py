@@ -1,5 +1,9 @@
+from dataclasses import fields
+
+from django.conf.global_settings import MEDIA_URL
 from django.contrib import admin
-from .models import Author, Post, Comment, Category
+from django.utils.safestring import mark_safe
+from .models import Author, Post, Comment, Category, PostImage, PostLinkImage
 
 
 @admin.register(Author)
@@ -141,6 +145,32 @@ class PostCategoryInline(admin.TabularInline):
     model = Post.category_post.through
 
 
+class PostImageInline(admin.StackedInline):
+    """The class for representing the 'PostImage' model, a one-to-many relationship
+    between the 'Post' and 'Image' models.
+
+    Класс для представления модели 'PostImage', связь one-to-many между моделями 'Post' и 'PostImage'.
+
+    Атрибуты:
+    ----------
+    model -- связь one-to-many между моделями 'Post' и 'PostImage'.
+    """
+    model = PostImage
+
+
+class PostLinkImageAdmin(admin.StackedInline):
+    """The class for representing the 'PostLinkImage' model, a one-to-many relationship
+    between the 'Post' and 'PostLinkImage' models.
+
+    Класс для представления модели 'PostLinkImage', связь one-to-many между моделями 'Post' и 'PostLinkImage'.
+
+    Атрибуты:
+    ----------
+    model -- связь one-to-many между моделями 'Post' и 'PostLinkImage'.
+    """
+    model = PostLinkImage
+
+
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     """The class for presenting posts in the admin panel.
@@ -178,7 +208,7 @@ class PostAdmin(admin.ModelAdmin):
         get_ordering -- сортировка по умолчанию.
         """
     list_display = ('post_title', 'post_text', 'post_author', 'post_type', 'time_post', 'value_rating_post', 'id_post')
-    inlines = (PostCategoryInline,)
+    inlines = (PostCategoryInline, PostImageInline, PostLinkImageAdmin)
     list_filter = ('category_post', 'type_post')
     search_fields = ('title_post', 'text_post', 'author_post__user__username', 'type_post', 'time_in_post',
                      'rating_post')
@@ -232,6 +262,19 @@ class PostAdmin(admin.ModelAdmin):
 
     def get_ordering(self, request):
         return ('pk',)
+
+
+@admin.register(PostImage)
+class PostImageAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'post_photo')
+
+    @admin.display(description='Наименование поста')
+    def post_photo(self, obj):
+        return obj.post.title_post
+
+@admin.register(PostLinkImage)
+class PostLinkImageAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(Comment)
