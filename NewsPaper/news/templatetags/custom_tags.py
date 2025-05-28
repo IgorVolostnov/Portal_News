@@ -1,6 +1,5 @@
 import datetime
 from django import template
-from sqlparse import split
 
 # Создание тегов для HTML-файлов
 register = template.Library()

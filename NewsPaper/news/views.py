@@ -1,6 +1,6 @@
 import datetime
-from django.contrib.messages.views import SuccessMessageMixin
 from django.db import transaction
+from django.db.transaction import commit
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
@@ -165,16 +165,17 @@ class PostDetail(DetailView):
 
 
 # Представление для создания новостей
-class NewsCreate(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class NewsCreate(PermissionRequiredMixin, CreateView):
     permission_required = ('news.add_post',)
+    model = Post
     form_class = PostForm
     template_name = 'post_create.html'
-    success_message = 'Пост успешно добавлен'
 
     # Добавляем дополнительный контекст, если нужно
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form_images'] = PostImageFormSet()
+        context['gallery'] = self.request.FILES.getlist('photos-0-images', None)
+        print(context['gallery'])
         context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         context['type_content'] = "НОВОСТИ"
         context['create_content'] = "НОВАЯ НОВОСТЬ"
@@ -188,15 +189,18 @@ class NewsCreate(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     def form_valid(self, form):
         context = self.get_context_data()
         form_images = context['form_images']
+        photos = context['gallery']
         with transaction.atomic():
-            form.instance.user = self.request.user
-            post = form.save(commit=False)
-            post.type_post = 'NE'
-            post.save()
-            mail_to_subscribers.delay(post.pk)
             if form_images.is_valid():
-                form_images.instance = post
-                form_images.save()
+                print('Форма картинок валидна')
+                self.object = form.save(commit=False)
+                self.object.type_post = 'NE'
+                self.object.save()
+                form_images.instance = self.object
+                for photo in photos:
+                    print(photo)
+                    self.object.photos.create(images=photo)
+            mail_to_subscribers.delay(self.object.pk)
         return super().form_valid(form)
 
 
@@ -298,7 +302,7 @@ def tr_handler404(request, exception):
     """
     return render(request=request, template_name='errors/error_page.html', status=404, context={
         'title': 'Страница не найдена: 404',
-        'error_message': 'К сожалению такая страница была не найдена, или перемещена',
+        'error_message': f'К сожалению такая страница была не найдена, или перемещена: {exception}',
     })
 
 
@@ -309,7 +313,8 @@ def tr_handler500(request):
     """
     return render(request=request, template_name='errors/error_page.html', status=500, context={
         'title': 'Ошибка сервера: 500',
-        'error_message': 'Внутренняя ошибка сайта, вернитесь на главную страницу, отчет об ошибке мы направим администрации сайта',
+        'error_message': f'Внутренняя ошибка сайта, вернитесь на главную страницу, '
+                         f'отчет об ошибке мы направим администрации сайта',
     })
 
 
@@ -320,5 +325,6 @@ def tr_handler403(request, exception):
     """
     return render(request=request, template_name='errors/error_page.html', status=403, context={
         'title': 'Ошибка доступа: 403',
-        'error_message': 'Доступ к этой странице ограничен',
+        'error_message': f'Доступ к этой странице ограничен: {exception}',
+
     })

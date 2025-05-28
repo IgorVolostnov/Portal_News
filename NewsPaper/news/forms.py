@@ -55,8 +55,26 @@ class PostForm(ModelForm):
         return cleaned_data
 
 
+class MultipleFileInput(ClearableFileInput):
+    allow_multiple_selected = True
+
+
+class MultipleFileField(FileField):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault("widget", MultipleFileInput())
+        super().__init__(*args, **kwargs)
+
+    def clean(self, data, initial=None):
+        single_file_clean = super().clean
+        if isinstance(data, (list, tuple)):
+            result = [single_file_clean(d, initial) for d in data]
+        else:
+            result = single_file_clean(data, initial)
+        return result
+
+
 class ImageForm(ModelForm):
-    images = FileField(label='Изображение')
+    images = MultipleFileField()
 
     class Meta:
         model = PostImage
@@ -67,20 +85,8 @@ class ImageForm(ModelForm):
             self.request = kwargs.pop('request')
         super(ImageForm, self).__init__(*args, **kwargs)
 
-    def clean_photos(self):
-        # Остаются только картинки
-        images = [photo for photo in self.request.FILES.getlist('images') if 'image' in photo.content_type]
-        # Если среди загруженных файлов картинок нет, то исключение
-        if len(images) == 0:
-            raise ValidationError(u'В загружаемых файлах нет изображений')
-        return images
 
-    def save_for(self, post):
-        for photo in self.cleaned_data['images']:
-            PostImage(images=photo, post=post).save()
-
-
-PostImageFormSet = inlineformset_factory(Post, PostImage, form=ImageForm, fields=['images'], extra=3, can_delete=True)
+PostImageFormSet = inlineformset_factory(parent_model=Post, model=PostImage, form=ImageForm, fields=['images'], extra=1)
 
 
 # Переопределяем форму регистрации, для добавления пользователя в группу common
