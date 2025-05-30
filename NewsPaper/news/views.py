@@ -1,6 +1,5 @@
 import datetime
 from django.db import transaction
-from django.db.transaction import commit
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
@@ -175,7 +174,6 @@ class NewsCreate(PermissionRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['gallery'] = self.request.FILES.getlist('photos-0-images', None)
-        print(context['gallery'])
         context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         context['type_content'] = "НОВОСТИ"
         context['create_content'] = "НОВАЯ НОВОСТЬ"
@@ -192,13 +190,11 @@ class NewsCreate(PermissionRequiredMixin, CreateView):
         photos = context['gallery']
         with transaction.atomic():
             if form_images.is_valid():
-                print('Форма картинок валидна')
                 self.object = form.save(commit=False)
                 self.object.type_post = 'NE'
                 self.object.save()
                 form_images.instance = self.object
                 for photo in photos:
-                    print(photo)
                     self.object.photos.create(images=photo)
             mail_to_subscribers.delay(self.object.pk)
         return super().form_valid(form)

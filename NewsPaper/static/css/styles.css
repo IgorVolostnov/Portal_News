@@ -1045,115 +1045,6 @@ section {
 	transition: 0.3s;
 }
 
-.download-images {
-    display: grid;
-    grid-template-columns: 1fr;
-    background: rgba(255, 255, 255, 0.2); /* Цвет фона с прозрачностью */
-    margin: 1vw 5vw;
-    padding: 0px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень */
-    backdrop-filter: blur(20px); /* Эффект матового стекла */
-    --ratio: 320/640;
-    --container-weight: 100%;
-    height: calc(50vw * var(--ratio));
-    max-height: calc(var(--container-width) * var(--ratio));
-    width: 90%;
-    max-width: var(--container-width);
-    }
-
-.download-images-class {
-	display: inline-block;
-}
-.input-file {
-	position: relative;
-	display: inline-block;
-}
-.input-file span {
-	position: relative;
-	display: inline-block;
-	cursor: pointer;
-	outline: none;
-	text-decoration: none;
-	font-size: 14px;
-	vertical-align: middle;
-	color: rgb(255 255 255);
-	text-align: center;
-	border-radius: 4px;
-	background-color: #419152;
-	line-height: 22px;
-	height: 40px;
-	padding: 10px 20px;
-	box-sizing: border-box;
-	border: none;
-	margin: 0;
-	transition: background-color 0.2s;
-}
-.input-file input[type=file] {
-	position: absolute;
-	z-index: -1;
-	opacity: 0;
-	display: block;
-	width: 0;
-	height: 0;
-}
-
-/* Focus */
-.input-file input[type=file]:focus + span {
-	box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-}
-
-/* Hover/active */
-.input-file:hover span {
-	background-color: #59be6e;
-}
-.input-file:active span {
-	background-color: #2E703A;
-}
-
-/* Disabled */
-.input-file input[type=file]:disabled + span {
-	background-color: #eee;
-}
-
-/* Список c превью */
-.input-file-list {
-	padding: 10px 0;
-}
-.input-file-list-item {
-	display: inline-block;
-	margin: 0 15px 15px;
-	width: 150px;
-	vertical-align: top;
-	position: relative;
-}
-.input-file-list-item img {
-	width: 150px;
-}
-.input-file-list-name {
-	text-align: center;
-	display: block;
-	font-size: 12px;
-	text-overflow: ellipsis;
-	overflow: hidden;
-}
-.input-file-list-remove {
-	color: #fff;
-	text-decoration: none;
-	display: inline-block;
-	position: absolute;
-	padding: 0;
-	margin: 0;
-	top: 5px;
-	right: 5px;
-	background: #ff0202;
-	width: 16px;
-	height: 16px;
-	text-align: center;
-	line-height: 16px;
-	border-radius: 50%;
-}
-
 .form-type-checkbox {
     margin-top: 0.5vw;
     margin-bottom: 0.5vw;
@@ -1234,6 +1125,81 @@ section {
   border-radius: 0.25em;
   margin-right: 1em;
 }
+/* Верстка кнопки выбора картинок */
+#gallery img {
+  max-width: 100%;
+  height: auto;
+  padding: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input[type=file] {
+  width: 350px;
+  max-width: 100%;
+  color: #444;
+  padding: 5px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #555;
+}
+
+input[type=file]::file-selector-button {
+  margin-right: 20px;
+  border: none;
+  background: #084cdf;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s ease-in-out;
+}
+
+input[type=file]::file-selector-button:hover {
+  background: #0d45a5;
+}
+
+.drop-container {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px dashed #555;
+  color: #444;
+  cursor: pointer;
+  transition: background .2s ease-in-out, border .2s ease-in-out;
+}
+
+.drop-container:hover {
+  background: #eee;
+  border-color: #111;
+}
+
+.drop-container:hover .drop-title {
+  color: #222;
+}
+
+.drop-title {
+  color: #444;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  transition: color .2s ease-in-out;
+}
+
+.drop-container.drag-active {
+  background: #eee;
+  border-color: #111;
+}
+
+.drop-container.drag-active .drop-title {
+  color: #222;
+}
+
 /* Верстка кнопок добавления, редактирования и удаления контента */
 .add-container {
     max-height: 2.5vw;

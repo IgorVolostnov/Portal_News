@@ -48,9 +48,12 @@ INSTALLED_APPS = [
     'news.apps.NewsConfig',
     # создаем дополнительные поля для пользователей
     'fpages',
+    'django.forms',
     'django_filters',
     'django_apscheduler',
 ]
+
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 SITE_ID = 1
 

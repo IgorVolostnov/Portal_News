@@ -26,11 +26,9 @@
     {% endfor %}
 
     {{ form_images.management_form }}
-    {% for form in form_images %}
-        {{ form }}
-    {% endfor %}
-
-<!--    <input name="gallery" type="file" size="50" accept="image/*" multiple>-->
+        {% for form in form_images %}
+            {{ form }}
+        {% endfor %}
     {% block filters_button%}
         <button id="buttonForm" class="button-form" type="submit">Сохранить</button>
     {% endblock filters_button %}

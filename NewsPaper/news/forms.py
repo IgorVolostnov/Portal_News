@@ -3,7 +3,7 @@ from allauth.account.forms import SignupForm
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 from django.forms import CharField, Textarea, RadioSelect, ModelForm, CheckboxSelectMultiple, ModelMultipleChoiceField, \
-    FileField, ClearableFileInput, inlineformset_factory
+    FileField, ClearableFileInput, inlineformset_factory, FileInput
 from django_filters.fields import ModelChoiceField
 from .models import Post, Author, Category, PostImage
 
@@ -57,6 +57,7 @@ class PostForm(ModelForm):
 
 class MultipleFileInput(ClearableFileInput):
     allow_multiple_selected = True
+    template_name = 'flatpages/customclearablefileinput.html'
 
 
 class MultipleFileField(FileField):
