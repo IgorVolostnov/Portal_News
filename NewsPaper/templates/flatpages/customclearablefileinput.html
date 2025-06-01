@@ -12,9 +12,12 @@
 
 // Зона перетаскивания файлов для загрузки
 <script>
-  const dropContainer = document.getElementById("dropcontainer")
-  const fileInput = document.getElementById("images")
+  const dropContainer = document.getElementById("dropcontainer");
+  const fileInput = document.getElementById("images");
   const gallery = document.getElementById('gallery');
+  const error = document.createElement('span');
+  error.style.fontSize = "200%";
+  error.appendChild(document.createTextNode('Вы не можете загружать больше 10 изображений!'));
 
   dropContainer.addEventListener("dragover", (e) => {
     // prevent default to allow drop
@@ -32,20 +35,26 @@
   dropContainer.addEventListener("drop", (e) => {
     e.preventDefault()
     dropContainer.classList.remove("drag-active")
-    fileInput.files = e.dataTransfer.files
+    fileInput.files = e.dataTransfer.files;
+    updateImageDisplay();
   })
 
   function updateImageDisplay() {
-    const gallery = document.getElementById('gallery');
-    gallery.innerHTML = ''; // очищаем галерею от прежних миниатюр
+    if (fileInput.files.length <= 10) {
+      gallery.innerHTML = ''; // очищаем галерею от прежних миниатюр
 
-    for(const file of fileInput.files) {
-      const imageObjectUrl = URL.createObjectURL(file);
-      const imgElement = document.createElement('img');
-      imgElement.style.maxWidth = '150px';
-      imgElement.src = imageObjectUrl; // каждому изображению свойственно иметь свой URL
+      for(const file of fileInput.files) {
+        const imageObjectUrl = URL.createObjectURL(file);
+        const imgElement = document.createElement('img');
+        imgElement.style.maxWidth = '150px';
+        imgElement.src = imageObjectUrl; // каждому изображению свойственно иметь свой URL
 
-      gallery.appendChild(imgElement); // галерея пополняется с каждой новой загрузкой 🖼️
+        gallery.appendChild(imgElement); // галерея пополняется с каждой новой загрузкой
+      }
+    } else {
+      gallery.innerHTML = ''; // очищаем галерею от прежних миниатюр
+      gallery.appendChild(error);
+      fileInput.value = '';
     }
   }
 

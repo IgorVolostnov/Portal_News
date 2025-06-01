@@ -12,6 +12,7 @@ from .forms import PostForm, PostImageFormSet
 from .tasks import mail_to_subscribers
 from django.views.decorators.cache import cache_page
 from django.core.cache import cache
+from .validators import validate_is_image
 
 
 # Представление списка новостей и статей в зависимости от категории
@@ -195,7 +196,8 @@ class NewsCreate(PermissionRequiredMixin, CreateView):
                 self.object.save()
                 form_images.instance = self.object
                 for photo in photos:
-                    self.object.photos.create(images=photo)
+                    if validate_is_image(photo):
+                        self.object.photos.create(images=photo)
             mail_to_subscribers.delay(self.object.pk)
         return super().form_valid(form)
 
@@ -210,17 +212,31 @@ class ArticlesCreate(PermissionRequiredMixin, CreateView):
     # Добавляем дополнительный контекст, если нужно
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['gallery'] = self.request.FILES.getlist('photos-0-images', None)
         context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         context['type_content'] = "СТАТЬИ"
         context['create_content'] = "НОВАЯ СТАТЬЯ"
+        if self.request.POST:
+            context['form_images'] = PostImageFormSet(self.request.POST, self.request.FILES)
+        else:
+            context['form_images'] = PostImageFormSet()
         return context
 
     # При создании статьи заполняем поле тип контента значением 'AR'
     def form_valid(self, form):
-        post = form.save(commit=False)
-        post.type_post = 'AR'
-        post.save()
-        mail_to_subscribers.delay(post.pk)
+        context = self.get_context_data()
+        form_images = context['form_images']
+        photos = context['gallery']
+        with transaction.atomic():
+            if form_images.is_valid():
+                self.object = form.save(commit=False)
+                self.object.type_post = 'AR'
+                self.object.save()
+                form_images.instance = self.object
+                for photo in photos:
+                    if validate_is_image(photo):
+                        self.object.photos.create(images=photo)
+            mail_to_subscribers.delay(self.object.pk)
         return super().form_valid(form)
 
 # Добавляем представление для изменения новости.
@@ -298,7 +314,7 @@ def tr_handler404(request, exception):
     """
     return render(request=request, template_name='errors/error_page.html', status=404, context={
         'title': 'Страница не найдена: 404',
-        'error_message': f'К сожалению такая страница была не найдена, или перемещена: {exception}',
+        'error_message': f'К сожалению такая страница была не найдена, или перемещена.',
     })
 
 

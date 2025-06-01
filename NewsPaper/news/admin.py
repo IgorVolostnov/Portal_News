@@ -1,8 +1,4 @@
-from dataclasses import fields
-
-from django.conf.global_settings import MEDIA_URL
 from django.contrib import admin
-from django.utils.safestring import mark_safe
 from .models import Author, Post, Comment, Category, PostImage, PostLinkImage
 
 
