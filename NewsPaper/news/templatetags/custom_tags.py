@@ -26,3 +26,14 @@ def first_image(post: object):
         list_split = str(photo).split("'")
         photo = list_split[1]
     return photo
+
+@register.simple_tag()
+def video_or_image(url: str):
+    print(url)
+    images = ['jpeg', 'jpg', 'gif', 'png']
+    ext = url.split(".")[-1]
+    if ext in images:
+        file_image = True
+    else:
+        file_image = False
+    return file_image

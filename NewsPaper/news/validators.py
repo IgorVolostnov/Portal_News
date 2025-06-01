@@ -3,8 +3,8 @@ import magic
 
 def validate_is_image(file):
     check = True
-    valid_mime_types = ['image/jpeg', 'image/gif','image/png']
-    valid_file_extensions = ['.jpeg', '.jpg', '.gif', '.png']
+    valid_mime_types = ['image/jpeg', 'image/gif','image/png', 'video/mp4', 'video/mpeg', ]
+    valid_file_extensions = ['.jpeg', '.jpg', '.gif', '.png', '.mp4', '.mpeg']
     file_mime_type = magic.from_buffer(file.read(2048), mime=True)
     if file_mime_type not in valid_mime_types:
         check = False

@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import Group, User
-from .models import Post, SubscribersCategory
+from .models import Post, SubscribersCategory, PostImage
 from .filters import PostFilter
 from .forms import PostForm, PostImageFormSet
 from .tasks import mail_to_subscribers
@@ -250,9 +250,36 @@ class NewsUpdate(PermissionRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
+        context['gallery'] = self.request.FILES.getlist('photos-0-images', None)
+        context['post_images'] = [obj.images.url for obj in self.object.photos.all()]
+        if len(context['post_images']) == 0:
+            context['title_post_images'] = ''
+        else:
+            context['title_post_images'] = 'Уже загруженные изображения и видео:'
         context['type_content'] = "НОВОСТИ"
         context['create_content'] = "РЕДАКТИРОВАТЬ НОВОСТЬ"
+        if self.request.POST:
+            context['form_images'] = PostImageFormSet(self.request.POST, self.request.FILES)
+        else:
+            context['form_images'] = PostImageFormSet()
         return context
+
+    # При изменении статьи
+    def form_valid(self, form):
+        context = self.get_context_data()
+        form_images = context['form_images']
+        photos = context['gallery']
+        with transaction.atomic():
+            if form_images.is_valid():
+                self.object = form.save(commit=False)
+                self.object.type_post = 'NE'
+                self.object.save()
+                form_images.instance = self.object
+                for photo in photos:
+                    if validate_is_image(photo):
+                        self.object.photos.create(images=photo)
+            mail_to_subscribers.delay(self.object.pk)
+        return super().form_valid(form)
 
 
 # Добавляем представление для изменения статьи.
@@ -266,9 +293,36 @@ class ArticlesUpdate(PermissionRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
+        context['gallery'] = self.request.FILES.getlist('photos-0-images', None)
+        context['post_images'] = [obj.images.url for obj in self.object.photos.all()]
+        if len(context['post_images']) == 0:
+            context['title_post_images'] = ''
+        else:
+            context['title_post_images'] = 'Уже загруженные изображения и видео:'
         context['type_content'] = "СТАТЬИ"
         context['create_content'] = "РЕДАКТИРОВАТЬ СТАТЬЮ"
+        if self.request.POST:
+            context['form_images'] = PostImageFormSet(self.request.POST, self.request.FILES)
+        else:
+            context['form_images'] = PostImageFormSet()
         return context
+
+    # При изменении статьи
+    def form_valid(self, form):
+        context = self.get_context_data()
+        form_images = context['form_images']
+        photos = context['gallery']
+        with transaction.atomic():
+            if form_images.is_valid():
+                self.object = form.save(commit=False)
+                self.object.type_post = 'AR'
+                self.object.save()
+                form_images.instance = self.object
+                for photo in photos:
+                    if validate_is_image(photo):
+                        self.object.photos.create(images=photo)
+            mail_to_subscribers.delay(self.object.pk)
+        return super().form_valid(form)
 
 # Представление удаляющее новость.
 class NewsDelete(LoginRequiredMixin, DeleteView):

@@ -1126,6 +1126,12 @@ section {
   margin-right: 1em;
 }
 /* Верстка кнопки выбора картинок */
+#gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    }
+
 #gallery img {
   max-width: 100%;
   height: auto;
@@ -1166,7 +1172,7 @@ input[type=file]::file-selector-button:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 250px;
+  height: 450px;
   padding: 20px;
   border-radius: 10px;
   border: 2px dashed #555;
@@ -1204,6 +1210,63 @@ input[type=file]::file-selector-button:hover {
 .drop-container.drag-active .drop-title {
   color: #222;
 }
+
+/* Верстка окна отображения уже загруженных картинок, в три столбца или в один, если мобильная версия*/
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    }
+
+.image-gallery > li {
+    flex: 1 1 auto; /* or flex: auto; */
+    height: 300px;
+    cursor: pointer;
+    position: relative;
+    }
+
+.image-gallery li img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    vertical-align:
+    middle;
+    border-radius: 5px; }
+
+
+.image-gallery::after {
+    content: "";
+    flex-grow: 999;
+    }
+
+@media only screen and (min-width: 768px) {
+    .image-gallery {
+    flex-direction: row;
+    }
+}
+
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    font-size: 2vw;
+    background: rgba(57, 57, 57, 0.502);
+    top: 0;
+    left: 0;
+    transform: scale(0);
+    transition: all 0.2s 0.1s ease-in-out;
+    color: #fff;
+    border-radius: 5px;
+    /* center overlay text */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+/* hover */
+.image-gallery li:hover .overlay {
+    transform: scale(1);
+    }
 
 /* Верстка кнопок добавления, редактирования и удаления контента */
 .add-container {

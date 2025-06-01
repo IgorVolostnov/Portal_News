@@ -24,11 +24,32 @@
         <label class="label-form"> {{ field.label }} </label>
         <div class="field-form"> {{ field }} </div>
     {% endfor %}
-
+<!-- Показываем поле добавления новых картинок -->
     {{ form_images.management_form }}
         {% for form in form_images %}
             {{ form }}
         {% endfor %}
+<!-- Показываем поле уже загруженных фотографий -->
+    <div class="container">
+        <h2 class="heading-text"><span>{{ title_post_images }}</span></h2>
+        <ul class="image-gallery">
+            {% for photo in post_images %}
+                <li>
+                    {% video_or_image photo as file %}
+                    {% if file %}
+                        <img src="{{ photo }}" alt="" />
+                        <div class="overlay"><span>{{ forloop.counter }}</span></div>
+                    {% else %}
+                        <video width="425" height="320" controls>
+                            <source src="{{ photo }}" type="video/mp4">
+                            <source src="{{ photo }}" type="video/mpeg">
+                            Ваш браузер не поддерживает тег video.
+                        </video>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
     {% block filters_button%}
         <button id="buttonForm" class="button-form" type="submit">Сохранить</button>
     {% endblock filters_button %}

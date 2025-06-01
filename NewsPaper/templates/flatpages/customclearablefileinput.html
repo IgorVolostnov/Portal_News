@@ -6,7 +6,7 @@
   <label for="images" class="drop-container" id="dropcontainer">
     <span class="drop-title">Перенеси фото сюда</span>
     или
-    <input type="{{ widget.type }}" name="{{ widget.name }}" id="images" accept="image/*" required {% include "django/forms/widgets/attrs.html" %}>
+    <input type="{{ widget.type }}" name="{{ widget.name }}" id="images" accept="image/*, video/*" required {% include "django/forms/widgets/attrs.html" %}>
     <div id="gallery"></div>
   </label>
 
@@ -39,22 +39,44 @@
     updateImageDisplay();
   })
 
+  function createImage(file) {
+    const imageObjectUrl = URL.createObjectURL(file);
+    const imgElement = document.createElement('img');
+    imgElement.style.maxWidth = '150px';
+    imgElement.src = imageObjectUrl; // каждому изображению свойственно иметь свой URL
+    gallery.appendChild(imgElement); // галерея пополняется с каждой новой загрузкой
+    URL.revokeObjectURL(file);
+    }
+
+   function createVideo(file) {
+    const videoObjectUrl = URL.createObjectURL(file);
+    const videoElement = document.createElement('video');
+    videoElement.style.maxWidth = '150px';
+    videoElement.setAttribute('controls', '');
+    videoElement.setAttribute('loop', 'true');
+    videoElement.src = videoObjectUrl; // каждому изображению свойственно иметь свой URL
+    gallery.appendChild(videoElement); // галерея пополняется с каждой новой загрузкой
+    videoElement.play();
+    URL.revokeObjectURL(file);
+    }
+
   function updateImageDisplay() {
     if (fileInput.files.length <= 10) {
-      gallery.innerHTML = ''; // очищаем галерею от прежних миниатюр
+      // очищаем галерею от прежних миниатюр
+      gallery.innerHTML = '';
 
       for(const file of fileInput.files) {
-        const imageObjectUrl = URL.createObjectURL(file);
-        const imgElement = document.createElement('img');
-        imgElement.style.maxWidth = '150px';
-        imgElement.src = imageObjectUrl; // каждому изображению свойственно иметь свой URL
-
-        gallery.appendChild(imgElement); // галерея пополняется с каждой новой загрузкой
+        const type = file.type.replace(/\/.+/, '')
+        if (type === 'image') {
+          createImage(file)
+        } else if (type === 'video') {
+          createVideo(file)
+        }
       }
     } else {
-      gallery.innerHTML = ''; // очищаем галерею от прежних миниатюр
-      gallery.appendChild(error);
-      fileInput.value = '';
+          gallery.innerHTML = ''; // очищаем галерею от прежних миниатюр
+          gallery.appendChild(error);
+          fileInput.value = '';
     }
   }
 

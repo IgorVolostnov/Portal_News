@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed8eb622-6fe8-4644-863f-57eefd8cb73d" name="Changes" comment="Commit 20250531 add preview image">
-      <change afterPath="$PROJECT_DIR$/NewsPaper/news/validators.py" afterDir="false" />
+    <list default="true" id="ed8eb622-6fe8-4644-863f-57eefd8cb73d" name="Changes" comment="Commit 202506011555 add validate_is_image">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/news/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/templatetags/custom_tags.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/templatetags/custom_tags.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/validators.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/validators.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewsPaper/news/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewsPaper/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/static/css/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewsPaper/templates/flatpages/customclearablefileinput.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/flatpages/customclearablefileinput.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/post_create.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/post_create.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -397,7 +397,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748641914579</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Commit 202506011555 add validate_is_image">
+      <option name="closed" value="true" />
+      <created>1748782553784</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1748782553784</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -415,7 +423,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Commit 202412032313" />
     <MESSAGE value="Commit 202412040025" />
     <MESSAGE value="Commit 202412042355" />
     <MESSAGE value="Commit 202412110143" />
@@ -440,6 +447,7 @@
     <MESSAGE value="Commit 202505251814 add image user form" />
     <MESSAGE value="Commit 202505282016 add ClearableFileInput form" />
     <MESSAGE value="Commit 20250531 add preview image" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit 20250531 add preview image" />
+    <MESSAGE value="Commit 202506011555 add validate_is_image" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit 202506011555 add validate_is_image" />
   </component>
 </project>
