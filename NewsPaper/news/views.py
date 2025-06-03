@@ -151,6 +151,7 @@ class PostDetail(DetailView):
     # Добавляем дополнительный контекст, если нужно
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['post_images'] = [obj.images.url for obj in self.object.photos.all()]
         context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         context['skip_column'] = "     "
         return context

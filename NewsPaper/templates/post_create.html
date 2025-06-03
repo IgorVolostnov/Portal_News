@@ -38,7 +38,7 @@
                     {% video_or_image photo as file %}
                     {% if file %}
                         <img src="{{ photo }}" alt="" />
-                        <div class="overlay"><span>{{ forloop.counter }}</span></div>
+                        <div class="overlay-number"><span>{{ forloop.counter }}</span></div>
                     {% else %}
                         <video width="425" height="320" controls>
                             <source src="{{ photo }}" type="video/mp4">
