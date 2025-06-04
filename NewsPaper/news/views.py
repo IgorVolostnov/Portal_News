@@ -6,9 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import Group, User
-from .models import Post, SubscribersCategory, PostImage
+from .models import Post, SubscribersCategory, Comment
 from .filters import PostFilter
-from .forms import PostForm, PostImageFormSet
+from .forms import PostForm, PostImageFormSet, CommentForm
 from .tasks import mail_to_subscribers
 from django.views.decorators.cache import cache_page
 from django.core.cache import cache
@@ -142,7 +142,8 @@ class ArticlesList(ListView):
 
 
 # Детальное представление новостей и статей
-class PostDetail(DetailView):
+class PostDetail(PermissionRequiredMixin, DetailView):
+    permission_required = ('news.add_comment', 'news.view_comment')
     model = Post
     template_name = 'post.html'
     context_object_name = 'post'
@@ -152,9 +153,18 @@ class PostDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['post_images'] = [obj.images.url for obj in self.object.photos.all()]
+        context['comments'] = Comment.objects.filter(post_comment=self.get_object()).order_by('-time_in_comment')
+        context['form_comment'] = CommentForm(instance=self.request.user)
         context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         context['skip_column'] = "     "
         return context
+
+    def post(self, request, *args, **kwargs):
+        new_comment = Comment(post_comment=self.get_object(),
+                              user_comment=self.request.user,
+                              text_comment=request.POST.get('text_comment'))
+        new_comment.save()
+        return self.get(self, request, *args, **kwargs)
 
     # Добавляем объект в кэш пока он не изменится
     def get_object(self, *args, **kwargs):

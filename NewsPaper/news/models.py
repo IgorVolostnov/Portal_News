@@ -5,6 +5,9 @@ from django.db.models import TextField, CharField
 from django.urls import reverse
 from django.core.cache import cache
 from django.utils.safestring import mark_safe
+from django.utils import timezone
+
+tz = timezone.get_default_timezone()
 
 
 class Author(models.Model):
@@ -358,14 +361,17 @@ class Comment(models.Model):
         verbose_name = 'Комментарий'
         verbose_name_plural = 'комментарии'
 
-    post_comment = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Пост комментария')
-    user_comment = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь комментария')
+    post_comment = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Пост комментария',
+                                     related_name='comment_for_post')
+    user_comment = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь комментария',
+                                     related_name='comment_by_user')
     text_comment = models.TextField(blank=True, verbose_name='Текст комментария')
     time_in_comment = models.DateTimeField(auto_now_add = True, verbose_name='Дата и время комментария')
     rating_comment = models.IntegerField(default=0, verbose_name='Рейтинг комментария')
 
     def __str__(self):
-        return self.preview(self.text_comment)
+        created = 'Комментарий от {}'.format(self.time_in_comment.astimezone(tz).strftime('%d.%m.%Y %H:%M'))
+        return f'{created}\n{self.user_comment.username}:\n{self.text_comment}'
 
     def like(self):
         self.rating_comment += 1

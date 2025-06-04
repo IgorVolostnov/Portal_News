@@ -202,6 +202,24 @@
    {% else %}
        <h2> Новость куда-то потерялась, мы уже ищем её! </h2>
    {% endif %}
+
+    <form action="" method="post" class="comment-form">
+        {% csrf_token %}
+        {% for field in form_comment %}
+            <label class="label-comment"> {{ field.label }} </label>
+            <div class="field-comment"> {{ field }} </div>
+        {% endfor %}
+        <button type="submit">Отправить</button>
+        {% if comments %}
+            <textarea name="comment" placeholder="Ваши комментарии..." readonly>
+                {% for comment in comments %}
+                    {{ comment }}
+                {% endfor %}
+            </textarea>
+        {% else %}
+            <strong class="text-secondary">Ещё нет комментариев...</strong>
+        {% endif %}
+    </form>
 {% endblock content %}
 
 <!-- Указываем данные в подвале страницы -->

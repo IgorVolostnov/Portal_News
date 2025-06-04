@@ -3,9 +3,9 @@ from allauth.account.forms import SignupForm
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 from django.forms import CharField, Textarea, RadioSelect, ModelForm, CheckboxSelectMultiple, ModelMultipleChoiceField, \
-    FileField, ClearableFileInput, inlineformset_factory, FileInput
+    FileField, ClearableFileInput, inlineformset_factory
 from django_filters.fields import ModelChoiceField
-from .models import Post, Author, Category, PostImage
+from .models import Post, Author, Category, PostImage, Comment
 
 locale.setlocale(category=locale.LC_ALL, locale="ru_RU.utf8")
 
@@ -74,6 +74,7 @@ class MultipleFileField(FileField):
         return result
 
 
+# Форма для создания и изменения модели PostImage
 class ImageForm(ModelForm):
     images = MultipleFileField()
 
@@ -85,6 +86,13 @@ class ImageForm(ModelForm):
         if 'request' in kwargs:
             self.request = kwargs.pop('request')
         super(ImageForm, self).__init__(*args, **kwargs)
+
+
+# Форма для создания и изменения модели Comment
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('text_comment', )
 
 
 PostImageFormSet = inlineformset_factory(parent_model=Post, model=PostImage, form=ImageForm, fields=['images'], extra=1)
