@@ -3,9 +3,42 @@ from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-from .models import Post
-# from .management.list_post import Generator
+from .management.list_post import Generator
+from .models import Post, Comment
 
+
+# При создании нового комментария, отправляем автору письмо
+@shared_task
+def mail_to_author(oid):
+    print("Начало функции")
+    comment = Comment.objects.get(pk=oid)
+    if '127.0.0.1' in str(Site.objects.get_current()):
+        url_post = f'http://127.0.0.1:8000{comment.post_comment.get_absolute_url()}'
+    else:
+        url_post = f'{Site.objects.get_current()}{comment.post_comment.get_absolute_url()}'
+    print(url_post)
+    # Получаем наш html-макет
+    html_content = render_to_string(
+        'category_mail.html',
+        {
+            'user_name': comment.post_comment.author_post.user.username,
+            'text_title': comment.post_comment.title_post,
+            'text_content': comment.post_comment.text_post,
+            'url_content': url_post,
+        }
+    )
+    print(comment.post_comment.author_post.user.username)
+    print(comment.post_comment.title_post)
+    print(comment.post_comment.text_post)
+    print(url_post)
+    msg = EmailMultiAlternatives(
+        subject=f'Здравствуй, {comment.post_comment.author_post.user.username}. Новый комментарий к твоему посту: ',
+        body=comment.text_comment,
+        to=[comment.post_comment.author_post.user.email],
+    )
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+    print('почта отправлена')
 
 # При создании нового поста (новости или статьи), отправляем подписчикам на категорию письма
 @shared_task

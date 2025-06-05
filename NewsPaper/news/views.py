@@ -9,7 +9,7 @@ from django.contrib.auth.models import Group, User
 from .models import Post, SubscribersCategory, Comment
 from .filters import PostFilter
 from .forms import PostForm, PostImageFormSet, CommentForm
-from .tasks import mail_to_subscribers
+from .tasks import mail_to_subscribers, mail_to_author
 from django.views.decorators.cache import cache_page
 from django.core.cache import cache
 from .validators import validate_is_image
@@ -159,11 +159,14 @@ class PostDetail(PermissionRequiredMixin, DetailView):
         context['skip_column'] = "     "
         return context
 
+
     def post(self, request, *args, **kwargs):
         new_comment = Comment(post_comment=self.get_object(),
                               user_comment=self.request.user,
                               text_comment=request.POST.get('text_comment'))
         new_comment.save()
+        print("объект сохранили")
+        mail_to_author.delay(new_comment.pk)
         return self.get(self, request, *args, **kwargs)
 
     # Добавляем объект в кэш пока он не изменится
