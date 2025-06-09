@@ -10,13 +10,11 @@ from .models import Post, Comment
 # При создании нового комментария, отправляем автору письмо
 @shared_task
 def mail_to_author(oid):
-    print("Начало функции")
     comment = Comment.objects.get(pk=oid)
     if '127.0.0.1' in str(Site.objects.get_current()):
         url_post = f'http://127.0.0.1:8000{comment.post_comment.get_absolute_url()}'
     else:
         url_post = f'{Site.objects.get_current()}{comment.post_comment.get_absolute_url()}'
-    print(url_post)
     # Получаем наш html-макет
     html_content = render_to_string(
         'category_mail.html',
@@ -27,10 +25,6 @@ def mail_to_author(oid):
             'url_content': url_post,
         }
     )
-    print(comment.post_comment.author_post.user.username)
-    print(comment.post_comment.title_post)
-    print(comment.post_comment.text_post)
-    print(url_post)
     msg = EmailMultiAlternatives(
         subject=f'Здравствуй, {comment.post_comment.author_post.user.username}. Новый комментарий к твоему посту: ',
         body=comment.text_comment,
@@ -38,7 +32,6 @@ def mail_to_author(oid):
     )
     msg.attach_alternative(html_content, "text/html")
     msg.send()
-    print('почта отправлена')
 
 # При создании нового поста (новости или статьи), отправляем подписчикам на категорию письма
 @shared_task
@@ -63,7 +56,6 @@ def mail_to_subscribers(oid):
     # Получаем множество со всеми категориями и id-пользователей, подписанными на эти категории
     current_post = Post.objects.get(pk=oid)
     subscribers = set(current_post.category_post.values_list('name_category', 'subscribers').all())
-    print(Site.objects.get_current())
     if '127.0.0.1' in str(Site.objects.get_current()):
         url_post = f'http://127.0.0.1:8000{current_post.get_absolute_url()}'
     else:

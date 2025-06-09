@@ -202,99 +202,99 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'style' : '{',
-#     'formatters': {
-#         'debug_format': {
-#             'format': '%(asctime)s %(levelname)s %(message)s'
-#         },
-#         'info_format': {
-#             'format': '%(asctime)s %(levelname)s %(module)s %(message)s'
-#         },
-#         'warning_format': {
-#             'format': '%(asctime)s %(levelname)s %(pathname)s %(message)s'
-#         },
-#         'error_format': {
-#             'format': '%(asctime)s %(levelname)s %(pathname)s %(exc_info)s %(message)s'
-#         },
-#         'security_format': {
-#             'format': '%(asctime)s %(levelname)s %(module)s %(message)s'
-#         },
-#     },
-#     'filters': {
-#         'require_debug_true': {
-#             '()': 'django.utils.log.RequireDebugTrue',
-#         },
-#         'require_debug_false': {
-#             '()': 'django.utils.log.RequireDebugFalse',
-#         },
-#     },
-#     'handlers': {
-#         'general': {
-#             'level': 'INFO',
-#             'class': 'logging.FileHandler',
-#             'filters': ['require_debug_false'],
-#             'filename': 'general.log',
-#             'formatter': 'debug_format'
-#         },
-#         'errors': {
-#             'level': 'ERROR',
-#             'class': 'logging.FileHandler',
-#             'filename': 'errors.log',
-#             'formatter': 'error_format'
-#         },
-#         'console': {
-#             'level': 'DEBUG',
-#             'filters': ['require_debug_true'],
-#             'class': 'logging.StreamHandler',
-#             'formatter': 'debug_format',
-#         },
-#         'mail_admins': {
-#             'level': 'ERROR',
-#             'filters': ['require_debug_false'],
-#             'class': 'django.utils.log.AdminEmailHandler',
-#             'formatter': 'warning_format',
-#         },
-#         'security': {
-#             'level': 'INFO',
-#             'filters': ['require_debug_false'],
-#             'class': 'logging.FileHandler',
-#             'filename': 'security.log',
-#             'formatter': 'security_format',
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['console', 'general'],
-#             'level': 'DEBUG',
-#             'propagate': True,
-#         },
-#         'django.request': {
-#             'handlers': ['errors', 'mail_admins', 'general'],
-#             'level': 'DEBUG',
-#             'propagate': True,
-#         },
-#         'django.server': {
-#             'handlers': ['errors', 'mail_admins'],
-#             'level': 'ERROR',
-#             'propagate': True,
-#         },
-#         'django.template': {
-#             'handlers': ['errors'],
-#             'level': 'ERROR',
-#             'propagate': True,
-#         },
-#         'django.db.backends': {
-#             'handlers': ['errors'],
-#             'level': 'ERROR',
-#             'propagate': True,
-#         },
-#         'django.security.*': {
-#             'handlers': ['security'],
-#             'level': 'INFO',
-#             'propagate': True,
-#         },
-#     },
-# }
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'style' : '{',
+    'formatters': {
+        'debug_format': {
+            'format': '%(asctime)s %(levelname)s %(message)s'
+        },
+        'info_format': {
+            'format': '%(asctime)s %(levelname)s %(module)s %(message)s'
+        },
+        'warning_format': {
+            'format': '%(asctime)s %(levelname)s %(pathname)s %(message)s'
+        },
+        'error_format': {
+            'format': '%(asctime)s %(levelname)s %(pathname)s %(exc_info)s %(message)s'
+        },
+        'security_format': {
+            'format': '%(asctime)s %(levelname)s %(module)s %(message)s'
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+    },
+    'handlers': {
+        'general': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filters': ['require_debug_false'],
+            'filename': 'general.log',
+            'formatter': 'debug_format'
+        },
+        'errors': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': 'errors.log',
+            'formatter': 'error_format'
+        },
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'debug_format',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'warning_format',
+        },
+        'security': {
+            'level': 'INFO',
+            'filters': ['require_debug_false'],
+            'class': 'logging.FileHandler',
+            'filename': 'security.log',
+            'formatter': 'security_format',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'general'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['errors', 'mail_admins', 'general'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.server': {
+            'handlers': ['errors', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'django.template': {
+            'handlers': ['errors'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'django.db.backends': {
+            'handlers': ['errors'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'django.security.*': {
+            'handlers': ['security'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}

@@ -1425,3 +1425,12 @@ LINE 1: ..._post"."time_in_post", "news_post"."rating_post", "news_post...
 2025-04-15 00:42:15,158 WARNING Not Found: /favicon.ico
 2025-04-15 00:42:15,158 WARNING Not Found: /favicon.ico
 2025-04-15 00:49:54,484 INFO /home/igoriusha/MyProject/Portal_News/NewsPaper/NewsPaper/settings.py changed, reloading.
+2025-06-09 13:14:56,159 INFO Watching for file changes with StatReloader
+2025-06-09 13:17:17,170 INFO /home/igoriusha/MyProject/Portal_News/NewsPaper/news/views.py changed, reloading.
+2025-06-09 13:17:18,084 INFO Watching for file changes with StatReloader
+2025-06-09 13:19:22,051 WARNING Not Found: /favicon.ico
+2025-06-09 13:19:22,051 WARNING Not Found: /favicon.ico
+2025-06-09 13:19:33,152 WARNING Not Found: /favicon.ico
+2025-06-09 13:19:33,152 WARNING Not Found: /favicon.ico
+2025-06-09 13:19:45,050 WARNING Not Found: /favicon.ico
+2025-06-09 13:19:45,050 WARNING Not Found: /favicon.ico

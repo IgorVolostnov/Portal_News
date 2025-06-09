@@ -165,7 +165,6 @@ class PostDetail(PermissionRequiredMixin, DetailView):
                               user_comment=self.request.user,
                               text_comment=request.POST.get('text_comment'))
         new_comment.save()
-        print("объект сохранили")
         mail_to_author.delay(new_comment.pk)
         return self.get(self, request, *args, **kwargs)
 
